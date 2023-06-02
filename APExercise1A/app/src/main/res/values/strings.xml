@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Android Practice Exercise 1A</string>
+    <string name="person_name">Rodney Estacion</string>
+    <string name="address">Noveleta Cavite</string>
+    <string name="button_label">Edit Profile</string>
+    <string name="about_label">About Me</string>
+    <string name="about_detail">I am an enthusiastic, self-motivated, reliable, responsible and hard working person. I am a mature team worker and adaptable to all challenging situations. I am able to work well both in a team environment as well as using own initiative. I am able to work well under pressure and adhere to strict deadlines.</string>
+    <string name="interest_label">Interests</string>
+    <string name="interest_detail">Cycling, Badminton, Table Tennis, Puzzle Games</string>
+    <string name="education_label">Education</string>
+    <string name="education_detail">Bachelor of Science in Computer Engineering</string>
+    <string name="experience_label">Experience</string>
+    <string name="experience_detail">10 years of professional working experience</string>
+</resources>
