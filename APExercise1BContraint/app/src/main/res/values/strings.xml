@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">APExercise1B</string>
+    <string name="product_name">AMD Ryzen Quad Core Gaming PC and Monitor Package</string>
+    <string name="price">&#8369;28,000</string>
+    <string name="description_title">Product Description</string>
+    <string name="description_details">PC: AMD Ryzen 3 1200, &#10;Graphics Card: GTX 1050 Ti Graphics Card, &#10;Storage: 8GB RAM, 1TB Hard Drive, &#10;Monitor Size: 24 inches, &#10;Operating System: Windows 10, &#10;Extras: Keyboard, mouse, headphones</string>
+    <string name="add_button">Add to Cart</string>
+    <string name="review_titles">Product Reviews</string>
+    <string name="review_details1">Got it real quick and set up was s breeze. all freebies promised were included and no issues</string>
+    <string name="review_details2">The unit is in good condition, properly wrapped and no damage. the reason for the 4 stars is that I cannot play my games. I tried re-install and same thing happen</string>
+    <string name="review_details3">I have been wanting to buy this since the start of this year and was finally able to and Im glad that I choose this shop.</string>
+</resources>

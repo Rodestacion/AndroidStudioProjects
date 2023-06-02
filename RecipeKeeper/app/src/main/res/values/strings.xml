@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Recipe Keeper</string>
+    <string name="app_Title">Recipe Keeper by: Rodney Estacion</string>
+    <string name="btn_recipe">Add Recipe Name</string>
+    <string name="txt_recipe">Enter Recipe Name</string>
+    <string name="btn_ingredients">Add Ingredients</string>
+    <string name="txt_ingredients">Enter Ingredients</string>
+    <string name="btn_instruction">Add Instruction</string>
+    <string name="txt_instruction">Enter Instructions</string>
+    <string name="app_recipe_area"></string>
+    <string name="btn_save">Save Recipe</string>
+    <string name="btn_clear">Clear All</string>
+</resources>

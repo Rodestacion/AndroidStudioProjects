@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Simple Calculator</string>
+    <string name="app_title">Simple Calculator</string>
+    <string name="app_hint1">Enter Number 1</string>
+    <string name="app_hint2">Enter Number 2</string>
+    <string name="app_result">Result</string>
+    <string name="app_add">Add</string>
+    <string name="app_subtract">Subtract</string>
+    <string name="app_multiply">Multiply</string>
+    <string name="app_Divide">Divide</string>
+
+</resources>

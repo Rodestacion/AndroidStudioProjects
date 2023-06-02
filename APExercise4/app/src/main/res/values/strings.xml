@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Mobile Library</string>
+    <string name="id_hint">Enter User Name</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="btn_login">Login</string>
+    <string name="homepage_title">User Information</string>
+    <string name="user_name">Student Name: Rodney Estacion</string>
+    <string name="student_id">ID Number: ABC-1234</string>
+    <string name="book_list">List Of Borrowed Books</string>
+    <string name="book_1">Harry Potter: Philosopher\'s Stone</string>
+    <string name="book_2">Harry Potter: Chamber of Secrets</string>
+    <string name="book_3">Harry Potter: Prisoner of Azkaban</string>
+    <string name="book_4">Harry Potter: Goblet of Fire</string>
+    <string name="book_5">Harry Potter: Order of the Phoenix</string>
+    <string name="book_6">Harry Potter: Half-Blood Prince</string>
+    <string name="book_7">Harry Potter: Deathly Hallows</string>
+
+
+</resources>

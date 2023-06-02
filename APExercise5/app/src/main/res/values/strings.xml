@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Contact Details</string>
+    <string name="app_title">Contact Information</string>
+    <string name="app_validation">Verify Contact Information are Correct!</string>
+    <string name="user_name">Name:</string>
+    <string name="hint_name">Enter your Full Name</string>
+    <string name="user_phone">Contact Number</string>
+    <string name="hint_phone">Mobile/Telephone No.</string>
+    <string name="user_email">E-mail Address:</string>
+    <string name="hint_email">example@outlook.com.ph</string>
+    <string name="user_address">Address:</string>
+    <string name="hint_address">Blk. Lot./House No., Building/Compound Name/Street Name, Barangay</string>
+    <string name="user_city">City</string>
+    <string name="hint_city">Name of City</string>
+    <string name="user_zipcode">Zip Code:</string>
+    <string name="hint_zipcode">Enter four digit number</string>
+    <string name="user_country">Country:</string>
+    <string name="hint_country">Name of Country</string>
+    <string name="user_organization">Organization:</string>
+    <string name="hint_organization">Name of your organization</string>
+    <string name="user_profession">Profession:</string>
+    <string name="hint_profession">Current Job</string>
+    <string name="button_submit">Submit Details</string>
+</resources>

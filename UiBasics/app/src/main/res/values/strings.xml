@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ui Basics</string>
+    <string name="app_hello">Hello Universe!</string>
+    <string name="app_message">Mr. Moon</string>
+    <string name="btn_message">Edit Profile</string>
+    <string name="app_result">Result</string>
+    <string name="app_hint">Enter Your Name</string>
+    <string name="btn_confirm">Confirm</string>
+</resources>
