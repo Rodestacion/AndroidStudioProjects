@@ -1,5 +1,91 @@
 <resources>
     <string name="app_name">Quiz App</string>
-    <string name="main_question">Click "GO" button when ready!</string>
+    <string name="main_question">Are you ready to take quiz?</string>
     <string name="main_text">Click "GO" button when ready!</string>
+
+    <string name="q1_title">Question #1</string>
+    <string name="q1_question">A Non-Professional driver’s license is suited for:</string>
+    <string name="q1_selection1">Public utility vehicles</string>
+    <string name="q1_selection2">Both Private vehicles and Public utility vehicles</string>
+    <string name="q1_selection3">Private vehicles</string>
+    <string name="q1_selection4">Selected type of vehicle only</string>
+
+    <string name="q2_title">Question #2</string>
+    <string name="q2_question">While driving, you should look at your side and rear view mirror:</string>
+    <string name="q2_selection1">If you want</string>
+    <string name="q2_selection2">Quickly</string>
+    <string name="q2_selection3">Not less than once per one minute</string>
+    <string name="q2_selection4">Its not necessary to look at mirror</string>
+
+    <string name="q3_title">Question #3</string>
+    <string name="q3_question">In an intersection with a STOP sign, you should:</string>
+    <string name="q3_selection1">Slow down and proceed if there is no danger</string>
+    <string name="q3_selection2">Continuous on driving</string>
+    <string name="q3_selection3">Stop and proceed if there is no danger</string>
+    <string name="q3_selection4">Give way to vehicles going from left and right, proceed if there is no danger</string>
+
+    <string name="q4_title">Question #4</string>
+    <string name="q4_question">Obtaining a driver’s license is:</string>
+    <string name="q4_selection1">A special award</string>
+    <string name="q4_selection2">An honor</string>
+    <string name="q4_selection3">A right</string>
+    <string name="q4_selection4">A privilege</string>
+
+    <string name="q5_title">Question #5</string>
+    <string name="q5_question">What should you prepare for a long trip?</string>
+    <string name="q5_selection1">Plan your route and make sure the vehicle is running in good condition</string>
+    <string name="q5_selection2">Prepare the necessary tools that can be used to repair the vehicle</string>
+    <string name="q5_selection3">Check the vehicle condition (oil, fuel, air, etc.)</string>
+    <string name="q5_selection4">All answers are correct</string>
+
+    <string name="q6_title">Question #6</string>
+    <string name="q6_question">Before leaving the parking area, you should:</string>
+    <string name="q6_selection1">Sound your horn</string>
+    <string name="q6_selection2">Immediately go</string>
+    <string name="q6_selection3">Look around first</string>
+    <string name="q6_selection4">No need to do anything</string>
+
+    <string name="q7_title">Question #7</string>
+    <string name="q7_question">You can overtake in the right side of your vehicle if:</string>
+    <string name="q7_selection1">The road is two-way</string>
+    <string name="q7_selection2">The road has two or more lanes going in one direction</string>
+    <string name="q7_selection3">The sidewalk is wide</string>
+    <string name="q7_selection4">All answers are correct</string>
+
+    <string name="q8_title">Question #8</string>
+    <string name="q8_question">After overtaking, you want to safely go back to the lane where you where you came from, you should:</string>
+    <string name="q8_selection1">Use the rear view mirror to check the vehicle you have overtaken</string>
+    <string name="q8_selection2">Look at the vehicle you have overtaken by turning your head</string>
+    <string name="q8_selection3">Stop</string>
+    <string name="q8_selection4">All the action above must be do</string>
+
+    <string name="q9_title">Question #9</string>
+    <string name="q9_question">A person who drives while under influence of alcohol or drugs is punishable by law with:</string>
+    <string name="q9_selection1">Fines and imprisonment</string>
+    <string name="q9_selection2">Suspension of license</string>
+    <string name="q9_selection3">Revocation of license</string>
+    <string name="q9_selection4">All answers are applicable</string>
+
+    <string name="q10_title">Question #10</string>
+    <string name="q10_question">The minimum age in the application for Non-Professional Driver’s License is:</string>
+    <string name="q10_selection1">16 years old</string>
+    <string name="q10_selection2">17 years old</string>
+    <string name="q10_selection3">18 years old</string>
+    <string name="q10_selection4">19 years old</string>
+
+    <string name="answer_hint">Your answer here</string>
+    <string name="result_title">Result of your examination</string>
+    <string name="numbering_1">1.</string>
+    <string name="numbering_2">2.</string>
+    <string name="numbering_3">3.</string>
+    <string name="numbering_4">4.</string>
+    <string name="numbering_5">5.</string>
+    <string name="numbering_6">6.</string>
+    <string name="numbering_7">7.</string>
+    <string name="numbering_8">8.</string>
+    <string name="numbering_9">9.</string>
+    <string name="numbering_10">10.</string>
+
+
+
 </resources>
