@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">APExercise6</string>
+    <string name="app_name">Quiz App</string>
+    <string name="main_question">Click "GO" button when ready!</string>
+    <string name="main_text">Click "GO" button when ready!</string>
 </resources>
