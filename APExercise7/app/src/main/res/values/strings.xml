@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Product Info</string>
+    <string name="app_title">Computer Package List</string>
+    <string name="app_back">Back</string>
+    <string name="app_home">Home</string>
+    <string name="app_next">Next</string>
+
+    <string name="product_name1">AMD Ryzen Quad Core Gaming PC and Monitor Package#1</string>
+    <string name="product_price1">&#8369;28,000</string>
+    <string name="product_specification1">Product Specification and Peripherals</string>
+    <string name="product_processor1">Processor: AMD Ryzen 3 1200</string>
+    <string name="product_graphic1">Graphics: GTX 1050 Ti Graphics Card</string>
+    <string name="product_memory1">Memory: 8GB RAM</string>
+    <string name="product_storage1">Storage Capacity: 1TB Hard Drive</string>
+    <string name="product_system1">Operating System: Windows 10</string>
+    <string name="product_monitor1">Monitor: 24 inches</string>
+    <string name="product_inclusion1">Product Inclusion: Keyboard, mouse, headphones</string>
+
+    <string name="product_name2">AMD RYZEN 5 3600 GAMING PC BUNDLE PROMO Package#2</string>
+    <string name="product_price2">&#8369;56,767</string>
+    <string name="product_specification2">Product Specification and Peripherals</string>
+    <string name="product_processor2">Processor: AMD RYZEN 5 3600 WITH WRAITH STEALTH COOLER 3RD GEN PCIE GEN 4 READY PROCESSOR</string>
+    <string name="product_graphic2">Graphics: GALAX GEFORCE® GTX 1050 TI OC 128-BIT DDR5 - DP 1.4, HDMI 2.0B, DUAL LINK-DVI-D GRAPHIC CARD</string>
+    <string name="product_memory2">Memory: CORSAIR CS-CMG16GX4M2D3600C18-BOX CORSAIR VENGEANCE RGB RS 16GB(2X8GB) DDR4-3600 C18 MEMORY KIT RAM MEMORY CARD</string>
+    <string name="product_storage2">Storage Capacity: GLOWAY 256GB NVME M.2 SOLID STATE DRIVE, SEAGATE BARRACUDA 1TB 3.5 INCH SATA 6 GB/S 7200 RPM 64MB CACHE FOR COMPUTER DESKTOP PC (ST1000DM010) INTERNAL HARD DRIVE</string>
+    <string name="product_system2">Operating System: Windows 10</string>
+    <string name="product_monitor2">Monitor: GAMDIAS ATLAS VH220F 75HZ 21.5 INCH MONITOR</string>
+    <string name="product_inclusion2">Product Inclusion: Keyboard REDRAGON K552-BB-1 4 IN 1 SET, Mouse, REDRAGON (GS550) ORPHEUS SOUNDBAR SPEAKERS</string>
+
+    <string name="product_name3">Intel Core I3 Desktop Bundle Package#3</string>
+    <string name="product_price3">&#8369;31,573</string>
+    <string name="product_specification3">Product Specification and Peripherals</string>
+    <string name="product_processor3">Processor: Intel Core I3–9100F 4.2 GHZ Turbo (6MB Cache 4-Core 4-Threads) 9th Gen Coffee Lake R Processor</string>
+    <string name="product_graphic3">Graphics: Colorful GT1030 2G V3 EA2V Graphic Card</string>
+    <string name="product_memory3">Memory: Glowaway Alpha DDR4 2666 8GB</string>
+    <string name="product_storage3">Storage Capacity: Seagate 500 GB Barracuda</string>
+    <string name="product_system3">Operating System: Windows 10</string>
+    <string name="product_monitor3">Monitor: AOC E2070SWN 19.5" LED/5MS/VGA/VESA/Wide Monitor</string>
+    <string name="product_inclusion3">Product Inclusion: Havit Gamenote KB540CM Combo, Logitech H570E Noise Cancelling, Fantech MP292 Vigil Mousepad, Fantech GS733 Arthas Black Speakers</string>
+
+    <string name="product_name4">AMD A8–9600 OFFICE BUILD PC BUNDLE PROMO Package#4</string>
+    <string name="product_price4">&#8369;16,623</string>
+    <string name="product_specification4">Product Specification and Peripherals</string>
+    <string name="product_processor4">Processor: AMD A8-9600 3.1GHZ AM4 PROCESSOR</string>
+    <string name="product_graphic4">Graphics: Intel Built-in Graphics</string>
+    <string name="product_memory4">Memory: GLOWAY ALPHA DDR4 2666 8GB MEMORY CARD</string>
+    <string name="product_storage4">Storage Capacity: TOSHIBA DYNABOOK BOOST AE100 SATA III 2.5" 240GB SSD (OA1203-PHES) SOLID STATE DRIVE</string>
+    <string name="product_system4">Operating System: Windows 10</string>
+    <string name="product_monitor4">Monitor: FONUDAR E1908 19" MONITOR</string>
+    <string name="product_inclusion4">Product Inclusion: INPLAY SMALL 250X210MM MOUSEPAD, JEDEL G17 DESKTOP KEYBOARD+MOUSE COMBO USB, SECURE AUTOMATIC VOLTAGE REGULATOR, BOSSTON EK-01 SPEAKERS, GSOU T20 720P 30FPS HD WEBCAM</string>
+
+    <string name="product_name5">RYZEN 3 4350G PC BUNDLE PROMO Package#5</string>
+    <string name="product_price5">&#8369;24,466</string>
+    <string name="product_specification5">Product Specification and Peripherals</string>
+    <string name="product_processor5">Processor: AMD RYZEN 3 PRO 4350G 3.8GHZ/4 CORE/8 THREAD/AM4 PROCESSOR</string>
+    <string name="product_graphic5">Graphics: Intel Built-in Graphics</string>
+    <string name="product_memory5">Memory: GLOWAY ALPHA DDR4 2666 8GB MEMORY CARD</string>
+    <string name="product_storage5">Storage Capacity: TOSHIBA DYNABOOK BOOST AE100 SATA III 2.5" 240GB SSD (OA1203-PHES) SOLID STATE DRIVE</string>
+    <string name="product_system5">Operating System: Windows 10</string>
+    <string name="product_monitor5">Monitor: NVISION N185HD 18.5" LED MONITOR</string>
+    <string name="product_inclusion5">Product Inclusion: INPLAY SMALL 250X210MM MOUSEPAD, JEDEL G17 DESKTOP KEYBOARD+MOUSE COMBO USB, SECURE AUTOMATIC VOLTAGE REGULATOR, BOSSTON EK-01 SPEAKERS</string>
+
+
+</resources>
