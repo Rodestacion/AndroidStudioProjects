@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">APExercise8</string>
+    <string name="app_name">Weather Weather Lang</string>
+
+    <string name="temperature_unit">Temperature Unit: </string>
+    <string name="toggle_celsius">Celsius</string>
+    <string name="toggle_fahrenheit">Fahrenheit</string>
+
+    <string name="weather_condition">Weather Condition: </string>
+    <string name="checkbox_sunny">Sunny</string>
+    <string name="checkbox_cloudy">Cloudy</string>
+    <string name="checkbox_rainy">Rainy</string>
+
+    <string name="radio_option1">Option 1</string>
+    <string name="radio_option2">Option 2</string>
+
+    <string name="item_selection">Choose Location</string>
+
+
+
+
+
 </resources>
