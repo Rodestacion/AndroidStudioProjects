@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">APExercise9</string>
+    <string name="app_name">Course Subject</string>
+    <string name="student_name">Name: Jacob Carpender</string>
+    <string name="student_id">ID# 2023-123978</string>
+    <string name="student_course">Course: Computer Engineering</string>
+    <string name="student_year">Year: 3rd year</string>
+
 </resources>
