@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Practice Exercise 1A</string>
+    <string name="app_name">My Profile 2</string>
     <string name="person_name">Rodney Estacion</string>
     <string name="address">Noveleta Cavite</string>
     <string name="button_label">Edit Profile</string>
