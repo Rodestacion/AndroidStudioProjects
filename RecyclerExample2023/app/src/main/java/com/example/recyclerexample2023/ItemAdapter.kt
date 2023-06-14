@@ -1,7 +1,9 @@
 package com.example.recyclerexample2023
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerexample2023.databinding.ItemLayoutBinding
 
@@ -18,6 +20,14 @@ class ItemAdapter(private val items:List<Item>):RecyclerView.Adapter<ItemViewHol
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(items[position])
+        holder.itemView.setOnClickListener {
+            //Toast.makeText(holder.itemView.context, items[position].name, Toast.LENGTH_SHORT).show()
+            var myIntent = Intent(holder.itemView.context,ItemInfoActivity::class.java)
+            myIntent.putExtra("name",items[position].name)
+
+            //holder.itemView.context
+            holder.itemView.context.startActivity(myIntent)
+        }
     }
 
 }
