@@ -21,4 +21,5 @@
     <string name="user_profession">Profession:</string>
     <string name="hint_profession">Current Job</string>
     <string name="button_submit">Submit Details</string>
+    <string name="button_proceed">Proceed to Next Step</string>
 </resources>

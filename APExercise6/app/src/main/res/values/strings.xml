@@ -74,7 +74,8 @@
     <string name="q10_selection4">19 years old</string>
 
     <string name="answer_hint">Your answer here</string>
-    <string name="result_title">Result of your examination</string>
+    <string name="score_hint">0</string>
+    <string name="result_title">Result of your Quiz</string>
     <string name="numbering_1">1.</string>
     <string name="numbering_2">2.</string>
     <string name="numbering_3">3.</string>

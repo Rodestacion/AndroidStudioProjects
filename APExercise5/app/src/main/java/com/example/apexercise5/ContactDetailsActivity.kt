@@ -28,6 +28,10 @@ class ContactDetailsActivity : AppCompatActivity() {
             binding.txtOrganization.text= newArray.elementAtOrNull(7).toString()
             binding.txtProfession.text= newArray.elementAtOrNull(8).toString()
         }
-        //Toast.makeText(applicationContext,"$newArray", Toast.LENGTH_LONG).show()
+
+        binding.btnProceed.setOnClickListener {
+            Toast.makeText(applicationContext,"Contact Information are saved", Toast.LENGTH_LONG).show()
+        }
+
     }
 }

@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".ContactDetailsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -23,17 +26,20 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:text="@string/app_validation"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -49,18 +55,20 @@
                 <TextView
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -76,18 +84,20 @@
                 <TextView
                     android:id="@+id/txtContactNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -103,18 +113,20 @@
                 <TextView
                     android:id="@+id/txtEmailAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -130,18 +142,20 @@
                 <TextView
                     android:id="@+id/txtHomeAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -157,18 +171,20 @@
                 <TextView
                     android:id="@+id/txtCity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -184,18 +200,20 @@
                 <TextView
                     android:id="@+id/txtZipCode"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -211,18 +229,20 @@
                 <TextView
                     android:id="@+id/txtCounty"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -238,18 +258,20 @@
                 <TextView
                     android:id="@+id/txtOrganization"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -265,11 +287,24 @@
                 <TextView
                     android:id="@+id/txtProfession"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnProceed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/btn_color"
+                android:text="@string/button_proceed"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="italic" />
         </LinearLayout>
     </ScrollView>
 

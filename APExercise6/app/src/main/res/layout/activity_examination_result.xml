@@ -8,12 +8,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTintMode="add">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,7 +30,7 @@
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="@string/result_title"
@@ -42,11 +43,13 @@
                         android:id="@+id/txtScore"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:width="150dp"
+                        android:hint="@string/score_hint"
                         android:textAlignment="center"
                         android:textColor="@color/question"
-                        android:textSize="20sp"
+                        android:textSize="34sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
 

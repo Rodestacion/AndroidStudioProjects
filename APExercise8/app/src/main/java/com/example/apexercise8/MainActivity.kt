@@ -150,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
         else if(binding.chkboxSunny.isChecked && !binding.chkboxCloudy.isChecked && binding.chkboxRainy.isChecked){
             binding.weatherImage.setImageResource(resources.getIdentifier("sunny_rainy_weather","drawable",packageName))
+            resources
         }
         else if(!binding.chkboxSunny.isChecked && binding.chkboxCloudy.isChecked && binding.chkboxRainy.isChecked){
             binding.weatherImage.setImageResource(resources.getIdentifier("rainy_cloudy_weather","drawable",packageName))
