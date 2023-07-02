@@ -1,4 +1,3 @@
 package com.data.apexercise11
 
-class Product {
-}
+data class Product(val id:Int, val name:String,val description:String)

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Product Info App</string>
+    <string name="app_title">Product Info App</string>
+    <string name="product_list">Product List</string>
+    <string name="btn_view_products">View All Products</string>
+    <string name="btn_add_product">Add Product</string>
+    <string name="hint_name">Product Name</string>
+    <string name="hint_description">Product Description</string>
+    <string name="btn_add">ADD</string>
+
+</resources>
