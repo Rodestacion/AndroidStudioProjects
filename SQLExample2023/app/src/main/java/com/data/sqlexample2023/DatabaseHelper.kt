@@ -36,4 +36,39 @@ class DatabaseHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,nu
         db.execSQL(sql,args)
 
     }
+    //READ
+    fun getAllNotes():MutableList<Note>{
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM note",null)
+
+        val noteList = mutableListOf<Note>()
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(0)
+            val title =  cursor.getString(1)
+            val content = cursor.getString(2)
+
+            var newNote = Note(id,title,content)
+            noteList.add(newNote)
+        }
+
+        cursor.close()
+
+        return noteList
+    }
+
+    //UPDATE
+
+    fun updateData(note:Note){
+        val db = writableDatabase
+        val updateQuery = "UPDATE note SET title='${note.title}', content='${note.content}' WHERE id = ${note.id};"
+        db.execSQL(updateQuery)
+
+    }
+    //DELETE
+    fun deleteData(id:Int){
+        val db = writableDatabase
+        val deleteQuery = "DELETE FROM note WHERE id = $id"
+        db.execSQL(deleteQuery)
+    }
 }
