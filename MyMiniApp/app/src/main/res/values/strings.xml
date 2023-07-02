@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">MyMiniApp</string>
+    <string name="app_name">日本語を勉強しましょう</string>
+    <string name="vocab_menu">Vocab</string>
+    <string name="phrases_menu">Phrases</string>
+    <string name="numbers_menu">Numbers</string>
+    <string name="about_menu">About</string>
+    <string name="vocab_title">Commonly Used Nouns in Japanese</string>
+    <string name="phrase_title">Basic Japanese Greetings</string>
+    <string name="numbers_title">Lets Start Counting!</string>
+    <string name="english_title">English Word / Phrases</string>
+    <string name="japanese_title">Nihongo Word / Phrases</string>
+    <string name="details_title">Pronunciation / Details</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">Login</string>
+
+
 </resources>

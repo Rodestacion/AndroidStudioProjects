@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+
+    <item
+        android:id="@+id/vocabItem"
+        android:icon="@drawable/baseline_menu_book_24"
+        android:title="@string/vocab_menu" />
+    <item
+        android:id="@+id/phrasesItem"
+        android:icon="@drawable/baseline_library_books_24"
+        android:title="@string/phrases_menu" />
+    <item
+        android:id="@+id/numbersItem"
+        android:icon="@drawable/baseline_numbers_24"
+        android:title="@string/numbers_menu" />
 </menu>

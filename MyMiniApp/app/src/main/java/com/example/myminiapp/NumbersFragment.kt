@@ -5,55 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myminiapp.databinding.FragmentNumbersBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NumbersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NumbersFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding: FragmentNumbersBinding
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_numbers, container, false)
-    }
+        binding = FragmentNumbersBinding.inflate(layoutInflater,container,false)
+        recyclerView = binding.numberRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NumbersFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NumbersFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val numbers = listOf(Japanese("One (1)","いち","ichi"),
+            Japanese("Two (2)","に","ni"),
+            Japanese("Three (3)","さん","san"),
+            Japanese("Four (4)","よん or し","yon or shi"),
+            Japanese("Five (5)","ご","go"),
+            Japanese("Six (6)","ろく","roku"),
+            Japanese("Seven (7)","なな or しち","nana or shichi"),
+            Japanese("Eight (8)","はち","hachi"),
+            Japanese("Nine (9)","く or きゅう","ku or kyuu"),
+            Japanese("Ten (10)","じゅう","juu"),
+            Japanese("One Hundred (100)","ひゃ","hyaku"),
+            Japanese("One Thousand (1,000)","せん","sen"),
+            Japanese("Ten Thousand (10,000)","まん","man"),
+            Japanese("One Hundred Thousand\n(100,000)","じゅうまん","juuman"),
+            Japanese("One Million\n(1,000,000)","ひゃくまん","juu"),
+            Japanese("Ten Million\n(10,000,000)","せんまん","senman"),
+            Japanese("One Hundred Million\n(100,000,000)","いちおく ","ichioku"),
+            Japanese("One Billion\n(1,000,000,000)","じゅうおく","juuoku"),
+            Japanese("One Trillion\n(1,000,000,000,000)","いっちょう","icchou"))
+        recyclerView.adapter = JapaneseAdapter(numbers)
+
+        return binding.root
     }
 }

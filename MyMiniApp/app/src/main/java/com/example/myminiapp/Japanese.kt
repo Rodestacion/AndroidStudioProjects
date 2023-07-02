@@ -1,4 +1,3 @@
 package com.example.myminiapp
 
-class Japanese {
-}
+data class Japanese (val english:String,val japanese:String,val pronunciation:String)
