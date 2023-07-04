@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.data.sqlexample2023.databinding.NoteItemLayoutBinding
 
 class NotesAdapter(private val notes:List<Note>):RecyclerView.Adapter<NoteItemViewHolder>() {
+    var onDeleteClick : ((Note)->Unit)?=null
+    var onUpdateClick : ((Note)->Unit)?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = NoteItemLayoutBinding.inflate(inflater,parent,false)
@@ -18,6 +20,16 @@ class NotesAdapter(private val notes:List<Note>):RecyclerView.Adapter<NoteItemVi
 
     override fun onBindViewHolder(holder: NoteItemViewHolder, position: Int) {
         holder.bind(notes[position])
+        holder.binding.apply {
+            btnDeleteNote.setOnClickListener {
+                onDeleteClick?.invoke(notes[position])
+            }
+            btnUpdateNote.setOnClickListener {
+                onUpdateClick?.invoke(notes[position])
+            }
+
+        }
+
     }
 
 }
