@@ -126,18 +126,24 @@ class MainScreen : AppCompatActivity() {
             val content = dialogBinding.etDialogContent.text.toString()
             var newNote = Note(note.id,title,content)
             //update data to database table
-            update(note.id,title,content)
-            var temp: Int = 0
-            //add new note to list
-            repeat(noteList.size){
-                if (noteList[it].id==note.id){
-                    noteList[it].title = title
-                    noteList[it].content = content
-                    temp = it
-                }
+            //update(note.id,title,content)
+            update(newNote)
+            val updateNotePosition = noteList.indexOfFirst { it.id == note.id }
+            if (updateNotePosition!=-1){
+                noteList[updateNotePosition] = newNote
+                adapter.notifyItemChanged(updateNotePosition)
             }
+//            var temp: Int = 0
+//            //add new note to list
+//            repeat(noteList.size){
+//                if (noteList[it].id==note.id){
+//                    noteList[it].title = title
+//                    noteList[it].content = content
+//                    temp = it
+//                }
+//            }
             //notify adapter that data has changed
-            recyclerView.adapter?.notifyItemChanged(temp)
+//            recyclerView.adapter?.notifyItemChanged(temp)
         }
 
         alertDialogBuilder.setNegativeButton("Cancel"){dialog, _->
@@ -155,14 +161,16 @@ class MainScreen : AppCompatActivity() {
 
         alertDialogBuilder.setPositiveButton("Yes"){ dialog: DialogInterface, which:Int ->
             delete(note.id)
-            var temp: Int = 0
-            repeat(noteList.size){
-                if (noteList[it].id==note.id){
-                    noteList.removeAt(it)
-                    temp = it
-                }
-            }
-            recyclerView.adapter?.notifyItemChanged(temp)
+//            var temp: Int? = null
+//            repeat(noteList.size){
+//                if (noteList[it].id==note.id){
+//                    noteList.removeAt(it)
+//                    temp = it
+//                }
+//            }
+            noteList.remove(note)
+            adapter.notifyDataSetChanged()
+//            temp?.let { recyclerView.adapter?.notifyItemRemoved(it) }
 
         }
 
@@ -183,9 +191,9 @@ class MainScreen : AppCompatActivity() {
         Toast.makeText(applicationContext, "New Note Added", Toast.LENGTH_SHORT).show()
     }
 
-    private fun update(id:Int,title: String,content: String){
-        val noteObject = Note(id,title,content)
-        databaseHelper.updateData(noteObject)
+    private fun update(note: Note){
+        //val noteObject = Note(note)
+        databaseHelper.updateData(note)
         getData()
         Toast.makeText(applicationContext, "Note Updated", Toast.LENGTH_SHORT).show()
     }

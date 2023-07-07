@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_dynamic_neutral80"
     android:paddingStart="10dp"
     android:paddingTop="10dp"
     android:paddingEnd="10dp"
@@ -12,7 +13,7 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="389dp"
+        android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginBottom="230dp"
         android:fontFamily="sans-serif-black"
@@ -28,7 +29,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="391dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:backgroundTint="#79ACAE"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,53 +17,66 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="5dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvTitleRecycler"
+            <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="0dp"
-                android:layout_height="29dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvContentRecycler"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnUpdateNote"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleRecycler" />
-
-            <ImageButton
-                android:id="@+id/btnUpdateNote"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnDeleteNote"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.912"
-                app:srcCompat="@drawable/baseline_edit_24" />
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/btnDeleteNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:minHeight="48dp"
+                <TextView
+                    android:id="@+id/tvTitleRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#D89F9F"
+                    android:bottomLeftRadius="15dp"
+                    android:paddingStart="3sp"
+                    android:text="TextView"
+                    android:textColor="#263238" />
+
+                <TextView
+                    android:id="@+id/tvContentRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="61dp"
+                    android:background="@color/design_default_color_secondary_variant"
+                    android:paddingStart="3sp"
+                    android:text="TextView"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.912"
-                app:srcCompat="@drawable/baseline_delete_24" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/btnUpdateNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/baseline_edit_24"
+                    android:backgroundTint="@color/design_default_color_primary_variant"
+                    android:minHeight="48dp" />
+
+                <ImageButton
+                    android:id="@+id/btnDeleteNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/baseline_delete_24"
+                    android:backgroundTint="@color/material_dynamic_neutral30"
+                    android:minHeight="48dp" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
