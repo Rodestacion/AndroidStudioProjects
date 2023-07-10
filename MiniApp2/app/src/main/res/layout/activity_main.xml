@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/thomas"
     tools:context=".MainActivity">
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -11,6 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:textAlignment="center"
+        app:backgroundTint="@color/material_dynamic_primary40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -18,13 +21,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:menu="@menu/app_bar_nav"
-        app:title="@string/app_name" />
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inventoryRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="15dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.MiniApp2" parent="Base.Theme.MiniApp2" />
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/material_dynamic_primary40</item>
+    </style>
 </resources>

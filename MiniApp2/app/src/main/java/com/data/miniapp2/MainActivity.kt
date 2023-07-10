@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         databaseHelper = DatabaseHelper(this)
         currentUser = intent.getStringExtra("user").toString()
+        //currentUser = "ADMIN"
 
         recyclerView = binding.inventoryRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -71,11 +72,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAboutDialog() {
-        val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         alertDialogBuilder.setTitle("About")
+        alertDialogBuilder.setIcon(getImageID("inventory_icon"))
         alertDialogBuilder.setMessage("Developer: \n\n\t\tRodney Estacion\n\nPurpose: \n\n\t\tThis app is intended for user in order to managing basic information in tracking inventory item")
 
-        alertDialogBuilder.setPositiveButton("OK"){ dialog:DialogInterface,which:Int ->
+        alertDialogBuilder.setPositiveButton("OK"){ dialog:DialogInterface,_->
             dialog.dismiss()
         }
 
@@ -89,8 +91,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showViewDialog(inventory: Inventory) {
-        val alertDialogBuilder = AlertDialog.Builder(this)
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         alertDialogBuilder.setTitle("Details")
+        alertDialogBuilder.setIcon(getImageID("inventory_icon"))
 
         val dialogLayout = layoutInflater.inflate(R.layout.view_item_layout,null)
         val dialogBinding = ViewItemLayoutBinding.bind(dialogLayout)
@@ -100,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         dialogBinding.txtDescription.text = "Description:\n\t${inventory.description}"
         dialogBinding.txtQuantity.text = "Quantity:\n\t${inventory.quantity}"
 
-        alertDialogBuilder.setPositiveButton("Ok") { dialog: DialogInterface, which: Int ->
+        alertDialogBuilder.setPositiveButton("Ok") { dialog: DialogInterface,_ ->
             dialog.dismiss()
         }
 
@@ -109,18 +112,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDeleteDialog(inventory: Inventory) {
-        val alertDialogBuilder =  AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle("Warning")
-        alertDialogBuilder.setMessage("Your going to delete the item ${inventory.name} with existing supplies of ${inventory.quantity}\n\nAre you sure you want to Continue? ")
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
+        alertDialogBuilder.setTitle("Warning for Deletion")
+        alertDialogBuilder.setIcon(getImageID("baseline_delete_forever_24"))
+        alertDialogBuilder.setMessage("Your going to delete the item ${inventory.name} with existing stocks of ${inventory.quantity}\n\nAre you sure you want to Continue? ")
 
-        alertDialogBuilder.setPositiveButton("Yes") { dialog: DialogInterface, which: Int ->
+        alertDialogBuilder.setPositiveButton("Yes") { dialog: DialogInterface,_->
             databaseHelper.deleteItem(inventory.id)
             this.inventory.remove(inventory)
             adapter.notifyDataSetChanged()
             Toast.makeText(applicationContext, "Item has successfully deleted", Toast.LENGTH_SHORT).show()
         }
 
-        alertDialogBuilder.setNegativeButton("No") { dialog: DialogInterface, which: Int ->
+        alertDialogBuilder.setNegativeButton("No") { dialog: DialogInterface,_->
             Toast.makeText(applicationContext, "Deleting of item has been cancelled", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -130,8 +134,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showUpdateDialog(inventory: Inventory){
-        val alertDialogBuilder = AlertDialog.Builder(this)
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         alertDialogBuilder.setTitle("Update Inventory Item")
+        alertDialogBuilder.setIcon(getImageID("inventory_icon"))
 
         val dialogLayout = layoutInflater.inflate(R.layout.add_item_layout,null)
         val dialogBinding = AddItemLayoutBinding.bind(dialogLayout)
@@ -166,6 +171,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 Toast.makeText(applicationContext, "Inventory Item has been updated", Toast.LENGTH_SHORT).show()
+
+                tempName = ""
+                tempDescription = ""
+                tempQuantity = ""
             }else{
                 tempName = name.uppercase()
                 var lowerLetter = description.lowercase()
@@ -213,7 +222,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAddItemDialog(){
-        val alertDialogBuilder = AlertDialog.Builder(this)
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         alertDialogBuilder.setTitle("Add New Item in Inventory")
 
         val dialogLayout = layoutInflater.inflate(R.layout.add_item_layout,null)
@@ -226,6 +235,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         alertDialogBuilder.setView(dialogLayout)
+        alertDialogBuilder.setIcon(getImageID("inventory_icon"))
 
         alertDialogBuilder.setPositiveButton("Save"){dialog, _->
             val name = dialogBinding.etProductName.text.toString()
@@ -246,7 +256,9 @@ class MainActivity : AppCompatActivity() {
                     this.inventory.add(newItem)
                     recyclerView.adapter?.notifyDataSetChanged()
                     Toast.makeText(applicationContext, "New item was successfully added to the inventory", Toast.LENGTH_SHORT).show()
-
+                    tempName = ""
+                    tempDescription = ""
+                    tempQuantity = ""
                 }else{
                     tempName = name.uppercase()
                     val lowerLetter = description.lowercase()
@@ -278,5 +290,10 @@ class MainActivity : AppCompatActivity() {
 
         val alertDialog:AlertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getImageID(imageName: String): Int {
+        //val myPackage = android.content.ContextWrapper(context)
+        return resources.getIdentifier(imageName,"drawable",packageName)
     }
 }

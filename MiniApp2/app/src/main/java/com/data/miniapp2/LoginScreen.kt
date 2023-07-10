@@ -25,7 +25,7 @@ class LoginScreen : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
 
-            if (binding.etUsername.text.isNotEmpty()&&binding.etPassword.text.isNotEmpty()){
+            if (binding.etUsername.text!!.isNotEmpty()&& binding.etPassword.text!!.isNotEmpty()){
                 val userList = getUserList()
                 val userName = binding.etUsername.text.toString()
                 val password = binding.etPassword.text.toString()
@@ -37,15 +37,15 @@ class LoginScreen : AppCompatActivity() {
                     startActivity(nextScreen)
                     finish()
                 }else{
-                    binding.etUsername.text.clear()
-                    binding.etPassword.text.clear()
+                    binding.etUsername.text!!.clear()
+                    binding.etPassword.text!!.clear()
                     Toast.makeText(applicationContext, "Username or password not match", Toast.LENGTH_SHORT).show()
                 }
 
 
             }else{
-                binding.etUsername.text.clear()
-                binding.etPassword.text.clear()
+                binding.etUsername.text!!.clear()
+                binding.etPassword.text!!.clear()
                 Toast.makeText(applicationContext, "Please fill the input box Completely", Toast.LENGTH_SHORT).show()
             }
         }
@@ -76,7 +76,7 @@ class LoginScreen : AppCompatActivity() {
     }
 
     private fun showNewUserDialog(){
-        val alertDialogBuilder = AlertDialog.Builder(this)
+        val alertDialogBuilder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         alertDialogBuilder.setTitle("Register New User")
 
         val dialogLayout = layoutInflater.inflate(R.layout.new_user_layout,null)
@@ -85,7 +85,7 @@ class LoginScreen : AppCompatActivity() {
         if (tempUsername.isNotEmpty()){
             dialogBinding.etNewUsername.setText(tempUsername)
         }
-
+        alertDialogBuilder.setIcon(getImageID("baseline_person_add_24"))
         alertDialogBuilder.setView(dialogLayout)
 
         alertDialogBuilder.setPositiveButton("Register"){dialog,_->
@@ -126,5 +126,10 @@ class LoginScreen : AppCompatActivity() {
         val alertDialog:AlertDialog = alertDialogBuilder.create()
         alertDialog.show()
 
+    }
+
+    private fun getImageID(imageName: String): Int {
+        //val myPackage = android.content.ContextWrapper(context)
+        return resources.getIdentifier(imageName,"drawable",packageName)
     }
 }
