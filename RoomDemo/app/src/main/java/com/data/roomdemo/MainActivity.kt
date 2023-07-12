@@ -21,30 +21,44 @@ class MainActivity : AppCompatActivity() {
         appDb = ProductsDatabase.invoke(this)
 
         //create
-        binding.button.setOnClickListener {
-            var name = binding.editTextText.text.toString()
-            var price = binding.editTextText.text.toString().toInt()
+        binding.btnSave.setOnClickListener {
+            var name = binding.etName.text.toString()
+            var price = binding.etPrice.text.toString().toInt()
             val product = Products(0,name,price)
             save(product)
             view()
+
+
+
         }
 
-        binding.button.setOnClickListener {
-            var id = binding.editTextText.text.toString().toInt()
-            var name = binding.editTextText.text.toString()
-            var price = binding.editTextText.text.toString().toInt()
+        //read
+        binding.btnView.setOnClickListener {
+            view()
+        }
+
+        binding.btnUpdate.setOnClickListener {
+            var id = binding.etID.text.toString().toInt()
+            var name = binding.etName.text.toString()
+            var price = binding.etPrice.text.toString().toInt()
             val product = Products(id,name,price)
             update(product)
 
         }
-        binding.button.setOnClickListener {
-            var id = binding.editTextText.text.toString().toInt()
-            var name = binding.editTextText.text.toString()
-            var price = binding.editTextText.text.toString().toInt()
+        binding.btnDelete.setOnClickListener {
+            var id = binding.etID.text.toString().toInt()
+            var name = binding.etName.text.toString()
+            var price = binding.etPrice.text.toString().toInt()
             val product = Products(id,name,price)
             delete(product)
         }
 
+    }
+
+    private fun clear(){
+        binding.etName.text.clear()
+        binding.etPrice.text.clear()
+        binding.etID.text.clear()
     }
 
     //Create
@@ -55,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "Saved!", Toast.LENGTH_SHORT).show()
     }
 
+    //read
     private fun view(){
         lateinit var products: List<Products>
         GlobalScope.launch ( Dispatchers.IO ){
