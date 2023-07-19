@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">RoomMultipleTables</string>
+    <string name="app_name">Product Management App</string>
+    <string name="title">Product Management App</string>
+    <string name="btn_products">Products</string>
+    <string name="btn_customers">Customers</string>
+    <string name="customers_name">Customers Name</string>
+    <string name="customers_details">Customers Details</string>
+    <string name="customers_id">Customers ID</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_view">View</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_delete">Delete</string>
+    <string name="products_name">Product Name</string>
+    <string name="products_details">Product Details</string>
+    <string name="products_id">Product ID</string>
+
 </resources>
