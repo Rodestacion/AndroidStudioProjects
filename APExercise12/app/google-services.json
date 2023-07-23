@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "621739964808",
+    "project_id": "fir-androidactivity12",
+    "storage_bucket": "fir-androidactivity12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621739964808:android:0aef28aa68d2ba08b7623d",
+        "android_client_info": {
+          "package_name": "com.data.apexercise12"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621739964808-1463ldqn8t52dh52u9u16aon7rkpskln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC--30Nb37dzegTADb9SIZTLnss2dXLpmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621739964808-1463ldqn8t52dh52u9u16aon7rkpskln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
