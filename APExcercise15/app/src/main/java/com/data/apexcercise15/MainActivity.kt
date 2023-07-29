@@ -1,16 +1,16 @@
 package com.data.apexcercise15
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.data.apexcercise15.databinding.ActivityMainBinding
@@ -18,7 +18,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private val BASE_URL = "http://www.omdbapi.com/"
     private val API_KEY = "dae7afc"
-    private val NEXT_STEP_DELAY : Long = 3000 // in milliseconds
+    private val NEXT_STEP_DELAY : Long = 100 // in milliseconds
     private var START_YEAR = 1950
     private lateinit var yearToday: Year
     private var yearList = mutableListOf<String>()
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var myAdapter:MovieAdapter
     private var counting:Int = 0
 
-    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +73,8 @@ class MainActivity : AppCompatActivity() {
             counting = 0
             binding.btnSearch.visibility = View.INVISIBLE
             binding.searchProgress.visibility = View.VISIBLE
+            //binding.etTitle.clearFocus()
+
 
             if(binding.etTitle.text.isEmpty()){
                 Toast.makeText(applicationContext, "No Movie title to search", Toast.LENGTH_SHORT).show()
@@ -82,31 +82,46 @@ class MainActivity : AppCompatActivity() {
                 binding.searchProgress.visibility = View.INVISIBLE
             }else{
                 searchMovie.clear()
-                //myAdapter.notifyItemChanged(searchMovie.size)
                 myAdapter.notifyDataSetChanged()
                 if (defaultItemListYear!="-- All --"){
-                    refreshRecyclerView()
+                    //refreshRecyclerView()
                     getSpecificYear(defaultItemListYear)
-                    //searchResult()
+                    searchResult()
 
                 }else{
                     //CoroutineScope(Dispatchers.Unconfined).launch {
-                        refreshRecyclerView()
+                        //refreshRecyclerView()
                         getAllData()
                     //}
-                    //searchResult()
+                    searchResult()
                 }
 
 
             }
+            //binding.etTitle.setSelection(binding.etTitle.text.length)
+            binding.etTitle.clearFocus()
+            it.hideKeyboard()
+
+
             binding.btnSearch.visibility = View.VISIBLE
             binding.searchProgress.visibility = View.INVISIBLE
+            onResume()
         }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshRecyclerView()
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
     private fun searchResult(){
-        if (counting>=1){
+        if (counting>0){
             myAdapter = MovieAdapter(searchMovie)
             recyclerView.adapter = myAdapter
             Toast.makeText(applicationContext, "Check the list of movie above", Toast.LENGTH_SHORT).show()
@@ -123,7 +138,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSpecificYear(year: String) {
         getMovie(binding.etTitle.text.toString(), year)
-        myAdapter.notifyItemChanged(searchMovie.lastIndex)
+        myAdapter.notifyDataSetChanged()
+        //myAdapter.notifyItemChanged(searchMovie.lastIndex)
         refreshRecyclerView()
     }
 
@@ -131,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         var tempYear = yearToday.toString().toInt()
         try {
             while (tempYear>=START_YEAR) {
+//                CoroutineScope(Dispatchers.Unconfined).launch {
+//                    getMovie(binding.etTitle.text.toString(), tempYear.toString())
+//                    delay(NEXT_STEP_DELAY)
+//                }
                 CoroutineScope(Dispatchers.Unconfined).launch {
                     getMovie(binding.etTitle.text.toString(), tempYear.toString())
                     delay(NEXT_STEP_DELAY)
@@ -149,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         var tempYear = yearToday.toString().toInt()
         yearList.add("-- All --")
 
-        while (tempYear>START_YEAR){
+        while (tempYear>=START_YEAR){
             yearList.add(tempYear.toString())
             tempYear--
         }
@@ -172,15 +192,19 @@ class MainActivity : AppCompatActivity() {
             object : Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>){
                 if(response.isSuccessful){
-                    counting+=1
+
                     var movieData = response.body()
 
                     if (movieData != null) {
                         if(movieData.Title!= null){
-
-                            //Log.d("MYMOVIE",movieData.toString())
+                            //CoroutineScope(Dispatchers.Default).launch {
+                                counting += 1
+                            //}
                             var search = Movie(movieData.imdbID,movieData.Poster,movieData.Title,movieData.Actors,movieData.Released,movieData.Language)
                             searchMovie.add(search)
+                            //Log.d("MYMOVIE",movieData.toString())
+                            //var search = Movie(movieData.imdbID,movieData.Poster,movieData.Title,movieData.Actors,movieData.Released,movieData.Language)
+                            //searchMovie.add(search)
                         }
                     }
                 }else{
