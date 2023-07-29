@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie Marathon</string>
+    <string name="search_movie">Input Movie Title</string>
+    <string name="search_year">Select Year</string>
+    <string name="title">Title:</string>
+    <string name="actors">Actors:</string>
+    <string name="release">Release Date:</string>
+    <string name="language">Language:</string>
+
+</resources>
