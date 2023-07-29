@@ -18,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,13 +32,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private val BASE_URL = "http://www.omdbapi.com/"
     private val API_KEY = "dae7afc"
-    private val SEARCH_DELAY : Long = 15000 // in milliseconds
+    private val NEXT_STEP_DELAY : Long = 3000 // in milliseconds
     private var START_YEAR = 1950
     private lateinit var yearToday: Year
     private var yearList = mutableListOf<String>()
     private var defaultItemListYear:String =""
     var searchMovie = mutableListOf<Movie>()
     private lateinit var myAdapter:MovieAdapter
+    private var counting:Int = 0
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         binding.btnSearch.setOnClickListener {
+            counting = 0
             binding.btnSearch.visibility = View.INVISIBLE
             binding.searchProgress.visibility = View.VISIBLE
 
@@ -78,40 +81,32 @@ class MainActivity : AppCompatActivity() {
                 binding.btnSearch.visibility = View.VISIBLE
                 binding.searchProgress.visibility = View.INVISIBLE
             }else{
+                searchMovie.clear()
+                //myAdapter.notifyItemChanged(searchMovie.size)
+                myAdapter.notifyDataSetChanged()
                 if (defaultItemListYear!="-- All --"){
-                    searchMovie.clear()
                     refreshRecyclerView()
-                    Toast.makeText(applicationContext, "Clearing Data", Toast.LENGTH_SHORT).show()
                     getSpecificYear(defaultItemListYear)
+                    //searchResult()
+
                 }else{
-                    //searchMovie.clear()
-                    //refreshRecyclerView()
-                    //Toast.makeText(applicationContext, "Clearing Data", Toast.LENGTH_SHORT).show()
-                    getAllData()
+                    //CoroutineScope(Dispatchers.Unconfined).launch {
+                        refreshRecyclerView()
+                        getAllData()
+                    //}
+                    //searchResult()
                 }
+
+
             }
+            binding.btnSearch.visibility = View.VISIBLE
+            binding.searchProgress.visibility = View.INVISIBLE
         }
 
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        refreshRecyclerView()
-//    }
-
-    private fun refreshRecyclerView(){
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        myAdapter = MovieAdapter(searchMovie)
-        myAdapter.notifyDataSetChanged()
-        recyclerView.adapter = myAdapter
-    }
-
-//    @SuppressLint("NotifyDataSetChanged")
-    private fun getSpecificYear(year: String) {
-
-        getMovie(binding.etTitle.text.toString(), year)
-        refreshRecyclerView()
-        if (searchMovie.size>0){
+    private fun searchResult(){
+        if (counting>=1){
             myAdapter = MovieAdapter(searchMovie)
             recyclerView.adapter = myAdapter
             Toast.makeText(applicationContext, "Check the list of movie above", Toast.LENGTH_SHORT).show()
@@ -119,47 +114,35 @@ class MainActivity : AppCompatActivity() {
         }else{
             Toast.makeText(applicationContext, "No Movie found", Toast.LENGTH_SHORT).show()
         }
-
-        binding.btnSearch.visibility = View.VISIBLE
-        binding.searchProgress.visibility = View.INVISIBLE
+    }
+    private fun refreshRecyclerView(){
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        myAdapter = MovieAdapter(searchMovie)
+        recyclerView.adapter = myAdapter
     }
 
-//    @SuppressLint("NotifyDataSetChanged")
+    private fun getSpecificYear(year: String) {
+        getMovie(binding.etTitle.text.toString(), year)
+        myAdapter.notifyItemChanged(searchMovie.lastIndex)
+        refreshRecyclerView()
+    }
+
     private fun getAllData() {
-        //refreshRecyclerView()
-
-            var tempYear = yearToday.toString().toInt()
-            try {
-                while (tempYear>=START_YEAR) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        getMovie(binding.etTitle.text.toString(), tempYear.toString())
-                        //refreshRecyclerView()
-                        delay(SEARCH_DELAY)
-                    }
-                    tempYear--
+        var tempYear = yearToday.toString().toInt()
+        try {
+            while (tempYear>=START_YEAR) {
+                CoroutineScope(Dispatchers.Unconfined).launch {
+                    getMovie(binding.etTitle.text.toString(), tempYear.toString())
+                    delay(NEXT_STEP_DELAY)
                 }
-
-            }catch (e:Exception){
-                Log.d("MYMOVIE",e.toString())
-                Toast.makeText(applicationContext, "Error in Network Connection", Toast.LENGTH_SHORT).show()
+                tempYear--
             }
-
-            //refreshRecyclerView()
-
-            Toast.makeText(applicationContext,searchMovie.size, Toast.LENGTH_SHORT).show()
-
-            if (searchMovie.size>0){
-                myAdapter = MovieAdapter(searchMovie)
-                recyclerView.adapter = myAdapter
-                Toast.makeText(applicationContext, "Check the list of movie above", Toast.LENGTH_SHORT).show()
-                myAdapter.notifyDataSetChanged()
-            }else{
-                Toast.makeText(applicationContext, "No Movie found", Toast.LENGTH_SHORT).show()
-            }
-
-
-        binding.btnSearch.visibility = View.VISIBLE
-        binding.searchProgress.visibility = View.INVISIBLE
+        }catch (e:Exception){
+            //Log.d("MYMOVIE",e.toString())
+            Toast.makeText(applicationContext, "Error in Network Connection", Toast.LENGTH_SHORT).show()
+        }
+        myAdapter.notifyItemInserted(searchMovie.size)
+        refreshRecyclerView()
     }
 
     private fun setYearList(){
@@ -188,25 +171,26 @@ class MainActivity : AppCompatActivity() {
         api.getMovieDetails(API_KEY,title,year).enqueue(
             object : Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>){
-                //Log.d("MYMOVIE",response.code().toString())
                 if(response.isSuccessful){
+                    counting+=1
                     var movieData = response.body()
 
                     if (movieData != null) {
                         if(movieData.Title!= null){
-                            Log.d("MYMOVIE",movieData.toString())
+
+                            //Log.d("MYMOVIE",movieData.toString())
                             var search = Movie(movieData.imdbID,movieData.Poster,movieData.Title,movieData.Actors,movieData.Released,movieData.Language)
                             searchMovie.add(search)
                         }
                     }
                 }else{
 
-                    Log.d("MYMOVIE","RESPONSE IS NOT SUCCESSFUL")
+                    //Log.d("MYMOVIE","RESPONSE IS NOT SUCCESSFUL")
                 }
             }
 
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                Log.d("MYMOVIE","ERROR")
+                //Log.d("MYMOVIE","ERROR")
             }
         })
 
@@ -225,7 +209,7 @@ class MainActivity : AppCompatActivity() {
 //            override fun onResponse(call: Call<Rating>, response: Response<Rating>) {
 //                if(response.isSuccessful){
 //                    var movieRating = response.body()
-//                    Log.d("MYMOVIE",movieRating.toString())
+//                    //Log.d("MYMOVIE",movieRating.toString())
 //
 //                }else{
 //                    Toast.makeText(applicationContext, "No rating found", Toast.LENGTH_SHORT).show()
@@ -233,7 +217,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //
 //            override fun onFailure(call: Call<Rating>, t: Throwable) {
-//                Log.d("MYMOVIE","ERROR")
+//                //Log.d("MYMOVIE","ERROR")
 //                Toast.makeText(applicationContext, "Error in connection. Check network connection", Toast.LENGTH_SHORT).show()
 //            }
 //        })
