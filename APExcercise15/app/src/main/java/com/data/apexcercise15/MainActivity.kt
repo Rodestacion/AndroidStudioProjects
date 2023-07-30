@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -24,6 +25,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.Year
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,14 +33,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private val BASE_URL = "http://www.omdbapi.com/"
     private val API_KEY = "dae7afc"
-    private val NEXT_STEP_DELAY : Long = 100 // in milliseconds
     private var START_YEAR = 1950
     private lateinit var yearToday: Year
     private var yearList = mutableListOf<String>()
     private var defaultItemListYear:String =""
     var searchMovie = mutableListOf<Movie>()
     private lateinit var myAdapter:MovieAdapter
-    private var counting:Int = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,10 +70,8 @@ class MainActivity : AppCompatActivity() {
         }
         
         binding.btnSearch.setOnClickListener {
-            counting = 0
             binding.btnSearch.visibility = View.INVISIBLE
             binding.searchProgress.visibility = View.VISIBLE
-            //binding.etTitle.clearFocus()
 
 
             if(binding.etTitle.text.isEmpty()){
@@ -84,30 +82,28 @@ class MainActivity : AppCompatActivity() {
                 searchMovie.clear()
                 myAdapter.notifyDataSetChanged()
                 if (defaultItemListYear!="-- All --"){
-                    //refreshRecyclerView()
                     getSpecificYear(defaultItemListYear)
                     searchResult()
 
                 }else{
-                    //CoroutineScope(Dispatchers.Unconfined).launch {
-                        //refreshRecyclerView()
-                        getAllData()
-                    //}
+                    getAllData()
                     searchResult()
                 }
 
 
             }
-            //binding.etTitle.setSelection(binding.etTitle.text.length)
             binding.etTitle.clearFocus()
             it.hideKeyboard()
-
-
             binding.btnSearch.visibility = View.VISIBLE
             binding.searchProgress.visibility = View.INVISIBLE
+
             onResume()
         }
 
+    }
+
+    private fun errorConnection(){
+        Toast.makeText(applicationContext, "Check Network Connection", Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
@@ -121,14 +117,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchResult(){
-        if (counting>0){
-            myAdapter = MovieAdapter(searchMovie)
-            recyclerView.adapter = myAdapter
-            Toast.makeText(applicationContext, "Check the list of movie above", Toast.LENGTH_SHORT).show()
-            myAdapter.notifyDataSetChanged()
-        }else{
-            Toast.makeText(applicationContext, "No Movie found", Toast.LENGTH_SHORT).show()
-        }
+        Handler().postDelayed({
+            if (searchMovie.size>0){
+                myAdapter = MovieAdapter(searchMovie)
+                recyclerView.adapter = myAdapter
+                Toast.makeText(applicationContext, "Search Complete!\nCheck the movie in the list!", Toast.LENGTH_SHORT).show()
+                myAdapter.notifyDataSetChanged()
+            }else{
+                Toast.makeText(applicationContext, "No Movie found!", Toast.LENGTH_SHORT).show()
+            }
+        },1000)
     }
     private fun refreshRecyclerView(){
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -139,30 +137,21 @@ class MainActivity : AppCompatActivity() {
     private fun getSpecificYear(year: String) {
         getMovie(binding.etTitle.text.toString(), year)
         myAdapter.notifyDataSetChanged()
-        //myAdapter.notifyItemChanged(searchMovie.lastIndex)
-        refreshRecyclerView()
     }
 
     private fun getAllData() {
         var tempYear = yearToday.toString().toInt()
         try {
             while (tempYear>=START_YEAR) {
-//                CoroutineScope(Dispatchers.Unconfined).launch {
-//                    getMovie(binding.etTitle.text.toString(), tempYear.toString())
-//                    delay(NEXT_STEP_DELAY)
-//                }
-                CoroutineScope(Dispatchers.Unconfined).launch {
-                    getMovie(binding.etTitle.text.toString(), tempYear.toString())
-                    delay(NEXT_STEP_DELAY)
-                }
+                getMovie(binding.etTitle.text.toString(), tempYear.toString())
                 tempYear--
             }
         }catch (e:Exception){
-            //Log.d("MYMOVIE",e.toString())
-            Toast.makeText(applicationContext, "Error in Network Connection", Toast.LENGTH_SHORT).show()
+            Log.d("MYMOVIE",e.toString())
+            Toast.makeText(applicationContext, "Encounter error while searching", Toast.LENGTH_SHORT).show()
         }
         myAdapter.notifyItemInserted(searchMovie.size)
-        refreshRecyclerView()
+
     }
 
     private fun setYearList(){
@@ -197,24 +186,18 @@ class MainActivity : AppCompatActivity() {
 
                     if (movieData != null) {
                         if(movieData.Title!= null){
-                            //CoroutineScope(Dispatchers.Default).launch {
-                                counting += 1
-                            //}
                             var search = Movie(movieData.imdbID,movieData.Poster,movieData.Title,movieData.Actors,movieData.Released,movieData.Language)
                             searchMovie.add(search)
-                            //Log.d("MYMOVIE",movieData.toString())
-                            //var search = Movie(movieData.imdbID,movieData.Poster,movieData.Title,movieData.Actors,movieData.Released,movieData.Language)
-                            //searchMovie.add(search)
                         }
                     }
                 }else{
-
-                    //Log.d("MYMOVIE","RESPONSE IS NOT SUCCESSFUL")
+                    Log.d("MYMOVIE","RESPONSE IS NOT SUCCESSFUL")
                 }
             }
 
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                //Log.d("MYMOVIE","ERROR")
+                errorConnection()
+                Log.d("MYMOVIE","ERROR")
             }
         })
 
@@ -233,7 +216,7 @@ class MainActivity : AppCompatActivity() {
 //            override fun onResponse(call: Call<Rating>, response: Response<Rating>) {
 //                if(response.isSuccessful){
 //                    var movieRating = response.body()
-//                    //Log.d("MYMOVIE",movieRating.toString())
+//                    Log.d("MYMOVIE",movieRating.toString())
 //
 //                }else{
 //                    Toast.makeText(applicationContext, "No rating found", Toast.LENGTH_SHORT).show()
@@ -241,7 +224,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //
 //            override fun onFailure(call: Call<Rating>, t: Throwable) {
-//                //Log.d("MYMOVIE","ERROR")
+//                Log.d("MYMOVIE","ERROR")
 //                Toast.makeText(applicationContext, "Error in connection. Check network connection", Toast.LENGTH_SHORT).show()
 //            }
 //        })
