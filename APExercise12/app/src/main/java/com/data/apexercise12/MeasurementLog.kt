@@ -1,4 +1,3 @@
 package com.data.apexercise12
 
-class MeasurementLog {
-}
+data class MeasurementLog(val item:String,val measuringSide:String,val size:Double,val unit:String)
