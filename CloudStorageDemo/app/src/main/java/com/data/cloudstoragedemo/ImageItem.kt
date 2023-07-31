@@ -1,4 +1,3 @@
 package com.data.cloudstoragedemo
 
-class ImageItem {
-}
+data class ImageItem(val imageDescription:String, val imageLink: String)

@@ -1,5 +1,6 @@
 package com.data.cloudstoragedemo
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnUpload.setOnClickListener {
             uploadImage()
+        }
+
+        binding.btnShowAll.setOnClickListener {
+            var nextScreen = Intent(this@MainActivity,DisplayActivity::class.java)
+            startActivity(nextScreen)
+            //finish()
         }
 //        val db = Firebase.firestore
 //        var storageRef = storage.reference
