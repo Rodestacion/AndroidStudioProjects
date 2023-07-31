@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">APExercise13</string>
+    <string name="button_edit">Edit Profile</string>
+    <string name="button_save">Save Profile</string>
+
+    <string name="title_name">Your Name</string>
+    <string name="title_location">City, Country</string>
+    <string name="title_city">City</string>
+    <string name="title_country">City</string>
+    <string name="title_follower">Followers</string>
+    <string name="title_following">Following</string>
+    <string name="title_email">E-mail</string>
+    <string name="title_phone">Phone</string>
+    <string name="title_twitter">Twitter</string>
+    <string name="title_facebook">Facebook</string>
+
+    <string name="hint_name">Enter your name</string>
+    <string name="hint_city">Input City</string>
+    <string name="hint_country">Input Country</string>
+    <string name="hint_email">Input your e-mail address</string>
+    <string name="hint_phone">Input your contact number</string>
+    <string name="hint_twitter">Input your Twitter ID</string>
+    <string name="hint_facebook">Input your Facebook account</string>
+
 </resources>
