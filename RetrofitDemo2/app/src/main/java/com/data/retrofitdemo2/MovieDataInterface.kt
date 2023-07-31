@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieDataInterface {
-    @GET ("/?")
+    @GET ("/")
     fun getMovieDetails(@Query("apikey")apiKey:String,@Query("t")title:String): Call<MovieData>
     //fun getMovieDetails(@Query("apikey=")apiKey:String,@Query("t")title:String): Call<MovieData>
     fun getRatingDetails(@Query("apikey")apiKey:String,@Query("t")title:String): Call<Rating>
