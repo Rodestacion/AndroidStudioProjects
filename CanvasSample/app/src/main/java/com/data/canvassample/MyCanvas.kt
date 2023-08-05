@@ -24,7 +24,6 @@ class MyCanvas(context: Context): View(context) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //canvas.drawBitmap(extraBitmap,0f,0f,null)
         canvas.drawBitmap(extraBitmap,0f,0f,null)
         canvas.drawRect(100f,100f,300f,400f,paint)
         canvas.drawCircle(canvas.width.toFloat()/2,500F,300.0F,paint)
