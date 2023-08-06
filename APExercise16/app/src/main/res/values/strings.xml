@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Scoring App</string>
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
+    <string name="score">Score: </string>
+    <string name="point">0</string>
+    <string name="point_2">2 Points</string>
+    <string name="point_3">3 Points</string>
+    <string name="free_throw">Free Throw</string>
+    <string name="finished">Game Finished</string>
+</resources>
