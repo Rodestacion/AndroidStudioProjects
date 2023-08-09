@@ -26,11 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             viewModel.updateName(binding.etName.text.toString())
-            //viewModel.updateAge(binding.etAge.toString().toInt())
-            viewModel.updateAge(binding.etAge.toString())
+            viewModel.updateAge(binding.etAge.text.toString().toInt())
+
         }
-
-
-
     }
 }
