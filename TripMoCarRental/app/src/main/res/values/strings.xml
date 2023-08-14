@@ -1,0 +1,68 @@
+<resources>
+    <!-- Login -->
+    <string name="app_name">Trip Mo Car Rental</string>
+    <string name="hint_email">Input email address</string>
+    <string name="hint_password">Input Password</string>
+    <string name="button_login">Login</string>
+    <string name="to_sign_up">Don\'t have an account? Sign Up</string>
+
+    <!-- Account Registration -->
+    <string name="register">Register</string>
+    <string name="retype_password">Re-type Password</string>
+    <string name="account_type">Type of account to Register?</string>
+    <string name="account_borrower">Borrower</string>
+    <string name="account_owner">Vehicle Owner</string>
+    <string name="button_register">Register</string>
+    <string name="to_sign_in">Already Register? Sign In</string>
+
+    <!-- Form -->
+    <string name="borrower_form">Borrower Registration</string>
+    <string name="owner_form">Vehicle Owner Registration</string>
+
+    <!-- Profile Fragment -->
+    <string name="personal_info">Personal Information</string>
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="birthday">Birthday</string>
+    <string name="home_address">Home Address:</string>
+    <string name="hint_house_block">House No./Block No.</string>
+    <string name="hint_building_subdivision">Building/Subdivision</string>
+    <string name="hint_street">Street</string>
+    <string name="hint_barangay">Barangay</string>
+    <string name="hint_city">City</string>
+    <string name="hint_province">Province</string>
+    <string name="hint_zipcode">Zip Code</string>
+    <string name="next">Next Process</string>
+
+    <!-- Borrower Information -->
+    <string name="license_info">License Information</string>
+    <string name="driving_status">Do you have Driver\'s License?</string>
+    <string name="license">With Driver\'s License</string>
+    <string name="non_license">No Driver\'s License</string>
+
+    <string name="license_detail">Driver\'s License Details</string>
+    <string name="license_number">License No.</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="restriction">Restriction Code</string>
+    <string name="condition">Condition</string>
+
+    <!-- Vehicle Information -->
+    <string name="vehicle_info">Vehicle Information</string>
+    <string name="vehicle_brand">Brand</string>
+    <string name="vehicle_model">Model</string>
+    <string name="seating_capacity">Maximum Passenger Capacity </string>
+    <string name="plate_number">Plate No.</string>
+    <string name="registration_number">CR No.</string>
+    <string name="register_date">Register Date</string>
+    <string name="driving_mode">What mode of driving does you want in your vehicle?</string>
+    <string name="drive_mode1">Drive by Owner</string>
+    <string name="drive_mode2">Borrower Self Drive</string>
+    <string name="drive_mode3">Allowed Both </string>
+
+    <!-- Supporting Documents -->
+    <string name="document_info">Supporting Document</string>
+
+
+</resources>
