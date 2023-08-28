@@ -26,6 +26,9 @@
     <string name="last_name">Last Name</string>
     <string name="age">Age</string>
     <string name="birthday">Birthday</string>
+
+    <!-- Contact Fragment -->
+    <string name="contact_info">Contact Information</string>
     <string name="home_address">Home Address:</string>
     <string name="hint_house_block">House No./Block No.</string>
     <string name="hint_building_subdivision">Building/Subdivision</string>
@@ -34,6 +37,10 @@
     <string name="hint_city">City</string>
     <string name="hint_province">Province</string>
     <string name="hint_zipcode">Zip Code</string>
+
+    <string name="contact_number">Contact Number:</string>
+    <string name="cellphone_number">Cellphone#</string>
+    <string name="telephone_number">Telephone#</string>
     <string name="next">Next Process</string>
 
     <!-- Borrower Information -->
@@ -46,13 +53,26 @@
     <string name="license_number">License No.</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="restriction">Restriction Code</string>
+    <string name="old_code">Old Code</string>
+    <string name="new_code">New Code</string>
     <string name="condition">Condition</string>
+    <string name="license_classification">License Classification</string>
+    <string name="license_pro">Professional</string>
+    <string name="license_non_pro">Non-Professional</string>
+    <string name="transmission_type">Transmission/Clutch:</string>
+
+
 
     <!-- Vehicle Information -->
     <string name="vehicle_info">Vehicle Information</string>
     <string name="vehicle_brand">Brand</string>
     <string name="vehicle_model">Model</string>
     <string name="seating_capacity">Maximum Passenger Capacity </string>
+    <string name="vehicle_category">Vehicle Category</string>
+    <string name="clutch_type">Vehicle Clutch Type</string>
+    <string name="clutch1">Manual</string>
+    <string name="clutch2">Automatic</string>
+    <string name="clutch3">Semi Automatic</string>
     <string name="plate_number">Plate No.</string>
     <string name="registration_number">CR No.</string>
     <string name="register_date">Register Date</string>
@@ -61,8 +81,63 @@
     <string name="drive_mode2">Borrower Self Drive</string>
     <string name="drive_mode3">Allowed Both </string>
 
+    <!-- Vehicle Code -->
+    <string name="code_rad_l1">L1</string>
+    <string name="code_rad_l2">L2</string>
+    <string name="code_rad_l3">L3</string>
+    <string name="code_rad_l4">L4</string>
+    <string name="code_rad_l5">L5</string>
+    <string name="code_rad_l6">L6</string>
+    <string name="code_rad_l7">L7</string>
+    <string name="code_rad_m1">M1</string>
+    <string name="code_rad_m2">M2</string>
+    <string name="code_rad_m3">M3</string>
+    <string name="code_rad_n1">N1</string>
+    <string name="code_rad_n2">N2</string>
+    <string name="code_rad_n3">N3</string>
+    <string name="code_rad_o1">O1</string>
+    <string name="code_rad_o2">O2</string>
+    <string name="description1">Motorcycle</string>
+    <string name="code_l1">Two-wheeled vehicle with a maximum design speed not exceeding 50 kph</string>
+    <string name="code_l2">Three-wheeled vehicle with a maximum design speed not exceeding 50 kph</string>
+    <string name="code_l3">Two-wheeled vehicle with a maximum design speed exceeding 50 kph</string>
+    <string name="description2">Tricycle</string>
+    <string name="code_l4">Motorcycle with sidecar with a maximum design speed not exceeding 50 kph</string>
+    <string name="code_l5">Three-wheeled symmetrically arranged vehicles with a maximum design speed exceeding 50 kph</string>
+    <string name="code_l6">Four-wheeled vehicles with unladen mass not more than 350 kg with a maximum design speed not exceeding 45 kph</string>
+    <string name="code_l7">Four-wheeled vehicles with unladen mass not more than 550 kg with a maximum design speed not exceeding 45 kph</string>
+    <string name="description3">Passenger Car</string>
+    <string name="code_m1">Vehicles with fewer than eight seats and Gross Vehicle Weight (GVW) not exceeding 5000 kg.</string>
+    <string name="description4">Passenger Van/Jeepney</string>
+    <string name="code_m2">Passenger vehicles with more than eight seats and GVW of less than 5000 kg.</string>
+    <string name="description7">Heavy Passenger Bus</string>
+    <string name="code_m3">Vehicles with more than eight seats and a maximum GVW of more than 5000 kg.</string>
+    <string name="description5">Light Commercial</string>
+    <string name="code_n1">Vehicles used for the carriage of goods, with a maximum GVW not exceeding 3500 kg.</string>
+    <string name="description6">Heavy Commercial</string>
+    <string name="code_n2">Vehicles used for the carriage of goods, with maximum GVW exceeding 3500 kg but less than 12000 kg.</string>
+    <string name="code_n3">Vehicles used for the carriage of goods, with maximum GVW exceeding 12000 kg.</string>
+    <string name="description8">Light Articulated</string>
+    <string name="code_o1">Articulated vehicles with GVW less than 750 kg</string>
+    <string name="code_o2">Articulated vehicles with GVW not exceeding 3500 kg</string>
+
+
     <!-- Supporting Documents -->
     <string name="document_info">Supporting Document</string>
+    <string name = "id_title">License ID / Any valid ID</string>
+    <string name="doc_address">Any Billing Document with Home Address</string>
+
+    <!-- Motion Layout -->
+    <string name="motion_title">Book Now! \n And Enjoy your Trip!</string>
+    <string name="motion_copyright">Rodney Estacion \n Batch: MD5P</string>
+
+
+    <!-- Menu List -->
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_profile">Update Profile</string>
 
 
 </resources>

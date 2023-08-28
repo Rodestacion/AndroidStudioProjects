@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -22,6 +23,68 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="@string/id_title" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/imageID"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/id_picture" />
+
+                <ImageButton
+                    android:id="@+id/imgBtnID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minHeight="48dp"
+                    android:src="@drawable/baseline_add_a_photo_24" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="@string/doc_address" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/imageAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/address_picture" />
+
+                <ImageButton
+                    android:id="@+id/imgBtnAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:minHeight="48dp"
+                    android:src="@drawable/baseline_add_a_photo_24" />
+
+            </FrameLayout>
+
+
+            <Button
+                android:id="@+id/btnNextProcess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/next" />
 
         </LinearLayout>
     </ScrollView>

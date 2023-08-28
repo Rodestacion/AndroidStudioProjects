@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "426403445243",
+    "project_id": "tripmocarrental",
+    "storage_bucket": "tripmocarrental.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426403445243:android:25502bdb05e21e3410335e",
+        "android_client_info": {
+          "package_name": "com.data.tripmocarrental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426403445243-rql6sphc8o6ghregqsnqtqtuu4bn62ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqX1e585f5OEnxUByzbNvJe96wgcmJdJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426403445243-rql6sphc8o6ghregqsnqtqtuu4bn62ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

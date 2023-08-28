@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/gradient"/>
+
+    <!-- Android Drawable Importer -->
+    <!-- Not compatible with the version of your running IDE (Android Studio Flamingo | 2022.2.1) -->
+    <!-- Compatible with IntelliJ IDEA (Ultimate, Community, Educational), Android Studio -->
+    <!-- https://youtu.be/ADFwuRB7wH0 -->
+
+    <item android:drawable="@drawable/trip_mo_logo"
+        android:width="200dp"
+        android:height="125dp"
+        android:gravity="center"/>
+
+
+</layer-list>

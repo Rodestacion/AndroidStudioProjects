@@ -34,6 +34,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etBrand"
+                    android:inputType="textCapCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -45,6 +46,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etModel"
+                    android:inputType="textCapCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,10 +66,60 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="@string/vehicle_category">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etVehicleCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/clutch_type"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="15dp">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/clutch1" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/clutch2" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/clutch3" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="@string/plate_number">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPlateNumber"
+                    android:inputType="textCapCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +131,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCertificateRegistration"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -109,28 +162,32 @@
                 android:id="@+id/vehicleDriveMode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:paddingStart="15dp">
 
                 <RadioButton
                     android:id="@+id/btnRadOwnerDrive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/drive_mode1"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <RadioButton
                     android:id="@+id/btnRadSelfDrive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/drive_mode2"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <RadioButton
                     android:id="@+id/btnRadBothAllowed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:text="@string/drive_mode3"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
             </RadioGroup>
 
             <Button
