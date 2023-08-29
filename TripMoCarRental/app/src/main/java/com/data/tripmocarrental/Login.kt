@@ -87,6 +87,12 @@ class Login : AppCompatActivity() {
             }
 
 
+//            //For Checking Main Activity UI
+//            val nextScreen = Intent(this,MainActivity::class.java)
+//            startActivity(nextScreen)
+//            finish()
+
+
         }
 
 

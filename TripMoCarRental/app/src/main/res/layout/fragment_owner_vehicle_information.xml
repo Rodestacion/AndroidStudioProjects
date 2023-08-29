@@ -85,27 +85,28 @@
                 android:textSize="16sp" />
 
             <RadioGroup
+                android:id="@+id/vehicleClutchType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingStart="15dp">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radManual"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/clutch1" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radAutomatic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/clutch2" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radSemiAuto"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

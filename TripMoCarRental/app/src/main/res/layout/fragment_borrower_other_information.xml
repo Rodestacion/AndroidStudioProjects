@@ -6,6 +6,7 @@
     tools:context=".registrationborrower.BorrowerOtherInformationFragment">
 
     <ScrollView
+        android:id="@+id/r"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="10dp"
@@ -76,9 +77,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etLicenseNumber"
-                        android:inputType="textCapCharacters"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -102,11 +103,11 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etRestriction"
-                        android:inputType="textCapCharacters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:inputType="textCapCharacters" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,20 +120,21 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
+                    android:id="@+id/radLicenseType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
 
                     <RadioButton
-                        android:id="@+id/radioButton6"
+                        android:id="@+id/radProfessional"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="@string/license_pro" />
 
                     <RadioButton
-                        android:id="@+id/radioButton7"
+                        android:id="@+id/radNonPro"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -148,20 +150,21 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
+                    android:id="@+id/radTransmissionType"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:paddingStart="15dp">
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/radManualDrive"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="@string/clutch1" />
 
                     <RadioButton
-                        android:id="@+id/radioButton5"
+                        android:id="@+id/radAutoDrive"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -175,11 +178,11 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etCondition"
-                        android:inputType="textCapCharacters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:inputType="textCapCharacters" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
 import com.data.tripmocarrental.databinding.FragmentProfileBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -37,6 +38,20 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
+//                if (
+//                    binding.etFirstName.text!!.isEmpty() ||
+//                    binding.etMiddleName.text!!.isEmpty() ||
+//                    binding.etLastName.text!!.isEmpty() ||
+//                    binding.etAge.text!!.isEmpty() ||
+//                    binding.etBirthday.text!!.isEmpty()
+//                ){
+//                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    onNextProcess?.invoke(0)
+//                }
+
+
+                //For Checking only
                 onNextProcess?.invoke(0)
             }
         }

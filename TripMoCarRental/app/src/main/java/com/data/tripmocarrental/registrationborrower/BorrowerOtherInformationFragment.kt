@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
 import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.ConditionCodeLayoutBinding
 import com.data.tripmocarrental.databinding.FragmentBorrowerOtherInformationBinding
@@ -41,6 +42,24 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
+//                if(binding.btnRadWithLicense.isChecked){
+//                    if(
+//                        binding.etLicenseNumber.text!!.isEmpty() ||
+//                        binding.etExpirationDate.text!!.isEmpty() ||
+//                        binding.etRestriction.text!!.isEmpty() ||
+//                        !(binding.radProfessional.isChecked || binding.radNonPro.isChecked ) ||
+//                        !(binding.radManualDrive.isChecked || binding.radAutoDrive.isChecked ) ||
+//                        binding.etCondition.text!!.isEmpty()
+//                    ){
+//                        Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+//                    }else{
+//                        onNextProcess?.invoke(0)
+//                    }
+//                }else{
+//                    onNextProcess?.invoke(0)
+//                }
+
+                //For Checking only
                 onNextProcess?.invoke(0)
             }
         }

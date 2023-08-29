@@ -139,5 +139,11 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_profile">Update Profile</string>
 
+    <!-- Navigation bar -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+
+
 
 </resources>

@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
+import androidx.core.view.isEmpty
 import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.ConditionCodeLayoutBinding
 import com.data.tripmocarrental.databinding.FragmentOwnerVehicleInformationBinding
@@ -46,6 +48,23 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
+//                if(
+//                    binding.etBrand.text!!.isEmpty() ||
+//                    binding.etModel.text!!.isEmpty() ||
+//                    binding.etSeatingCapacity.text!!.isEmpty() ||
+//                    binding.etVehicleCategory.text!!.isEmpty() ||
+//                    !(binding.radManual.isChecked || binding.radAutomatic.isChecked || binding.radSemiAuto.isChecked) ||
+//                    binding.etPlateNumber.text!!.isEmpty() ||
+//                    binding.etCertificateRegistration.text!!.isEmpty() ||
+//                    binding.etRegisterDate.text!!.isEmpty() ||
+//                    !(binding.btnRadOwnerDrive.isChecked || binding.btnRadSelfDrive.isChecked || binding.btnRadBothAllowed.isChecked)
+//                ){
+//                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+//                }else{
+//                    onNextProcess?.invoke(0)
+//                }
+
+                //For Checking only
                 onNextProcess?.invoke(0)
             }
         }
