@@ -42,29 +42,6 @@ class Login : AppCompatActivity() {
             startActivity(nextScreen)
         }
 
-        //Simple Login
-//        binding.btnLogin.setOnClickListener {
-//            val username = binding.etEmail.text.toString()
-//            val password = binding.etPassword.text.toString()
-//
-//            if (username == "user" && password == "user123"){
-//                val nextScreen = Intent(this,MainActivity::class.java)
-//                nextScreen.putExtra("user",1)
-//                startActivity(nextScreen)
-//                finish()
-//
-//            }else if (username == "admin" && password == "admin123") {
-//                val nextScreen = Intent(this, MainActivity::class.java)
-//                nextScreen.putExtra("user",2)
-//                startActivity(nextScreen)
-//                finish()
-//            }else{
-//                Toast.makeText(applicationContext, "Authentication Failed", Toast.LENGTH_SHORT).show()
-//            }
-//
-//
-//        }
-
         //Firebase Login
         binding.btnLogin.setOnClickListener {
             binding.progressLogin.visibility = View.VISIBLE
@@ -110,24 +87,34 @@ class Login : AppCompatActivity() {
                     val getEmail = data["email"]
                     val getUser = data["userType"]
                     val getProfile = data["profileComplete"]
+                    val getStatus = data["profileStatus"]
+                    val getID = document.id
+
+                    //pass user info as array
+                    var userArray = arrayListOf<String>()
+                    userArray.add(getEmail.toString())
+                    userArray.add(getUser.toString())
+                    userArray.add(getProfile.toString())
+                    userArray.add(getStatus.toString())
+                    userArray.add(getID)
 
                     if(getProfile.toString().toBoolean()){
                         binding.progressLogin.visibility = View.GONE
                         val nextScreen = Intent(this, MainActivity::class.java)
-                        //Next Put Extra
+                        nextScreen.putExtra("userInfo",userArray)
                         startActivity(nextScreen)
                         finish()
                     }else{
                         if(getUser.toString() == "borrower"){
                             binding.progressLogin.visibility = View.GONE
                             val nextScreen = Intent(this, BorrowerRegistration::class.java)
-                            //Next Put Extra
+                            nextScreen.putExtra("userInfo",userArray)
                             startActivity(nextScreen)
                             finish()
                         }else{
                             binding.progressLogin.visibility = View.GONE
                             val nextScreen = Intent(this, OwnerRegistration::class.java)
-                            //Next Put Extra
+                            nextScreen.putExtra("userInfo",userArray)
                             startActivity(nextScreen)
                             finish()
                         }

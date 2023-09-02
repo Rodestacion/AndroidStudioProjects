@@ -41,7 +41,8 @@
     <string name="contact_number">Contact Number:</string>
     <string name="cellphone_number">Cellphone#</string>
     <string name="telephone_number">Telephone#</string>
-    <string name="next">Next Process</string>
+    <string name="next">Save &amp; Proceed to Next Process</string>
+    <string name="finish">Upload &amp; Complete the Registration</string>
 
     <!-- Borrower Information -->
     <string name="license_info">License Information</string>
@@ -124,8 +125,8 @@
 
     <!-- Supporting Documents -->
     <string name="document_info">Supporting Document</string>
-    <string name = "id_title">License ID / Any valid ID</string>
-    <string name="doc_address">Any Billing Document with Home Address</string>
+    <string name = "id_title">License ID if available / Any valid ID</string>
+    <string name="doc_address">Any Billing Document with Complete Home Address Information</string>
 
     <!-- Motion Layout -->
     <string name="motion_title">Book Now! \n And Enjoy your Trip!</string>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.FragmentContactInformationBinding
 
@@ -25,23 +27,32 @@ class ContactInformationFragment : Fragment() {
 
         binding.apply {
             btnNextProcess.setOnClickListener {
-//                if( binding.etHouseBlock.text!!.isEmpty() ||
-//                    binding.etStreet.text!!.isEmpty() ||
-//                    //binding.etBuildingSubdivision.text!!.isEmpty() || //Optional Information
-//                    binding.etBarangay.text!!.isEmpty() ||
-//                    binding.etCity.text!!.isEmpty() ||
-//                    binding.etProvince.text!!.isEmpty() ||
-//                    binding.etZipCode.text!!.isEmpty() ||
-//                    binding.etCellphone.text!!.isEmpty()
-//                    //binding.etTelephone.text!!.isEmpty() //Optional Information
-//                ) {
-//                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    onNextProcess?.invoke(0)
-//                }
+                if( binding.etHouseBlock.text!!.isEmpty() ||
+                    binding.etStreet.text!!.isEmpty() ||
+                    binding.etBuildingSubdivision.text!!.isEmpty() || //Optional Information
+                    binding.etBarangay.text!!.isEmpty() ||
+                    binding.etCity.text!!.isEmpty() ||
+                    binding.etProvince.text!!.isEmpty() ||
+                    binding.etZipCode.text!!.isEmpty() ||
+                    binding.etCellphone.text!!.isEmpty() ||
+                    binding.etTelephone.text!!.isEmpty() //Optional Information
+                ) {
+                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+                }else{
+                    var contactInfo = arrayListOf<String>()
+                    contactInfo.add(binding.etHouseBlock.text.toString())
+                    contactInfo.add(binding.etStreet.text.toString())
+                    contactInfo.add(binding.etBuildingSubdivision.text.toString())
+                    contactInfo.add(binding.etBarangay.text.toString())
+                    contactInfo.add(binding.etCity.text.toString())
+                    contactInfo.add(binding.etProvince.text.toString())
+                    contactInfo.add(binding.etZipCode.text.toString())
+                    contactInfo.add(binding.etCellphone.text.toString())
+                    contactInfo.add(binding.etTelephone.text.toString())
 
-                //For Checking only
-                onNextProcess?.invoke(0)
+                    setFragmentResult("requestKey", bundleOf("contactInfoKey" to contactInfo))
+                    onNextProcess?.invoke(0)
+                }
             }
         }
 

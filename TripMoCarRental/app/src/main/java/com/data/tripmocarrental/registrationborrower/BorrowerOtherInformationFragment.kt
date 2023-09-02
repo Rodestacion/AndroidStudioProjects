@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.ConditionCodeLayoutBinding
 import com.data.tripmocarrental.databinding.FragmentBorrowerOtherInformationBinding
@@ -22,7 +24,9 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
     private lateinit var binding: FragmentBorrowerOtherInformationBinding
 
     //Invoke variable
-    var onNextProcess:((Int)->Unit)?=null
+    var onWithLicenseProcess:((Int)->Unit)?=null
+    var onWithoutLicenseProcess:((Int)->Unit)?=null
+
 
     //Date Selection Variable
     private val calendar = Calendar.getInstance()
@@ -42,25 +46,47 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
-//                if(binding.btnRadWithLicense.isChecked){
-//                    if(
-//                        binding.etLicenseNumber.text!!.isEmpty() ||
-//                        binding.etExpirationDate.text!!.isEmpty() ||
-//                        binding.etRestriction.text!!.isEmpty() ||
-//                        !(binding.radProfessional.isChecked || binding.radNonPro.isChecked ) ||
-//                        !(binding.radManualDrive.isChecked || binding.radAutoDrive.isChecked ) ||
-//                        binding.etCondition.text!!.isEmpty()
-//                    ){
-//                        Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
-//                    }else{
-//                        onNextProcess?.invoke(0)
-//                    }
-//                }else{
-//                    onNextProcess?.invoke(0)
-//                }
+                if(binding.btnRadWithLicense.isChecked){
+                    if(
+                        binding.etLicenseNumber.text!!.isEmpty() ||
+                        binding.etExpirationDate.text!!.isEmpty() ||
+                        binding.etRestriction.text!!.isEmpty() ||
+                        !(binding.radProfessional.isChecked || binding.radNonPro.isChecked ) ||
+                        !(binding.radManualDrive.isChecked || binding.radAutoDrive.isChecked ) ||
+                        binding.etCondition.text!!.isEmpty()
+                    ){
+                        Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+                    }else{
+                        var withLicenseInfo = arrayListOf<String>()
 
-                //For Checking only
-                onNextProcess?.invoke(0)
+                        withLicenseInfo.add(true.toString())
+                        withLicenseInfo.add(etLicenseNumber.text.toString())
+                        withLicenseInfo.add(etExpirationDate.text.toString())
+                        withLicenseInfo.add(etRestriction.text.toString())
+
+                        var classification = if (binding.radProfessional.isChecked){
+                            binding.radProfessional.text.toString()
+                        }else{
+                            binding.radNonPro.text.toString()
+                        }
+                        withLicenseInfo.add(classification)
+
+                        var transmission = if (binding.radManualDrive.isChecked){
+                            binding.radManualDrive.text.toString()
+                        }else{
+                            binding.radAutoDrive.text.toString()
+                        }
+                        withLicenseInfo.add(transmission)
+
+                        withLicenseInfo.add(etCondition.text.toString())
+
+                        setFragmentResult("requestKey", bundleOf("withLicenseInfoKey" to withLicenseInfo))
+                        onWithLicenseProcess?.invoke(0)
+                    }
+                }else{
+                    setFragmentResult("requestKey", bundleOf("noLicenseInfoKey" to false))
+                    onWithoutLicenseProcess?.invoke(0)
+                }
             }
         }
 
@@ -224,6 +250,7 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
         dialogBinding.cb3.text = "3"
         dialogBinding.cb4.text = "4"
         dialogBinding.cb5.text = "5"
+        dialogBinding.cb6.text = "None"
 
         //Change Code Selection
         dialogBinding.codeRadGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -234,6 +261,7 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
                     dialogBinding.cb3.text = "C"
                     dialogBinding.cb4.text = "D"
                     dialogBinding.cb5.text = "E"
+                    dialogBinding.cb6.text = "None"
                 }
                 R.id.btnRadNewCode->{
                     dialogBinding.cb1.text = "1"
@@ -241,8 +269,35 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
                     dialogBinding.cb3.text = "3"
                     dialogBinding.cb4.text = "4"
                     dialogBinding.cb5.text = "5"
+                    dialogBinding.cb6.text = "None"
                 }
             }
+        }
+
+        //Remove Check on None checkbox
+        dialogBinding.cb1.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb6.isChecked = false
+        }
+        dialogBinding.cb2.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb6.isChecked = false
+        }
+        dialogBinding.cb3.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb6.isChecked = false
+        }
+        dialogBinding.cb4.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb6.isChecked = false
+        }
+        dialogBinding.cb5.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb6.isChecked = false
+        }
+
+        //Remove Check on other checkbox when None is checked
+        dialogBinding.cb6.setOnCheckedChangeListener { _, _ ->
+            dialogBinding.cb1.isChecked = false
+            dialogBinding.cb2.isChecked = false
+            dialogBinding.cb3.isChecked = false
+            dialogBinding.cb4.isChecked = false
+            dialogBinding.cb5.isChecked = false
         }
 
         alertDialogBuilder.setView(dialogLayout)
@@ -283,6 +338,13 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
                     condition = condition + ";" + dialogBinding.cb5.text.toString()
                 }else{
                     condition = dialogBinding.cb5.text.toString()
+                }
+            }
+            if(dialogBinding.cb6.isChecked){
+                if (condition.isNotEmpty()){
+                    condition = dialogBinding.cb6.text.toString()
+                }else{
+                    condition = dialogBinding.cb6.text.toString()
                 }
             }
 

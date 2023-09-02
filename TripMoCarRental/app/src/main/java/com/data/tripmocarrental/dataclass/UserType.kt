@@ -1,3 +1,3 @@
 package com.data.tripmocarrental.dataclass
 
-data class UserType(var email:String,var userType: String, var profileComplete:Boolean)
+data class UserType(var email:String,var userType: String, var profileComplete:Boolean,var profileStatus:String)

@@ -1,6 +1,7 @@
 package com.data.tripmocarrental.common
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.databinding.FragmentProfileBinding
+import com.data.tripmocarrental.registrationborrower.BorrowerRegistration
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -38,21 +42,26 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
-//                if (
-//                    binding.etFirstName.text!!.isEmpty() ||
-//                    binding.etMiddleName.text!!.isEmpty() ||
-//                    binding.etLastName.text!!.isEmpty() ||
-//                    binding.etAge.text!!.isEmpty() ||
-//                    binding.etBirthday.text!!.isEmpty()
-//                ){
-//                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    onNextProcess?.invoke(0)
-//                }
+                if (
+                    binding.etFirstName.text!!.isEmpty() ||
+                    binding.etMiddleName.text!!.isEmpty() ||
+                    binding.etLastName.text!!.isEmpty() ||
+                    binding.etAge.text!!.isEmpty() ||
+                    binding.etBirthday.text!!.isEmpty()
+                ){
+                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+                }else{
+                var basicInfo = arrayListOf<String>()
 
+                    basicInfo.add(binding.etFirstName.text.toString())
+                    basicInfo.add(binding.etMiddleName.text.toString())
+                    basicInfo.add(binding.etLastName.text.toString())
+                    basicInfo.add(binding.etAge.text.toString())
+                    basicInfo.add(binding.etBirthday.text.toString())
 
-                //For Checking only
-                onNextProcess?.invoke(0)
+                setFragmentResult("requestKey", bundleOf("basicInfoKey" to basicInfo))
+                    onNextProcess?.invoke(0)
+                }
             }
         }
 

@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        var userInfo = intent.getStringArrayListExtra("userInfo")
+        Toast.makeText(applicationContext, userInfo.toString(), Toast.LENGTH_SHORT).show()
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.navigationBar.setNavigationItemSelectedListener {
@@ -70,4 +73,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

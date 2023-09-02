@@ -17,9 +17,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.bumptech.glide.Glide
 import com.data.tripmocarrental.databinding.FragmentSupportingDocumentBinding
+import com.google.firebase.installations.Utils
+import java.io.File
 
 
 class SupportingDocumentFragment : Fragment() {
@@ -28,7 +32,7 @@ class SupportingDocumentFragment : Fragment() {
     private lateinit var galleryLauncher1: ActivityResultLauncher<String>
     private lateinit var startActivityLauncher2: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher2: ActivityResultLauncher<String>
-
+    private lateinit var image1Uri:Uri
     //Invoke variable
     var onNextProcess:((Int)->Unit)?=null
 
@@ -51,6 +55,9 @@ class SupportingDocumentFragment : Fragment() {
                     .load(bitmap)
                     .into(binding.imageID)
                 //binding.imageView.setImageBitmap(bitmap)
+
+
+                image1Uri = result.data!!.data!!
             }
         }
 
@@ -58,6 +65,7 @@ class SupportingDocumentFragment : Fragment() {
             ActivityResultContracts.GetContent()
         ){uri: Uri? ->
             if(uri != null){
+                image1Uri = uri
                 var contentResolver = requireActivity().contentResolver
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 binding.imageID.setImageBitmap(bitmap)
@@ -98,6 +106,7 @@ class SupportingDocumentFragment : Fragment() {
 
         binding.apply {
             btnNextProcess.setOnClickListener {
+                setFragmentResult("requestKey", bundleOf("documentKey" to image1Uri))
                 onNextProcess?.invoke(0)
             }
         }
@@ -121,7 +130,7 @@ class SupportingDocumentFragment : Fragment() {
             dialog.dismiss()
         }
 
-        dialogBuilder.setNegativeButton("Gallery"){dialog,_->
+        dialogBuilder.setNegativeButton("Gallery"){ _, _->
             galleryLauncher1.launch("image/*")
 
         }
@@ -147,7 +156,7 @@ class SupportingDocumentFragment : Fragment() {
             dialog.dismiss()
         }
 
-        dialogBuilder.setNegativeButton("Gallery"){dialog,_->
+        dialogBuilder.setNegativeButton("Gallery"){ _, _->
             galleryLauncher2.launch("image/*")
 
         }

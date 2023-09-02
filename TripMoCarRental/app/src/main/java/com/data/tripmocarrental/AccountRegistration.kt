@@ -72,7 +72,6 @@ class AccountRegistration : AppCompatActivity() {
             Toast.makeText(applicationContext, "Input fields should not empty", Toast.LENGTH_SHORT).show()
         }else{
             if (password==retypePassword){
-                var registerSuccessful = false
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                     if(it.isSuccessful){
                         binding.progressRegistration.visibility = View.GONE
@@ -80,7 +79,7 @@ class AccountRegistration : AppCompatActivity() {
 
                         //Restart firestore to be able to update user type
                         firestore = FirebaseFirestore.getInstance()
-                        val user = UserType(email,userType,false)
+                        val user = UserType(email,userType,false,"first")
 
                         Firebase.firestore.collection("usertype")
                             .add(user)
