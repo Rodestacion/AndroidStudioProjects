@@ -52,7 +52,6 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
                 }else{
                 var basicInfo = arrayListOf<String>()
-
                     basicInfo.add(binding.etFirstName.text.toString())
                     basicInfo.add(binding.etMiddleName.text.toString())
                     basicInfo.add(binding.etLastName.text.toString())

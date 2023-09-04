@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,19 +20,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import com.bumptech.glide.Glide
-import com.data.tripmocarrental.databinding.FragmentSupportingDocumentBinding
-import com.google.firebase.installations.Utils
-import java.io.File
+import com.data.tripmocarrental.R
+import com.data.tripmocarrental.databinding.FragmentSupportingIdBinding
 
 
-class SupportingDocumentFragment : Fragment() {
-    private lateinit var binding: FragmentSupportingDocumentBinding
+class SupportingIdFragment : Fragment() {
+    private lateinit var binding: FragmentSupportingIdBinding
     private lateinit var startActivityLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<String>
     private var imageUri: Uri?= null
+
     //Invoke variable
     var onNextProcess:((Int)->Unit)?=null
 
@@ -39,10 +39,10 @@ class SupportingDocumentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =  FragmentSupportingDocumentBinding.inflate(layoutInflater,container,false)
+        binding = FragmentSupportingIdBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
 
-        //Image for Address
+        //Image for ID
         startActivityLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ){result: ActivityResult ->
@@ -51,8 +51,7 @@ class SupportingDocumentFragment : Fragment() {
 
                 Glide.with(this)
                     .load(bitmap)
-                    .optionalCenterCrop()
-                    .into(binding.imageAddress)
+                    .into(binding.imageID)
             }
         }
 
@@ -63,13 +62,13 @@ class SupportingDocumentFragment : Fragment() {
                 imageUri = uri
                 var contentResolver = requireActivity().contentResolver
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-                binding.imageAddress.setImageBitmap(bitmap)
+                binding.imageID.setImageBitmap(bitmap)
             }else{
                 imageUri = null
             }
         }
 
-        binding.imgBtnAddress.setOnClickListener(){
+        binding.imgBtnID.setOnClickListener(){
             showDialog()
         }
 
@@ -79,16 +78,14 @@ class SupportingDocumentFragment : Fragment() {
                     Toast.makeText(requireContext(), "Attach document must not empty", Toast.LENGTH_SHORT).show()
                 }else{
                     var docLink = imageUri.toString()
-                    setFragmentResult("requestKey", bundleOf("documentKey" to docLink))
-                    onNextProcess?.invoke(4)
-                }  
+                    setFragmentResult("requestKey", bundleOf("IDKey" to docLink))
+                    onNextProcess?.invoke(3)
+                }
             }
         }
 
         return binding.root
     }
-
-
 
     private fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(this.requireActivity())

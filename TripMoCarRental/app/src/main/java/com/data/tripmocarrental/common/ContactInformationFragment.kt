@@ -1,6 +1,8 @@
 package com.data.tripmocarrental.common
 
 import android.os.Bundle
+import android.os.DeadObjectException
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,32 +29,37 @@ class ContactInformationFragment : Fragment() {
 
         binding.apply {
             btnNextProcess.setOnClickListener {
-                if( binding.etHouseBlock.text!!.isEmpty() ||
-                    binding.etStreet.text!!.isEmpty() ||
-                    binding.etBuildingSubdivision.text!!.isEmpty() || //Optional Information
-                    binding.etBarangay.text!!.isEmpty() ||
-                    binding.etCity.text!!.isEmpty() ||
-                    binding.etProvince.text!!.isEmpty() ||
-                    binding.etZipCode.text!!.isEmpty() ||
-                    binding.etCellphone.text!!.isEmpty() ||
-                    binding.etTelephone.text!!.isEmpty() //Optional Information
-                ) {
-                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
-                }else{
-                    var contactInfo = arrayListOf<String>()
-                    contactInfo.add(binding.etHouseBlock.text.toString())
-                    contactInfo.add(binding.etStreet.text.toString())
-                    contactInfo.add(binding.etBuildingSubdivision.text.toString())
-                    contactInfo.add(binding.etBarangay.text.toString())
-                    contactInfo.add(binding.etCity.text.toString())
-                    contactInfo.add(binding.etProvince.text.toString())
-                    contactInfo.add(binding.etZipCode.text.toString())
-                    contactInfo.add(binding.etCellphone.text.toString())
-                    contactInfo.add(binding.etTelephone.text.toString())
+                try {
+                    if( binding.etHouseBlock.text!!.isEmpty() ||
+                        binding.etStreet.text!!.isEmpty() ||
+                        binding.etBuildingSubdivision.text!!.isEmpty() || //Optional Information
+                        binding.etBarangay.text!!.isEmpty() ||
+                        binding.etCity.text!!.isEmpty() ||
+                        binding.etProvince.text!!.isEmpty() ||
+                        binding.etZipCode.text!!.isEmpty() ||
+                        binding.etCellphone.text!!.isEmpty() ||
+                        binding.etTelephone.text!!.isEmpty() //Optional Information
+                    ) {
+                        Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+                    }else{
+                        var contactInfo = arrayListOf<String>()
+                        contactInfo.add(binding.etHouseBlock.text.toString())
+                        contactInfo.add(binding.etStreet.text.toString())
+                        contactInfo.add(binding.etBuildingSubdivision.text.toString())
+                        contactInfo.add(binding.etBarangay.text.toString())
+                        contactInfo.add(binding.etCity.text.toString())
+                        contactInfo.add(binding.etProvince.text.toString())
+                        contactInfo.add(binding.etZipCode.text.toString())
+                        contactInfo.add(binding.etCellphone.text.toString())
+                        contactInfo.add(binding.etTelephone.text.toString())
 
-                    setFragmentResult("requestKey", bundleOf("contactInfoKey" to contactInfo))
-                    onNextProcess?.invoke(0)
+                        setFragmentResult("requestKey", bundleOf("contactInfoKey" to contactInfo))
+                        onNextProcess?.invoke(1)
+                    }
+                }catch (e:DeadObjectException){
+                    Log.d("SCREEN_DESTROY",e.toString())
                 }
+
             }
         }
 

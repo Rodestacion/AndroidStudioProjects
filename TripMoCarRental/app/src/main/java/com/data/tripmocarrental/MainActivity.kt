@@ -10,14 +10,21 @@ import com.data.tripmocarrental.databinding.ActivityMainBinding
 import com.data.tripmocarrental.registrationborrower.BorrowerRegistration
 import com.data.tripmocarrental.registrationowner.OwnerRegistration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
     lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Initialize Firebase
+        auth = Firebase.auth
 
         toggle = ActionBarDrawerToggle(this,binding.root, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -43,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Profile", Toast.LENGTH_SHORT).show()
                 }
                 R.id.navLogout->{
-                    Toast.makeText(applicationContext, "Logout", Toast.LENGTH_SHORT).show()
+                    userLogout()
                 }
             }
             true
@@ -72,6 +79,13 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun userLogout(){
+        auth.signOut()
+        val nextScreen = Intent(this,Login::class.java)
+        startActivity(nextScreen)
+        finish()
     }
 
 }

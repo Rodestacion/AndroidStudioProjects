@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isEmpty
+import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.ConditionCodeLayoutBinding
 import com.data.tripmocarrental.databinding.FragmentOwnerVehicleInformationBinding
@@ -48,24 +50,54 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
         //Button action when click Next Process
         binding.apply {
             btnNextProcess.setOnClickListener {
-//                if(
-//                    binding.etBrand.text!!.isEmpty() ||
-//                    binding.etModel.text!!.isEmpty() ||
-//                    binding.etSeatingCapacity.text!!.isEmpty() ||
-//                    binding.etVehicleCategory.text!!.isEmpty() ||
-//                    !(binding.radManual.isChecked || binding.radAutomatic.isChecked || binding.radSemiAuto.isChecked) ||
-//                    binding.etPlateNumber.text!!.isEmpty() ||
-//                    binding.etCertificateRegistration.text!!.isEmpty() ||
-//                    binding.etRegisterDate.text!!.isEmpty() ||
-//                    !(binding.btnRadOwnerDrive.isChecked || binding.btnRadSelfDrive.isChecked || binding.btnRadBothAllowed.isChecked)
-//                ){
-//                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    onNextProcess?.invoke(0)
-//                }
+                if(
+                    binding.etBrand.text!!.isEmpty() ||
+                    binding.etModel.text!!.isEmpty() ||
+                    binding.etSeatingCapacity.text!!.isEmpty() ||
+                    binding.etVehicleCategory.text!!.isEmpty() ||
+                    !(binding.radManual.isChecked || binding.radAutomatic.isChecked || binding.radSemiAuto.isChecked) ||
+                    binding.etPlateNumber.text!!.isEmpty() ||
+                    binding.etCertificateRegistration.text!!.isEmpty() ||
+                    binding.etRegisterDate.text!!.isEmpty() ||
+                    !(binding.btnRadOwnerDrive.isChecked || binding.btnRadSelfDrive.isChecked || binding.btnRadBothAllowed.isChecked)
+                ){
+                    Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+                }else{
+                    val vehicleInfo = arrayListOf<String>()
+
+                    vehicleInfo.add(binding.etBrand.text.toString())
+                    vehicleInfo.add(binding.etModel.text.toString())
+                    vehicleInfo.add(binding.etSeatingCapacity.text.toString())
+                    vehicleInfo.add(binding.etVehicleCategory.text.toString())
+
+                    val transmission = if(binding.radManual.isChecked){
+                        binding.radManual.text.toString()
+                    }else if(binding.radAutomatic.isChecked){
+                        binding.radAutomatic.text.toString()
+                    }else{
+                        binding.radSemiAuto.text.toString()
+                    }
+
+                    vehicleInfo.add(transmission)
+                    vehicleInfo.add(binding.etPlateNumber.text.toString())
+                    vehicleInfo.add(binding.etCertificateRegistration.text.toString())
+                    vehicleInfo.add(binding.etRegisterDate.text.toString())
+
+                    val drivingMode = if(binding.btnRadOwnerDrive.isChecked){
+                        binding.btnRadOwnerDrive.text.toString()
+                    }else if(binding.btnRadSelfDrive.isChecked){
+                        binding.btnRadSelfDrive.text.toString()
+                    }else{
+                        binding.btnRadBothAllowed.text.toString()
+                    }
+                    vehicleInfo.add(drivingMode)
+
+                    setFragmentResult("requestKey", bundleOf("vehicleInfoKey" to vehicleInfo))
+                    onNextProcess?.invoke(2)
+                }
 
                 //For Checking only
-                onNextProcess?.invoke(0)
+                //onNextProcess?.invoke(0)
             }
         }
 

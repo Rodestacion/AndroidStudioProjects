@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.SupportingDocumentFragment">
+    tools:context=".common.SupportingIdFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,24 +12,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/document_info"
+                android:text="@string/id_info"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="italic" />
-
-
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:hint="@string/doc_address" />
+                android:hint="@string/id_title" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -38,13 +35,13 @@
                 android:layout_margin="10dp">
 
                 <ImageView
-                    android:id="@+id/imageAddress"
+                    android:id="@+id/imageID"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/address_picture" />
+                    android:src="@drawable/id_picture" />
 
                 <ImageButton
-                    android:id="@+id/imgBtnAddress"
+                    android:id="@+id/imgBtnID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
@@ -53,7 +50,6 @@
 
             </FrameLayout>
 
-
             <Button
                 android:id="@+id/btnNextProcess"
                 android:layout_width="match_parent"
@@ -61,8 +57,10 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:text="@string/finish" />
+                android:text="@string/next" />
 
         </LinearLayout>
+
+
     </ScrollView>
 </FrameLayout>

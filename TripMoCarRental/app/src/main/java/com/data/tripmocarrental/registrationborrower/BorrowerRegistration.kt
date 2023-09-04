@@ -12,10 +12,9 @@ import com.data.tripmocarrental.common.ContactInformationFragment
 import com.data.tripmocarrental.common.ProfileFragment
 import com.data.tripmocarrental.common.SplashScreen
 import com.data.tripmocarrental.common.SupportingDocumentFragment
+import com.data.tripmocarrental.common.SupportingIdFragment
 import com.data.tripmocarrental.databinding.ActivityBorrowerRegistrationBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.ArrayList
@@ -27,10 +26,8 @@ class BorrowerRegistration : AppCompatActivity() {
     private lateinit var f1:ProfileFragment
     private lateinit var f2:ContactInformationFragment
     private lateinit var f3:BorrowerOtherInformationFragment
-    private lateinit var f4:SupportingDocumentFragment
-    private var docUploadSuccess1: Boolean = false
-    private var docUploadSuccess2: Boolean = false
-    private var imageUri: Uri?=null
+    private lateinit var f4: SupportingIdFragment
+    private lateinit var f5:SupportingDocumentFragment
     private lateinit var storageRef: StorageReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,44 +36,24 @@ class BorrowerRegistration : AppCompatActivity() {
 
         // Initialize Firebase
         firestore = FirebaseFirestore.getInstance()
-        storageRef = FirebaseStorage.getInstance().reference.child("Images")
+        storageRef = FirebaseStorage.getInstance().reference.child("BorrowerDocs")
 
         // Initialize Fragment
         f1 = ProfileFragment()
         f2 = ContactInformationFragment()
         f3 = BorrowerOtherInformationFragment()
-        f4 = SupportingDocumentFragment()
+        f4 = SupportingIdFragment()
+        f5 = SupportingDocumentFragment()
 
         //pass User Information during Registration
         userInfo = intent.getStringArrayListExtra("userInfo")!!
 
         //initialize default Borrower Registration Form fragment
-        supportFragmentManager.beginTransaction().apply {
-            when(userInfo.elementAt(3).toString()){
-                "first"->{
-                    replace(R.id.borrowerFragmentContainerView,f1)
-                    commit()
-                }
-                "second"->{
-                    binding.progressBar3.progress = 25
-                    replace(R.id.borrowerFragmentContainerView,f2)
-                    commit()
-                }
-                "third"->{
-                    binding.progressBar3.progress = 50
-                    replace(R.id.borrowerFragmentContainerView,f3)
-                    commit()
-                }
-                "fourth"->{
-                    binding.progressBar3.progress = 75
-                    replace(R.id.borrowerFragmentContainerView,f4)
-                    commit()
-                }
-            }
-        }
+        initializeFragment()
 
         //Move on next fragment
         f1.onNextProcess = {
+
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val basicInfo = bundle.getStringArrayList("basicInfoKey")
                 profileInfoAdd(basicInfo)
@@ -106,10 +83,58 @@ class BorrowerRegistration : AppCompatActivity() {
 
         f4.onNextProcess={
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
-                val result = bundle.getString("documentKey")?.toUri()
-                imageUri = result
-                supportingIDDocumentAdd()
-                Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
+                binding.progressBar5.visibility = View.VISIBLE
+                val getDocUri = bundle.getString("IDKey")
+                val imageIDUri = getDocUri.toString().toUri()
+
+                supportingIDDocumentAdd(imageIDUri)
+            }
+
+        }
+        f5.onNextProcess={
+            supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
+                binding.progressBar5.visibility = View.VISIBLE
+                val getDocUri = bundle.getString("documentKey")
+                val imageDocUri = getDocUri.toString().toUri()
+
+                supportingAddressDocumentAdd(imageDocUri)
+            }
+
+        }
+    }
+//     On resume return of previous fragment when browse image
+//    override fun onResume() {
+//        super.onResume()
+//        initializeFragment()
+//    }
+
+    private fun initializeFragment(){
+        supportFragmentManager.beginTransaction().apply {
+            when(userInfo.elementAt(3).toString()){
+                "first"->{
+                    replace(R.id.borrowerFragmentContainerView,f1)
+                    commit()
+                }
+                "second"->{
+                    binding.progressBar3.progress = 20
+                    replace(R.id.borrowerFragmentContainerView,f2)
+                    commit()
+                }
+                "third"->{
+                    binding.progressBar3.progress = 40
+                    replace(R.id.borrowerFragmentContainerView,f3)
+                    commit()
+                }
+                "fourth"->{
+                    binding.progressBar3.progress = 60
+                    replace(R.id.borrowerFragmentContainerView,f4)
+                    commit()
+                }
+                "fifth"->{
+                    binding.progressBar3.progress = 80
+                    replace(R.id.borrowerFragmentContainerView,f5)
+                    commit()
+                }
             }
         }
     }
@@ -140,7 +165,7 @@ class BorrowerRegistration : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, "Basic Info Update Successful", Toast.LENGTH_SHORT).show()
                 supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar3.progress = 25
+                    binding.progressBar3.progress = 20
                     replace(R.id.borrowerFragmentContainerView,f2)
                     commit()
                 }
@@ -183,7 +208,7 @@ class BorrowerRegistration : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, "Contact Info Update Successful", Toast.LENGTH_SHORT).show()
                 supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar3.progress = 50
+                    binding.progressBar3.progress = 40
                     replace(R.id.borrowerFragmentContainerView,f3)
                     commit()
                 }
@@ -209,7 +234,7 @@ class BorrowerRegistration : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"License Info Update Successful",Toast.LENGTH_SHORT).show()
                 supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar3.progress = 75
+                    binding.progressBar3.progress = 60
                     replace(R.id.borrowerFragmentContainerView,f4)
                     commit()
                 }
@@ -249,7 +274,7 @@ class BorrowerRegistration : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"License Info Update Successful",Toast.LENGTH_SHORT).show()
                 supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar3.progress = 75
+                    binding.progressBar3.progress = 60
                     replace(R.id.borrowerFragmentContainerView,f4)
                     commit()
                 }
@@ -258,13 +283,79 @@ class BorrowerRegistration : AppCompatActivity() {
 
             }
     }
+//    var imageRef = Firebase.storage.reference
+//    private fun deleteImage() = CoroutineScope(Dispatchers.IO).launch {
+//        try {
+//            imageRef.child("Images/40ayATiiQg1rOrufSnuD_userID").delete().await()
+//            withContext(Dispatchers.Main){
+//                Toast.makeText(applicationContext, "Successfully Deleted", Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }catch (e:Exception){
+//            withContext(Dispatchers.Main){
+//                Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 
-    private fun supportingIDDocumentAdd(){
+    private fun supportingIDDocumentAdd(imageIDUri: Uri) {
         val myID = userInfo.elementAt(4)
         val filename:String = "${myID}_userID"
+        storageRef = FirebaseStorage.getInstance().reference.child("BorrowerDocs")
 
         storageRef = storageRef.child(filename)
-        imageUri?.let {
+        imageIDUri?.let {
+            storageRef.putFile(it).addOnCompleteListener{task->
+                if (task.isSuccessful){
+                    storageRef.downloadUrl
+
+                        .addOnSuccessListener {uri->
+                            var imageLink = uri.toString()
+
+                            val db = FirebaseFirestore.getInstance()
+                            val userTypeRef = db.collection("usertype")
+                            val documentRef = userTypeRef.document(myID)
+
+                            val details = hashMapOf<String, Any?>(
+                                "imageIDLink" to imageLink,
+                                "profileStatus" to "fifth"
+                            )
+
+                            documentRef.update(details)
+                                .addOnSuccessListener {
+                                    binding.progressBar5.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "ID Upload Successful", Toast.LENGTH_SHORT).show()
+
+                                    supportFragmentManager.beginTransaction().apply {
+                                        binding.progressBar3.progress = 80
+                                        replace(R.id.borrowerFragmentContainerView,f5)
+                                        commit()
+                                    }
+
+                                }
+                                .addOnFailureListener {
+                                    binding.progressBar5.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
+
+                                }
+                        }
+
+                }else{
+                    binding.progressBar5.visibility = View.GONE
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        }
+    }
+
+    private fun supportingAddressDocumentAdd(imageDocUri: Uri) {
+        val myID = userInfo.elementAt(4)
+        val filename:String = "${myID}_userAddress"
+        storageRef = FirebaseStorage.getInstance().reference.child("BorrowerDocs")
+
+        storageRef = storageRef.child(filename)
+        imageDocUri?.let {
             storageRef.putFile(it).addOnCompleteListener{task->
                 if (task.isSuccessful){
                     storageRef.downloadUrl.addOnSuccessListener {uri->
@@ -275,24 +366,29 @@ class BorrowerRegistration : AppCompatActivity() {
                         val documentRef = userTypeRef.document(myID)
 
                         val details = hashMapOf<String, Any?>(
-                            "imageLink" to imageLink
+                            "imageAddressLink" to imageLink,
+                            "profileComplete" to true,
+                            "profileStatus" to "done"
                         )
+                            documentRef.update(details)
+                                .addOnSuccessListener {
+                                    binding.progressBar5.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "Document Upload Successful", Toast.LENGTH_SHORT).show()
 
-                        documentRef.update(details)
-                            .addOnSuccessListener {
-                                docUploadSuccess1 = true
-                                //Toast.makeText(applicationContext, "Supporting Document Upload Successful", Toast.LENGTH_SHORT).show()
+                                    val nextScreen = Intent(this,SplashScreen::class.java)
+                                    nextScreen.putExtra("userInfo",userInfo)
+                                    startActivity(nextScreen)
+                                    finish()
 
-//                                val nextScreen = Intent(this,SplashScreen::class.java)
-//                                startActivity(nextScreen)
-//                                finish()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
-                            }
+                                }
+                                .addOnFailureListener {
+                                    binding.progressBar5.visibility = View.GONE
+                                    Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
+                                }
                     }
 
                 }else{
+                    binding.progressBar5.visibility = View.GONE
                     Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }

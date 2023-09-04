@@ -63,7 +63,6 @@
     <string name="transmission_type">Transmission/Clutch:</string>
 
 
-
     <!-- Vehicle Information -->
     <string name="vehicle_info">Vehicle Information</string>
     <string name="vehicle_brand">Brand</string>
@@ -124,8 +123,9 @@
 
 
     <!-- Supporting Documents -->
-    <string name="document_info">Supporting Document</string>
-    <string name = "id_title">License ID if available / Any valid ID</string>
+    <string name="id_info">Identification Supporting Document</string>
+    <string name="document_info">Address Supporting Document</string>
+    <string name="id_title">License ID if available / Any valid ID</string>
     <string name="doc_address">Any Billing Document with Complete Home Address Information</string>
 
     <!-- Motion Layout -->
@@ -143,8 +143,6 @@
     <!-- Navigation bar -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-
-
 
 
 </resources>

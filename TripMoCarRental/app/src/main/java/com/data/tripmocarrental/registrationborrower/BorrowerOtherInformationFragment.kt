@@ -81,7 +81,7 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
                         withLicenseInfo.add(etCondition.text.toString())
 
                         setFragmentResult("requestKey", bundleOf("withLicenseInfoKey" to withLicenseInfo))
-                        onWithLicenseProcess?.invoke(0)
+                        onWithLicenseProcess?.invoke(2)
                     }
                 }else{
                     setFragmentResult("requestKey", bundleOf("noLicenseInfoKey" to false))
