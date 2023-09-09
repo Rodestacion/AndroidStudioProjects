@@ -29,7 +29,7 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
 
     //Date Selection Variable
     private val calendar = Calendar.getInstance()
-    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.US)
+    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.TAIWAN)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,16 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
 
 
         binding.etRegisterDate.setOnClickListener {
-            DatePickerDialog(this.requireContext(),this,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
+            var newCalendar = Calendar.getInstance()
+            var dialog = DatePickerDialog(
+                this.requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+                //.show()
+            dialog.getDatePicker().maxDate = newCalendar.timeInMillis
+            dialog.show()
         }
 
         binding.etVehicleCategory.setOnClickListener {

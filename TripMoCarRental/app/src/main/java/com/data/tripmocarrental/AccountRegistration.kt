@@ -43,19 +43,12 @@ class AccountRegistration : AppCompatActivity() {
             finish()
         }
 
-        //debugging Register execution
-//        binding.btnRegister.setOnClickListener {
-//            val nextScreen = Intent(this,Login::class.java)
-//            startActivity(nextScreen)
-//            finish()
-//        }
-
         //Firebase Registration
         binding.btnRegister.setOnClickListener {
             if(binding.btnRadBorrower.isChecked){
-                userRegistration("owner")
-            }else if(binding.btnRadOwner.isChecked){
                 userRegistration("borrower")
+            }else if(binding.btnRadOwner.isChecked){
+                userRegistration("owner")
             }else{
                 Toast.makeText(applicationContext, "No Type of account has been selected", Toast.LENGTH_SHORT).show()
             }
@@ -64,6 +57,7 @@ class AccountRegistration : AppCompatActivity() {
 
     private fun userRegistration(userType:String){
         binding.progressRegistration.visibility = View.VISIBLE
+        binding.btnRegister.isEnabled = false
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
         val retypePassword = binding.etRePassword.text.toString()
@@ -75,7 +69,7 @@ class AccountRegistration : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                     if(it.isSuccessful){
                         binding.progressRegistration.visibility = View.GONE
-                        auth.signOut()
+                        //auth.signOut()
 
                         //Restart firestore to be able to update user type
                         firestore = FirebaseFirestore.getInstance()
@@ -84,19 +78,23 @@ class AccountRegistration : AppCompatActivity() {
                         Firebase.firestore.collection("usertype")
                             .add(user)
                             .addOnSuccessListener {
+                                binding.btnRegister.isEnabled = true
+                                Toast.makeText(applicationContext, "Registration Successful", Toast.LENGTH_SHORT).show()
                                 val nextScreen = Intent(this,Login::class.java)
                                 startActivity(nextScreen)
                                 finish()
-                                Toast.makeText(applicationContext, "Registration Successful", Toast.LENGTH_SHORT).show()
+
                             }
                             .addOnFailureListener {e->
-                                Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_SHORT).show()
+                                binding.btnRegister.isEnabled = true
+                                Toast.makeText(applicationContext, "Registration Failed", Toast.LENGTH_SHORT).show()
                             }
 
                     }else{
                         binding.progressRegistration.visibility = View.GONE
                         Log.d("AUTHENTICATION",it.exception.toString())
                         if(it.exception.toString() == "com.google.firebase.auth.FirebaseAuthWeakPasswordException: The given password is invalid. [ Password should be at least 6 characters ]"){
+                            binding.btnRegister.isEnabled = true
                             Toast.makeText(applicationContext, "Password should be at least 6 characters", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -104,6 +102,7 @@ class AccountRegistration : AppCompatActivity() {
                 }
             }else{
                 binding.progressRegistration.visibility = View.GONE
+                binding.btnRegister.isEnabled = true
                 Toast.makeText(applicationContext, "Password Mismatch", Toast.LENGTH_SHORT).show()
             }
         }

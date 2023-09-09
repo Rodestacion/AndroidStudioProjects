@@ -56,28 +56,39 @@ class BorrowerRegistration : AppCompatActivity() {
 
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val basicInfo = bundle.getStringArrayList("basicInfoKey")
-                profileInfoAdd(basicInfo)
+                if (basicInfo!= null){
+                    profileInfoAdd(basicInfo)
+                }
             }
         }
 
         f2.onNextProcess={
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val contactInfo = bundle.getStringArrayList("contactInfoKey")
-                contactInfoAdd(contactInfo)
+                if (contactInfo!= null){
+                    contactInfoAdd(contactInfo)
+                }
+
             }
         }
 
         f3.onWithLicenseProcess={
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val withLicenseInfo = bundle.getStringArrayList("withLicenseInfoKey")
-                licenseInfoAdd(withLicenseInfo)
+                if (withLicenseInfo!= null){
+                    licenseInfoAdd(withLicenseInfo)
+                }
+
             }
         }
 
         f3.onWithoutLicenseProcess={
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val noLicenseInfo = bundle.getBoolean("noLicenseInfoKey")
-                noLicenseInfoAdd(noLicenseInfo)
+                if (noLicenseInfo!= null){
+                    noLicenseInfoAdd(noLicenseInfo)
+                }
+
             }
         }
 
@@ -87,7 +98,13 @@ class BorrowerRegistration : AppCompatActivity() {
                 val getDocUri = bundle.getString("IDKey")
                 val imageIDUri = getDocUri.toString().toUri()
 
-                supportingIDDocumentAdd(imageIDUri)
+                if (imageIDUri!= null){
+                    supportingIDDocumentAdd(imageIDUri)
+                }else{
+                    binding.progressBar5.visibility = View.GONE
+                }
+
+
             }
 
         }
@@ -97,7 +114,13 @@ class BorrowerRegistration : AppCompatActivity() {
                 val getDocUri = bundle.getString("documentKey")
                 val imageDocUri = getDocUri.toString().toUri()
 
-                supportingAddressDocumentAdd(imageDocUri)
+                if (imageDocUri!= null){
+                    supportingAddressDocumentAdd(imageDocUri)
+                }else{
+                    binding.progressBar5.visibility = View.GONE
+                }
+
+
             }
 
         }

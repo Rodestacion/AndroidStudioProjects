@@ -54,27 +54,31 @@ class OwnerRegistration : AppCompatActivity() {
         f1.onNextProcess = {
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val basicInfo = bundle.getStringArrayList("basicInfoKey")
-                profileInfoAdd(basicInfo)
+                if(basicInfo!=null){
+                    profileInfoAdd(basicInfo)
+                }
+
+
             }
         }
 
         f2.onNextProcess = {
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val contactInfo = bundle.getStringArrayList("contactInfoKey")
-                contactInfoAdd(contactInfo)
+                if(contactInfo!=null){
+                    contactInfoAdd(contactInfo)
+                }
+
             }
         }
 
         f3.onNextProcess = {
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
                 val vehicleInfo = bundle.getStringArrayList("vehicleInfoKey")
-                addVehicleInfo(vehicleInfo)
-            }
+                if(vehicleInfo!=null){
+                    addVehicleInfo(vehicleInfo)
+                }
 
-            supportFragmentManager.beginTransaction().apply {
-                binding.progressBar2.progress = 75
-                replace(R.id.ownerFragmentContainerView,f4)
-                commit()
             }
         }
 
@@ -84,7 +88,13 @@ class OwnerRegistration : AppCompatActivity() {
                 val getDocUri = bundle.getString("IDKey")
                 val imageIDUri = getDocUri.toString().toUri()
 
-                supportingIDDocumentAdd(imageIDUri)
+                if(imageIDUri!=null){
+                    supportingIDDocumentAdd(imageIDUri)
+                }else{
+                    binding.progressBar.visibility = View.GONE
+                }
+
+
             }
 
         }
@@ -94,7 +104,13 @@ class OwnerRegistration : AppCompatActivity() {
                 val getDocUri = bundle.getString("documentKey")
                 val imageDocUri = getDocUri.toString().toUri()
 
-                supportingAddressDocumentAdd(imageDocUri)
+                if(imageDocUri!=null){
+                    supportingAddressDocumentAdd(imageDocUri)
+                }else{
+                    binding.progressBar.visibility = View.GONE
+                }
+
+
             }
 
         }
@@ -144,13 +160,14 @@ class OwnerRegistration : AppCompatActivity() {
         storageRef = FirebaseStorage.getInstance().reference.child("BorrowerDocs")
     }
 
-    override fun onPause() {
-        super.onPause()
-        initializeFirebase()
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        initializeFirebase()
+//    }
 
 
     private fun profileInfoAdd(basicInfo: ArrayList<String>?) {
+        //Log.d("TEST456",basicInfo.toString())
         val myID = userInfo.elementAt(4)
 
         val firstName = basicInfo!!.elementAt(0)
@@ -174,7 +191,7 @@ class OwnerRegistration : AppCompatActivity() {
 
         documentRef.update(profile)
             .addOnSuccessListener {
-                db.clearPersistence()
+                
                 Toast.makeText(applicationContext,"Basic Info Update Successful",Toast.LENGTH_SHORT).show()
 
                 supportFragmentManager.beginTransaction().apply {
@@ -184,12 +201,13 @@ class OwnerRegistration : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
-                db.clearPersistence()
+                
                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
     }
 
     private fun contactInfoAdd(contactInfo: ArrayList<String>?) {
+        //Log.d("TEST123",contactInfo.toString())
         val myID = userInfo.elementAt(4)
 
         val houseNo = contactInfo!!.elementAt(0)
@@ -221,7 +239,7 @@ class OwnerRegistration : AppCompatActivity() {
 
         documentRef.update(contacts)
             .addOnSuccessListener {
-                db.clearPersistence()
+                
                 Toast.makeText(applicationContext, "Contact Info Update Successful", Toast.LENGTH_SHORT).show()
                 supportFragmentManager.beginTransaction().apply {
                     binding.progressBar2.progress = 40
@@ -230,7 +248,7 @@ class OwnerRegistration : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
-                db.clearPersistence()
+                
                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
     }
@@ -245,15 +263,16 @@ class OwnerRegistration : AppCompatActivity() {
         val vehicleCategory = vehicleInfo.elementAt(3)
         val vehicleTransmission = vehicleInfo.elementAt(4)
         val vehiclePlateNo = vehicleInfo.elementAt(5)
-        val vehicleCerfRegNo = vehicleInfo.elementAt(6).toInt()
+        val vehicleCerfRegNo = vehicleInfo.elementAt(6)
         val vehicleRegisterDate = vehicleInfo.elementAt(7)
         val vehicleDriveMode = vehicleInfo.elementAt(8)
 
-        val db = FirebaseFirestore.getInstance()
-        val userTypeRef = db.collection("usertype")
-        val documentRef = userTypeRef.document(myID)
+        var db = FirebaseFirestore.getInstance()
+        //var userTypeRef = db.collection("vehicleList")
+        //var documentRef = userTypeRef.document(myID)
 
         val vehicle = hashMapOf<String,Any?>(
+            "vehicleOwner" to myID,
             "vehicleBrand" to vehicleBrand,
             "vehicleModel" to vehicleModel,
             "vehicleCapacity" to vehicleCapacity,
@@ -262,25 +281,38 @@ class OwnerRegistration : AppCompatActivity() {
             "vehiclePlateNo" to vehiclePlateNo,
             "vehicleCerfRegNo" to vehicleCerfRegNo,
             "vehicleRegisterDate" to vehicleRegisterDate,
-            "vehicleDriveMode" to vehicleDriveMode,
-            "profileStatus" to "fourth"
+            "vehicleDriveMode" to vehicleDriveMode
         )
 
-        documentRef.update(vehicle)
+        db.collection("vehicleList").add(vehicle)
             .addOnSuccessListener {
-                db.clearPersistence()
-                Toast.makeText(applicationContext, "Contact Info Update Successful", Toast.LENGTH_SHORT).show()
-                supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar2.progress = 60
-                    replace(R.id.ownerFragmentContainerView,f4)
-                    commit()
-                }
+
+                db = FirebaseFirestore.getInstance()
+                val userTypeRef = db.collection("usertype")
+                val documentRef = userTypeRef.document(myID)
+
+                val update = hashMapOf<String,Any?>(
+                    "profileStatus" to "fourth"
+                )
+
+                documentRef.update(update)
+                    .addOnSuccessListener {
+                        Toast.makeText(applicationContext, "Vehicle Info Update Successful", Toast.LENGTH_SHORT).show()
+                        supportFragmentManager.beginTransaction().apply {
+                            binding.progressBar2.progress = 60
+                            replace(R.id.ownerFragmentContainerView,f4)
+                            commit()
+                        }
+                    }
+
             }
             .addOnFailureListener {
-                db.clearPersistence()
+                
                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
     }
+
+
 
     private fun supportingIDDocumentAdd(imageIDUri: Uri) {
         val myID = userInfo.elementAt(4)
@@ -307,7 +339,7 @@ class OwnerRegistration : AppCompatActivity() {
 
                             documentRef.update(details)
                                 .addOnSuccessListener {
-                                    db.clearPersistence()
+                                    
                                     binding.progressBar.visibility = View.GONE
                                     Toast.makeText(applicationContext, "ID Upload Successful", Toast.LENGTH_SHORT).show()
 
@@ -319,7 +351,7 @@ class OwnerRegistration : AppCompatActivity() {
 
                                 }
                                 .addOnFailureListener {
-                                    db.clearPersistence()
+                                    
                                     binding.progressBar.visibility = View.GONE
                                     Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
 
@@ -358,7 +390,7 @@ class OwnerRegistration : AppCompatActivity() {
                         )
                         documentRef.update(details)
                             .addOnSuccessListener {
-                                db.clearPersistence()
+                                
                                 binding.progressBar.visibility = View.GONE
                                 Toast.makeText(applicationContext, "Document Upload Successful", Toast.LENGTH_SHORT).show()
 
@@ -369,7 +401,7 @@ class OwnerRegistration : AppCompatActivity() {
 
                             }
                             .addOnFailureListener {
-                                db.clearPersistence()
+                                
                                 binding.progressBar.visibility = View.GONE
                                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
                             }

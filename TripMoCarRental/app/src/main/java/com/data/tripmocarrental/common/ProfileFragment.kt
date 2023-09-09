@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.databinding.FragmentProfileBinding
 import com.data.tripmocarrental.registrationborrower.BorrowerRegistration
+import com.google.type.TimeOfDay
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -26,7 +27,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     //Date Selection Variable
     private val calendar = Calendar.getInstance()
-    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.US)
+    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.TAIWAN)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,18 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         // Inflate the layout for this fragment
 
         binding.etBirthday.setOnClickListener {
-            DatePickerDialog(this.requireContext(),this,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
+            val newCalendar = Calendar.getInstance()
+
+            var dialog = DatePickerDialog(
+                this.requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+                //.show()
+            dialog.getDatePicker().maxDate = newCalendar.timeInMillis
+            dialog.show()
+
         }
 
         //Button action when click Next Process
@@ -51,7 +63,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 ){
                     Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
                 }else{
-                var basicInfo = arrayListOf<String>()
+                    var basicInfo = arrayListOf<String>()
                     basicInfo.add(binding.etFirstName.text.toString())
                     basicInfo.add(binding.etMiddleName.text.toString())
                     basicInfo.add(binding.etLastName.text.toString())

@@ -30,7 +30,7 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
 
     //Date Selection Variable
     private val calendar = Calendar.getInstance()
-    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.US)
+    private val formatter = SimpleDateFormat("MM/dd/yyy",Locale.TAIWAN)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,16 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
         // Inflate the layout for this fragment
 
         binding.etExpirationDate.setOnClickListener {
-            DatePickerDialog(this.requireContext(),this,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show()
+            var newCalendar = Calendar.getInstance()
+            var dialog = DatePickerDialog(
+                this.requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+                //.show()
+            dialog.getDatePicker().minDate = newCalendar.timeInMillis
+            dialog.show()
         }
 
         //Button action when click Next Process
