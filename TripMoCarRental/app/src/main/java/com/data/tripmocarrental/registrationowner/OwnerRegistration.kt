@@ -266,6 +266,7 @@ class OwnerRegistration : AppCompatActivity() {
         val vehicleCerfRegNo = vehicleInfo.elementAt(6)
         val vehicleRegisterDate = vehicleInfo.elementAt(7)
         val vehicleDriveMode = vehicleInfo.elementAt(8)
+        val vehicleRentalCost = vehicleInfo.elementAt(9)
 
         var db = FirebaseFirestore.getInstance()
         //var userTypeRef = db.collection("vehicleList")
@@ -281,7 +282,8 @@ class OwnerRegistration : AppCompatActivity() {
             "vehiclePlateNo" to vehiclePlateNo,
             "vehicleCerfRegNo" to vehicleCerfRegNo,
             "vehicleRegisterDate" to vehicleRegisterDate,
-            "vehicleDriveMode" to vehicleDriveMode
+            "vehicleDriveMode" to vehicleDriveMode,
+            "vehicleRentalCost" to vehicleRentalCost
         )
 
         db.collection("vehicleList").add(vehicle)

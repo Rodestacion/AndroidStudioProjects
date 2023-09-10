@@ -1,23 +1,28 @@
 package com.data.tripmocarrental.borrower.reservationfragment
 
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import android.widget.Toast
 import com.data.tripmocarrental.databinding.FragmentCarInfoBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 
-class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     private lateinit var binding:FragmentCarInfoBinding
     private val DAY1_INMILLIS: Long = 86400000
-
+    private val HOUR1_INMILLIS: Long = 3600000
+    private val MINUTE1_INMILLIS: Long = 60000
     //Date Selection Variable
     private var calendar = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.TAIWAN)
@@ -25,6 +30,11 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     var selectDate:String = ""
     var startDate:String = ""
     var endDate:String = ""
+
+    //Time Selection Variable
+    private val timeFormat = SimpleDateFormat("h:mm a", Locale.US)
+    var myHour: Int = 0
+    var myMinute: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +44,22 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding = FragmentCarInfoBinding.inflate(layoutInflater,container,false)
 
         //initialize date disable
+        //to change from FireStore Array
         disableDate.add(convertDate("09/01/2023"))
         disableDate.add(convertDate("09/08/2023"))
         disableDate.add(convertDate("09/15/2023"))
         disableDate.add(convertDate("09/21/2023"))
         disableDate.add(convertDate("09/28/2023"))
 
-        binding.carAvailableCalendarView.apply {
-//            val todayDate = Calendar.getInstance()
-//            minDate = (todayDate.timeInMillis) + (2*DAY1_INMILLIS)
-//
-//            setDate(todayDate.timeInMillis,false)
-
-        }
-        binding.button.setOnClickListener {
+        binding.btnAvailableDate.setOnClickListener {
             startDate =""
             endDate = ""
             selectDate = "Start"
             customStartCalendar()
+        }
+
+        binding.btnTimePickReturn.setOnClickListener {
+            customTimePicker()
         }
 
 
@@ -80,6 +88,16 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
         dialog.show(childFragmentManager,"Datepickerdialog")
 
+    }
+    private fun customTimePicker(){
+        var dialog = TimePickerDialog(
+            this.requireContext(),
+            this,
+            myHour,
+            myMinute,
+            false
+        )
+        dialog.show()
     }
 
     private fun customEndCalendar(){
@@ -146,19 +164,20 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     }
 
                     if(reserveNotPossible){
-                        binding.etCheckResult.setText("")
                         startDate = ""
                         endDate = ""
                         selectDate = ""
                         Toast.makeText(requireContext(), "Selected Date Range is not available", Toast.LENGTH_SHORT).show()
                     }else{
-                        binding.etCheckResult.setText("$startDate $endDate")
+                        binding.etStartDate.setText(startDate)
+                        binding.etEndDate.setText(endDate)
                         startDate = ""
                         endDate = ""
                         selectDate = ""
                     }
                 }else{
-                    binding.etCheckResult.setText("")
+                    binding.etStartDate.setText("")
+                    binding.etEndDate.setText("")
                     startDate = ""
                     endDate = ""
                     selectDate = ""
@@ -169,6 +188,19 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 endDate = ""
                 selectDate = ""
             }
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        myHour = hourOfDay
+        myMinute = minute
+        val newTime = (myHour*HOUR1_INMILLIS) + (myMinute*MINUTE1_INMILLIS)
+        displayFormattedTime(newTime)
+    }
+
+    private fun displayFormattedTime(newTime: Long) {
+        val myTime = Calendar.getInstance()
+        myTime.timeInMillis = newTime - (8*HOUR1_INMILLIS) // Remove time zone offset
+        binding.etTimePickReturn.setText("${timeFormat.format(myTime.time)}")
     }
 
     //End Function for Date Selection

@@ -2,17 +2,18 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_dynamic_primary60"
     app:layoutDescription="@xml/activity_splash_screen_scene"
-    tools:context=".common.SplashScreen"
-    android:id="@+id/motionLayout"
-    android:background="@drawable/gradient">
+    tools:context=".common.SplashScreen">
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="200dp"
-        android:layout_height="125dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
         android:src="@drawable/trip_mo_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,15 +25,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.0"
-        android:textAlignment="center"
         android:text="@string/motion_title"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         android:textColor="#fff"
-        android:textStyle="bold"
+        android:textSize="48sp"
+        android:textStyle="bold|italic"
+        app:fontFamily="cursive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.769" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/copyright"

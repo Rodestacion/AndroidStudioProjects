@@ -121,6 +121,25 @@
     <string name="code_o1">Articulated vehicles with GVW less than 750 kg</string>
     <string name="code_o2">Articulated vehicles with GVW not exceeding 3500 kg</string>
 
+    <!-- Rental Cost -->
+    <string name="rent_Cost">Rental Cost?</string>
+    <string name="v1_Cost">550</string>
+    <string name="v1_type">Scooter/Classic Bike</string>
+    <string name="v2_Cost">1800</string>
+    <string name="v2_type">Cruiser/Choppers</string>
+    <string name="v3_Cost">2900</string>
+    <string name="v3_type">Sports Bike</string>
+    <string name="v4_Cost">1500</string>
+    <string name="v4_type">4 Seater Sedan/Hatchback</string>
+    <string name="v5_Cost">2000</string>
+    <string name="v5_type">6~7 seater MPV/Minivan</string>
+    <string name="v6_Cost">2500</string>
+    <string name="v6_type">8 seater MPV/Minivan</string>
+    <string name="v7_Cost">3000</string>
+    <string name="v7_type">4~7 SUV/Crossover/Pickup seater</string>
+    <string name="v8_Cost">3500</string>
+    <string name="v8_type">More than 8 seater Van</string>
+
 
     <!-- Supporting Documents -->
     <string name="id_info">Identification Supporting Document</string>
@@ -129,7 +148,7 @@
     <string name="doc_address">Any Billing Document with Complete Home Address Information</string>
 
     <!-- Motion Layout -->
-    <string name="motion_title">Book Now! \n And Enjoy your Trip!</string>
+    <string name="motion_title">Welcome \n to \n Trip Mo \n Car Rental!</string>
     <string name="motion_copyright">Rodney Estacion \n Batch: MD5P</string>
 
 
@@ -143,13 +162,16 @@
     <!-- Navigation bar -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Reservation -->
     <string name="hint_start_date">Start Date</string>
     <string name="hint_return_date">Return Date</string>
-    <string name="hint_pickup_time">Pickup Time</string>
+    <string name="hint_pickup_time">Pickup Time &amp; Return Time</string>
+    <string name="btn_check_date">Check Available Date</string>
+    <string name="btn_set_time">Set Pickup Time/Return Time</string>
+    <string name="btn_book_now">Book Now!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

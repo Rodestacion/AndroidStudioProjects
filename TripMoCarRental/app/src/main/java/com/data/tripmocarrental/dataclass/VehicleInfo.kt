@@ -10,4 +10,5 @@ data class VehicleInfo (
     val vehiclePlateNo:String,
     val vehicleCerfRegNo:String,
     val vehicleRegisterDate:String,
-    val vehicleDriveMode:String )
+    val vehicleDriveMode:String,
+    val vehicleRentalCost:String)

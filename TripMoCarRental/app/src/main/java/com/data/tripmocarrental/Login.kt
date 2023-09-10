@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.data.tripmocarrental.borrower.CarReservationActivity
+import com.data.tripmocarrental.common.SplashScreen
 import com.data.tripmocarrental.databinding.ActivityLoginBinding
 import com.data.tripmocarrental.registrationborrower.BorrowerRegistration
 import com.data.tripmocarrental.registrationowner.OwnerRegistration

@@ -16,6 +16,7 @@ import com.data.tripmocarrental.R
 import com.data.tripmocarrental.databinding.ConditionCodeLayoutBinding
 import com.data.tripmocarrental.databinding.FragmentOwnerVehicleInformationBinding
 import com.data.tripmocarrental.databinding.VehicleCodeLayoutBinding
+import com.data.tripmocarrental.databinding.VehiclePriceLayoutBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -37,6 +38,10 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
     ): View? {
         binding = FragmentOwnerVehicleInformationBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
+
+        binding.etRentalCost.setOnClickListener {
+            rentalCost()
+        }
 
 
         binding.etRegisterDate.setOnClickListener {
@@ -68,7 +73,8 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
                     binding.etPlateNumber.text!!.isEmpty() ||
                     binding.etCertificateRegistration.text!!.isEmpty() ||
                     binding.etRegisterDate.text!!.isEmpty() ||
-                    !(binding.btnRadOwnerDrive.isChecked || binding.btnRadSelfDrive.isChecked || binding.btnRadBothAllowed.isChecked)
+                    !(binding.btnRadOwnerDrive.isChecked || binding.btnRadSelfDrive.isChecked || binding.btnRadBothAllowed.isChecked) ||
+                    binding.etRentalCost.text!!.isEmpty()
                 ){
                     Toast.makeText(requireActivity(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
                 }else{
@@ -100,6 +106,7 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
                         binding.btnRadBothAllowed.text.toString()
                     }
                     vehicleInfo.add(drivingMode)
+                    vehicleInfo.add(binding.etRentalCost.toString())
 
                     setFragmentResult("requestKey", bundleOf("vehicleInfoKey" to vehicleInfo))
                     onNextProcess?.invoke(2)
@@ -111,6 +118,52 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
         }
 
         return binding.root
+    }
+
+    //RentalCost
+    private fun rentalCost(){
+        val alertDialogBuilder = AlertDialog.Builder(this.requireContext())
+        alertDialogBuilder.setTitle("Vehicle Rental Cost")
+        val dialogLayout = layoutInflater.inflate(R.layout.vehicle_price_layout,null)
+        val dialogBinding = VehiclePriceLayoutBinding.bind(dialogLayout)
+        var rentCost:String = ""
+        dialogBinding.radRentalCost.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                R.id.radV1Price->{
+                    rentCost = dialogBinding.radV1Price.text.toString()
+                }
+                R.id.radV2Price->{
+                    rentCost = dialogBinding.radV2Price.text.toString()
+                }
+                R.id.radV3Price->{
+                    rentCost = dialogBinding.radV3Price.text.toString()
+                }
+                R.id.radV4Price->{
+                    rentCost = dialogBinding.radV4Price.text.toString()
+                }
+                R.id.radV5Price->{
+                    rentCost = dialogBinding.radV5Price.text.toString()
+                }
+                R.id.radV6Price->{
+                    rentCost = dialogBinding.radV6Price.text.toString()
+                }
+                R.id.radV7Price->{
+                    rentCost = dialogBinding.radV7Price.text.toString()
+                }
+                R.id.radV8Price->{
+                    rentCost = dialogBinding.radV8Price.text.toString()
+                }
+            }
+        }
+        alertDialogBuilder.setView(dialogLayout)
+
+        alertDialogBuilder.setPositiveButton("OK"){dialog,_->
+            binding.etRentalCost.setText(rentCost)
+            dialog.dismiss()
+        }
+
+        val alertDialog: AlertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     //Vehicle Category Dialog box
