@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.databinding.FragmentCarInfoBinding
+import com.data.tripmocarrental.dataclass.ReserveInfo
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -20,9 +23,12 @@ import java.util.Locale
 
 class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
     private lateinit var binding:FragmentCarInfoBinding
+
+    //Constant Variable
     private val DAY1_INMILLIS: Long = 86400000
     private val HOUR1_INMILLIS: Long = 3600000
     private val MINUTE1_INMILLIS: Long = 60000
+
     //Date Selection Variable
     private var calendar = Calendar.getInstance()
     private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.TAIWAN)
@@ -36,12 +42,56 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
     var myHour: Int = 0
     var myMinute: Int = 0
 
+    //Invoke variable
+    var onBookingCost:((Int)->Unit)?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCarInfoBinding.inflate(layoutInflater,container,false)
+
+        var myBundle = arguments
+        var selectedVehicle = myBundle?.getStringArrayList("selectedVehicle")
+        var userInfo = myBundle?.getStringArrayList("userInfo")
+        var ownerInfo = myBundle?.getStringArrayList("ownerInfo")
+//        Log.d("VehicleReserveinfo",userInfo.toString())
+//        Log.d("VehicleReserveinfo",ownerInfo.toString())
+
+        //initialize text Display Detail
+        val carDetail = "${selectedVehicle?.elementAt(1)} / ${selectedVehicle?.elementAt(2)}"
+        binding.etCarModelDetail.setText(carDetail)
+        binding.etColorReserve.setText(selectedVehicle?.elementAt(3))
+        binding.etCapacity.setText(selectedVehicle?.elementAt(4))
+        binding.etPlateReserve.setText(selectedVehicle?.elementAt(7))
+        binding.etRegisterReserve.setText(selectedVehicle?.elementAt(9))
+        binding.etTransmissionType.setText(selectedVehicle?.elementAt(6))
+        val location = "${selectedVehicle?.elementAt(12)}, ${selectedVehicle?.elementAt(13)}"
+        binding.etLocation.setText(location)
+
+        if(selectedVehicle?.elementAt(10)=="Borrower Self Drive"){
+            binding.btnRadSelfDriveReserve.isEnabled = false
+            binding.btnRadOwnerDriveReserve.isEnabled = false
+
+            binding.btnRadSelfDriveReserve.isChecked = true
+
+            if(!(userInfo?.elementAt(7).toBoolean())){
+                binding.btnBookingCost.isEnabled = false
+                binding.btnAvailableDate.isEnabled = false
+                binding.btnTimePickReturn.isEnabled = false
+                binding.btnBookingCost.text = "Sorry! License in Required!"
+            }
+
+        }else if(selectedVehicle?.elementAt(10)=="Drive by Owner"){
+            binding.btnRadSelfDriveReserve.isEnabled = false
+            binding.btnRadOwnerDriveReserve.isEnabled = false
+
+            binding.btnRadOwnerDriveReserve.isChecked = true
+        }
+
+        //binding.etCarModelDetail.setText("")
+
+
 
         //initialize date disable
         //to change from FireStore Array
@@ -60,6 +110,33 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
 
         binding.btnTimePickReturn.setOnClickListener {
             customTimePicker()
+        }
+        binding.btnBookingCost.setOnClickListener {
+            if(
+                binding.etStartDate.text!!.isEmpty() ||
+                binding.etEndDate.text!!.isEmpty() ||
+                binding.etTimePickReturn.text!!.isEmpty() ||
+                !(binding.btnRadOwnerDriveReserve.isChecked || binding.btnRadSelfDriveReserve.isChecked)
+
+            ){
+                Toast.makeText(requireContext(), "Filled up the empty field with necessary information", Toast.LENGTH_SHORT).show()
+            }else{
+                var bookInfo = arrayListOf<String>()
+                bookInfo.add(binding.etStartDate.text.toString())
+                bookInfo.add(binding.etEndDate.text.toString())
+                bookInfo.add(binding.etTimePickReturn.text.toString())
+
+                val drivingMode = if(binding.btnRadOwnerDriveReserve.isChecked){
+                    binding.btnRadOwnerDriveReserve.text.toString()
+                }else {
+                    binding.btnRadSelfDriveReserve.text.toString()
+                }
+                bookInfo.add(drivingMode)
+
+                //Log.d("VehicleCostA",bookInfo.toString())
+                setFragmentResult("requestKey", bundleOf("bookInfoKey" to bookInfo))
+                onBookingCost?.invoke(0)
+            }
         }
 
 

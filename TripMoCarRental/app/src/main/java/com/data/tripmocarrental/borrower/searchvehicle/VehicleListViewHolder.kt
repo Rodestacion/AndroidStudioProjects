@@ -7,7 +7,7 @@ import com.data.tripmocarrental.dataclass.VehicleInfo
 class VehicleListViewHolder(private val binding: VehicleListLayoutBinding):RecyclerView.ViewHolder(binding.root) {
 
     fun searchVehicleBinding(vehicleInfo:VehicleInfo){
-        binding.txtCarBrandModel.text = "${vehicleInfo.vehicleBrand} / ${vehicleInfo.vehicleModel}"
+        binding.txtCarBrandModel.text = "${vehicleInfo.vehicleBrand} / ${vehicleInfo.vehicleModel} / ${vehicleInfo.vehicleColor}"
 
         if(vehicleInfo.vehicleDriveMode=="Allowed Both"){
             binding.txtDrivingMode.text = "Drive by Owner/Self Drive"
@@ -15,8 +15,8 @@ class VehicleListViewHolder(private val binding: VehicleListLayoutBinding):Recyc
             binding.txtDrivingMode.text = vehicleInfo.vehicleDriveMode
         }
 
-        binding.txtSeatingCpacity.text = vehicleInfo.vehicleCapacity.toString()
+        binding.txtSeatingCapacity.text = vehicleInfo.vehicleCapacity.toString()
         binding.txtTransmissionType.text =vehicleInfo.vehicleTransmission
-        binding.txtLocation.text = ""
+        binding.txtLocation.text = "${vehicleInfo.vehicleCity}, ${vehicleInfo.vehicleProvince} "
     }
 }

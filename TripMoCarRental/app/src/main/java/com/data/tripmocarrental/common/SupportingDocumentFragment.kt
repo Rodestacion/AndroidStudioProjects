@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -48,11 +51,16 @@ class SupportingDocumentFragment : Fragment() {
         ){result: ActivityResult ->
             if(result.resultCode == AppCompatActivity.RESULT_OK){
                 val bitmap = (result.data?.extras?.get("data"))as? Bitmap ?: return@registerForActivityResult
+                //imageUri = BitmapFactory.decodeResource()
+                //val address = (result.data?.extras) as Uri
+                Log.d("VehiclePic", imageUri.toString())
 
                 Glide.with(this)
                     .load(bitmap)
                     .optionalCenterCrop()
                     .into(binding.imageAddress)
+            }else{
+                imageUri = null
             }
         }
 
@@ -61,6 +69,7 @@ class SupportingDocumentFragment : Fragment() {
         ){uri: Uri? ->
             if(uri != null){
                 imageUri = uri
+                Log.d("VehiclePic", imageUri.toString())
                 var contentResolver = requireActivity().contentResolver
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 binding.imageAddress.setImageBitmap(bitmap)

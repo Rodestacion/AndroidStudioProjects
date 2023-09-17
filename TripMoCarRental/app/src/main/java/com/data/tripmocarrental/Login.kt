@@ -47,24 +47,24 @@ class Login : AppCompatActivity() {
         //Firebase Login
         binding.btnLogin.setOnClickListener {
             //Working Login Code
-//            binding.progressLogin.visibility = View.VISIBLE
-//            val email = binding.etEmail.text.toString()
-//            val password = binding.etPassword.text.toString()
-//
-//            if (email.isEmpty() || password.isEmpty()) {
-//                binding.progressLogin.visibility = View.GONE
-//                Toast.makeText(applicationContext, "Input field should not empty", Toast.LENGTH_SHORT).show()
-//            } else {
-//                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-//                    if (it.isSuccessful) {
-//                        searchUserData("usertype",email)
-//                    } else {
-//                        binding.progressLogin.visibility = View.GONE
-//                        Log.d("LOGIN",it.exception.toString())
-//                        Toast.makeText(applicationContext,"Invalid Authentication",Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
+            binding.progressLogin.visibility = View.VISIBLE
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                binding.progressLogin.visibility = View.GONE
+                Toast.makeText(applicationContext, "Input field should not empty", Toast.LENGTH_SHORT).show()
+            } else {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        searchUserData("usertype",email)
+                    } else {
+                        binding.progressLogin.visibility = View.GONE
+                        Log.d("LOGIN",it.exception.toString())
+                        Toast.makeText(applicationContext,"Invalid Authentication",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
             //End of Working Login Code
 
 
@@ -73,10 +73,16 @@ class Login : AppCompatActivity() {
 //            startActivity(nextScreen)
 //            finish()
 
+            //For Checking Main Activity UI
+//            val nextScreen = Intent(this,SplashScreen::class.java)
+//            startActivity(nextScreen)
+//            finish()
+
+
             //For Checking CarReservationActivity UI
-            val nextScreen = Intent(this,CarReservationActivity::class.java)
-            startActivity(nextScreen)
-            finish()
+//            val nextScreen = Intent(this,CarReservationActivity::class.java)
+//            startActivity(nextScreen)
+//            finish()
 
 
         }
@@ -110,7 +116,7 @@ class Login : AppCompatActivity() {
                     if(getProfile.toString().toBoolean()){
                         binding.progressLogin.visibility = View.GONE
                         val nextScreen = Intent(this, MainActivity::class.java)
-                        nextScreen.putExtra("userInfo",userArray)
+                        //nextScreen.putExtra("userInfo",userArray)
                         startActivity(nextScreen)
                         finish()
                     }else{

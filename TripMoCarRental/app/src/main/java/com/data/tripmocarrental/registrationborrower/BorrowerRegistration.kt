@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -14,7 +15,10 @@ import com.data.tripmocarrental.common.SplashScreen
 import com.data.tripmocarrental.common.SupportingDocumentFragment
 import com.data.tripmocarrental.common.SupportingIdFragment
 import com.data.tripmocarrental.databinding.ActivityBorrowerRegistrationBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.ArrayList
@@ -26,7 +30,7 @@ class BorrowerRegistration : AppCompatActivity() {
     private lateinit var f1:ProfileFragment
     private lateinit var f2:ContactInformationFragment
     private lateinit var f3:BorrowerOtherInformationFragment
-    private lateinit var f4: SupportingIdFragment
+    private lateinit var f4:SupportingIdFragment
     private lateinit var f5:SupportingDocumentFragment
     private lateinit var storageRef: StorageReference
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,6 +134,7 @@ class BorrowerRegistration : AppCompatActivity() {
 //        super.onResume()
 //        initializeFragment()
 //    }
+
 
     private fun initializeFragment(){
         supportFragmentManager.beginTransaction().apply {
@@ -278,32 +283,47 @@ class BorrowerRegistration : AppCompatActivity() {
         val applicableTransmissionType = withLicenseInfo.elementAt(5)
         val physicalCondition = withLicenseInfo.elementAt(6)
 
-        val db = FirebaseFirestore.getInstance()
-        val userTypeRef = db.collection("usertype")
-        val documentRef = userTypeRef.document(myID)
+        var db = FirebaseFirestore.getInstance()
+        //val userTypeRef = db.collection("usertype")
+        //val documentRef = userTypeRef.document(myID)
 
         val license = hashMapOf<String, Any?>(
-            "licenseInfo" to licenseInfo,
+            "licenseOwner" to myID,
             "licenseNo" to licenseNo,
             "expirationDate" to expirationDate,
             "restrictionCode" to restrictionCode,
             "licenseClassification" to licenseClassification,
             "applicableTransmissionType" to applicableTransmissionType,
-            "physicalCondition" to physicalCondition,
-            "profileStatus" to "fourth"
+            "physicalCondition" to physicalCondition
         )
 
-        documentRef.update(license)
+        db.collection("licenseList").add(license)
             .addOnSuccessListener {
-                Toast.makeText(applicationContext,"License Info Update Successful",Toast.LENGTH_SHORT).show()
-                supportFragmentManager.beginTransaction().apply {
-                    binding.progressBar3.progress = 60
-                    replace(R.id.borrowerFragmentContainerView,f4)
-                    commit()
-                }
+                db = FirebaseFirestore.getInstance()
+                val userTypeRef = db.collection("usertype")
+                val documentRef = userTypeRef.document(myID)
+
+                val update = hashMapOf<String, Any?>(
+                    "licenseInfo" to licenseInfo,
+                    "profileStatus" to "fourth"
+                )
+
+                documentRef.update(update)
+                    .addOnSuccessListener {
+                        Toast.makeText(applicationContext,"License Info Update Successful",Toast.LENGTH_SHORT).show()
+                        supportFragmentManager.beginTransaction().apply {
+                            binding.progressBar3.progress = 60
+                            replace(R.id.borrowerFragmentContainerView,f4)
+                            commit()
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
+                    }
+
             }
             .addOnFailureListener {
-
+                Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
     }
 //    var imageRef = Firebase.storage.reference
@@ -373,6 +393,7 @@ class BorrowerRegistration : AppCompatActivity() {
     }
 
     private fun supportingAddressDocumentAdd(imageDocUri: Uri) {
+        Log.d("VehicleDoc", imageDocUri.toString())
         val myID = userInfo.elementAt(4)
         val filename:String = "${myID}_userAddress"
         storageRef = FirebaseStorage.getInstance().reference.child("BorrowerDocs")

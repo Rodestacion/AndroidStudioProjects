@@ -54,6 +54,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="@string/vehicle_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etColor"
+                    android:inputType="textCapCharacters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="@string/seating_capacity">
 
                 <com.google.android.material.textfield.TextInputEditText

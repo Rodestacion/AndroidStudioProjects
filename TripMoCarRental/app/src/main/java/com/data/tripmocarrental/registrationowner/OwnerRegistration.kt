@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.DeadObjectException
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -16,12 +16,16 @@ import com.data.tripmocarrental.common.SplashScreen
 import com.data.tripmocarrental.common.SupportingDocumentFragment
 import com.data.tripmocarrental.common.SupportingIdFragment
 import com.data.tripmocarrental.databinding.ActivityOwnerRegistrationBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 class OwnerRegistration : AppCompatActivity() {
     private lateinit var binding: ActivityOwnerRegistrationBinding
+    private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var userInfo: ArrayList<String>
     private lateinit var f1: ProfileFragment
@@ -40,6 +44,7 @@ class OwnerRegistration : AppCompatActivity() {
 
         //pass User Information during Registration
         userInfo = intent.getStringArrayListExtra("userInfo")!!
+        auth = Firebase.auth
 
         //initialize fragment
         f1 = ProfileFragment()
@@ -74,10 +79,16 @@ class OwnerRegistration : AppCompatActivity() {
 
         f3.onNextProcess = {
             supportFragmentManager.setFragmentResultListener("requestKey",this){ _, bundle ->
+                val locationInfo = getUserLatestDetails()
                 val vehicleInfo = bundle.getStringArrayList("vehicleInfoKey")
-                if(vehicleInfo!=null){
-                    addVehicleInfo(vehicleInfo)
-                }
+
+                Handler().postDelayed({
+                    if(locationInfo!=null){
+                        if(vehicleInfo!=null){
+                            addVehicleInfo(vehicleInfo,locationInfo)
+                        }
+                    }
+                },2000)
 
             }
         }
@@ -118,11 +129,6 @@ class OwnerRegistration : AppCompatActivity() {
 
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        initializeFragment()
-//    }
-
     private fun initializeFragment() {
         supportFragmentManager.beginTransaction().apply {
             when(userInfo.elementAt(3).toString()){
@@ -152,6 +158,37 @@ class OwnerRegistration : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun getUserLatestDetails(): java.util.ArrayList<String> {
+        var userArray = arrayListOf<String>()
+        val currentUser = auth.currentUser?.email
+        //Log.d("Vehicle",currentUser.toString())
+        if (currentUser!= null) {
+            var collectionName = "usertype"
+            var email = currentUser.toString()
+
+            val db = FirebaseFirestore.getInstance()
+            val userTypeRef = db.collection(collectionName)
+
+            userTypeRef.whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener { QuerySnapshot ->
+                    for (document in QuerySnapshot) {
+                        val data = document.data
+                        val getCity = data["city"]
+                        val getProvince = data["province"]
+
+                        //pass location info as array
+                        userArray.add(getCity.toString())
+                        userArray.add(getProvince.toString())
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.d("VehicleError", e.toString())
+                }
+        }
+        return userArray
     }
 
     private fun initializeFirebase(){
@@ -254,28 +291,31 @@ class OwnerRegistration : AppCompatActivity() {
     }
 
     //First Vehicle Registration
-    private fun addVehicleInfo(vehicleInfo: ArrayList<String>?) {
+    private fun addVehicleInfo(vehicleInfo: ArrayList<String>?,locationInfo: java.util.ArrayList<String>
+    ) {
         val myID = userInfo.elementAt(4)
 
         val vehicleBrand = vehicleInfo!!.elementAt(0)
         val vehicleModel = vehicleInfo.elementAt(1)
-        val vehicleCapacity = vehicleInfo.elementAt(2).toInt()
-        val vehicleCategory = vehicleInfo.elementAt(3)
-        val vehicleTransmission = vehicleInfo.elementAt(4)
-        val vehiclePlateNo = vehicleInfo.elementAt(5)
-        val vehicleCerfRegNo = vehicleInfo.elementAt(6)
-        val vehicleRegisterDate = vehicleInfo.elementAt(7)
-        val vehicleDriveMode = vehicleInfo.elementAt(8)
-        val vehicleRentalCost = vehicleInfo.elementAt(9)
+        val vehicleColor = vehicleInfo.elementAt(2)
+        val vehicleCapacity = vehicleInfo.elementAt(3).toInt()
+        val vehicleCategory = vehicleInfo.elementAt(4)
+        val vehicleTransmission = vehicleInfo.elementAt(5)
+        val vehiclePlateNo = vehicleInfo.elementAt(6)
+        val vehicleCerfRegNo = vehicleInfo.elementAt(7)
+        val vehicleRegisterDate = vehicleInfo.elementAt(8)
+        val vehicleDriveMode = vehicleInfo.elementAt(9)
+        val vehicleRentalCost = vehicleInfo.elementAt(10)
+        val vehicleCity = locationInfo.elementAt(0)
+        val vehicleProvince = locationInfo.elementAt(1)
 
         var db = FirebaseFirestore.getInstance()
-        //var userTypeRef = db.collection("vehicleList")
-        //var documentRef = userTypeRef.document(myID)
 
         val vehicle = hashMapOf<String,Any?>(
             "vehicleOwner" to myID,
             "vehicleBrand" to vehicleBrand,
             "vehicleModel" to vehicleModel,
+            "vehicleColor" to vehicleColor,
             "vehicleCapacity" to vehicleCapacity,
             "vehicleCategory" to vehicleCategory,
             "vehicleTransmission" to vehicleTransmission,
@@ -283,7 +323,9 @@ class OwnerRegistration : AppCompatActivity() {
             "vehicleCerfRegNo" to vehicleCerfRegNo,
             "vehicleRegisterDate" to vehicleRegisterDate,
             "vehicleDriveMode" to vehicleDriveMode,
-            "vehicleRentalCost" to vehicleRentalCost
+            "vehicleRentalCost" to vehicleRentalCost,
+            "vehicleCity" to vehicleCity,
+            "vehicleProvince" to vehicleProvince
         )
 
         db.collection("vehicleList").add(vehicle)
@@ -292,8 +334,9 @@ class OwnerRegistration : AppCompatActivity() {
                 db = FirebaseFirestore.getInstance()
                 val userTypeRef = db.collection("usertype")
                 val documentRef = userTypeRef.document(myID)
-
+                val licenseInfo = true
                 val update = hashMapOf<String,Any?>(
+                    "licenseInfo" to licenseInfo,
                     "profileStatus" to "fourth"
                 )
 
@@ -306,10 +349,12 @@ class OwnerRegistration : AppCompatActivity() {
                             commit()
                         }
                     }
+                    .addOnFailureListener {
+                        Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
+                    }
 
             }
             .addOnFailureListener {
-                
                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
             }
     }

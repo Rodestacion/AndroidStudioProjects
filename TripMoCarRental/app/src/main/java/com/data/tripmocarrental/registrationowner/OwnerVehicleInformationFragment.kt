@@ -67,6 +67,7 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
                 if(
                     binding.etBrand.text!!.isEmpty() ||
                     binding.etModel.text!!.isEmpty() ||
+                    binding.etColor.text!!.isEmpty() ||
                     binding.etSeatingCapacity.text!!.isEmpty() ||
                     binding.etVehicleCategory.text!!.isEmpty() ||
                     !(binding.radManual.isChecked || binding.radAutomatic.isChecked || binding.radSemiAuto.isChecked) ||
@@ -82,6 +83,7 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
 
                     vehicleInfo.add(binding.etBrand.text.toString())
                     vehicleInfo.add(binding.etModel.text.toString())
+                    vehicleInfo.add(binding.etColor.text.toString())
                     vehicleInfo.add(binding.etSeatingCapacity.text.toString())
                     vehicleInfo.add(binding.etVehicleCategory.text.toString())
 
@@ -106,7 +108,7 @@ class OwnerVehicleInformationFragment : Fragment(),DatePickerDialog.OnDateSetLis
                         binding.btnRadBothAllowed.text.toString()
                     }
                     vehicleInfo.add(drivingMode)
-                    vehicleInfo.add(binding.etRentalCost.toString())
+                    vehicleInfo.add(binding.etRentalCost.text.toString())
 
                     setFragmentResult("requestKey", bundleOf("vehicleInfoKey" to vehicleInfo))
                     onNextProcess?.invoke(2)

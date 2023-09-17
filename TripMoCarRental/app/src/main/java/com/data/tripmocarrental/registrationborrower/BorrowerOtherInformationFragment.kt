@@ -373,5 +373,7 @@ class BorrowerOtherInformationFragment : Fragment(), DatePickerDialog.OnDateSetL
     private fun displayFormattedDate(timestamp:Long){
         binding.etExpirationDate.setText(formatter.format(timestamp))
     }
+
+
     //End Function for Date Selection
 }

@@ -1,6 +1,10 @@
 <resources>
-    <!-- Login -->
+    <!-- Activity -->
     <string name="app_name">Trip Mo Car Rental</string>
+    <string name="car_reservation_title">Vehicle Reservation</string>
+    car_reservation_title
+
+    <!-- Login -->
     <string name="hint_email">Input email address</string>
     <string name="hint_password">Input Password</string>
     <string name="button_login">Login</string>
@@ -62,11 +66,21 @@
     <string name="license_non_pro">Non-Professional</string>
     <string name="transmission_type">Transmission/Clutch:</string>
 
+    <!-- Vehicle Information -->
+    <string name="reserve_brand_model">Brand / Model / Color</string>
+    <string name="reserve_brand_model1">Brand / Model</string>
+    <string name="reserve_seating">Seating Capacity</string>
+    <string name="reserve_transmission">Transmission Type</string>
+    <string name="reserve_location">Location</string>
+    <string name="reserve_driving_mode">Driving Mode</string>
+    <string name="reserve_drive_mode1">Drive by Owner</string>
+    <string name="reserve_drive_mode2">Borrower Self Drive</string>
 
     <!-- Vehicle Information -->
     <string name="vehicle_info">Vehicle Information</string>
     <string name="vehicle_brand">Brand</string>
     <string name="vehicle_model">Model</string>
+    <string name="vehicle_color">Color</string>
     <string name="seating_capacity">Maximum Passenger Capacity </string>
     <string name="vehicle_category">Vehicle Category</string>
     <string name="clutch_type">Vehicle Clutch Type</string>
@@ -106,6 +120,7 @@
     <string name="code_l5">Three-wheeled symmetrically arranged vehicles with a maximum design speed exceeding 50 kph</string>
     <string name="code_l6">Four-wheeled vehicles with unladen mass not more than 350 kg with a maximum design speed not exceeding 45 kph</string>
     <string name="code_l7">Four-wheeled vehicles with unladen mass not more than 550 kg with a maximum design speed not exceeding 45 kph</string>
+    <string name="four_wheel">Four Wheel Vehicle</string>
     <string name="description3">Passenger Car</string>
     <string name="code_m1">Vehicles with fewer than eight seats and Gross Vehicle Weight (GVW) not exceeding 5000 kg.</string>
     <string name="description4">Passenger Van/Jeepney</string>
@@ -152,6 +167,9 @@
     <string name="motion_copyright">Rodney Estacion \n Batch: MD5P</string>
 
 
+    <!-- Search -->
+    <string name="hint_search">--BRAND/MODEL/LOCATION--</string>
+
     <!-- Menu List -->
     <string name="menu_home">Home</string>
     <string name="menu_search">Search</string>
@@ -169,9 +187,44 @@
     <string name="hint_pickup_time">Pickup Time &amp; Return Time</string>
     <string name="btn_check_date">Check Available Date</string>
     <string name="btn_set_time">Set Pickup Time/Return Time</string>
+    <string name="btn_check_cost">Check Booking Cost!</string>
+    <string name="btn_accept_Cost">Cost Accepted! Book Now!</string>
     <string name="btn_book_now">Book Now!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Booking -->
+    <string name="borrower_information">Borrowed Vehicle Information</string>
+    <string name="full_name">Owner Name</string>
+    <string name="full_address">Owner Address</string>
+    <string name="full_contact_number">Contact Number</string>
+    <string name="full_date_reserve">Date of Reservation</string>
+    <string name="full_time_reserve">Time of Pick-up/Return</string>
+    <string name="full_vehicle_cost">Vehicle Rent Cost</string>
+    <string name="full_additional_cost">Additional Cost/Driving cost</string>
+    <string name="full_note">Note: Fuel cost, toll fee and other expenses are excluded</string>
+    <string name="full_total_cost">Total Cost</string>
+
+    <!-- Reservation Detail -->
+    <string name="reserve_information_owner">Vehicle Owner Information</string>
+    <string name="reserve_information_borrower">Vehicle Borrower Information</string>
+    <string name="reserve_information_license">License Information</string>
+    <string name="reserve_information_vehicle">Vehicle Information</string>
+    <string name="reserve_information_reservation">Reservation Information</string>
+
+    <string name="reserve_name">Name</string>
+    <string name="reserve_address">Address</string>
+    <string name="reserve_contact_number">Contact Number</string>
+
+    <string name="reserve_license_info">License No. / Validity</string>
+    <string name="reserve_license_code">Restriction Code / Condition</string>
+
+    <string name="reserve_vehicle_info">Brand / Model / Capacity</string>
+    <string name="reserve_vehicle_capacity">Seating Capacity / Transmission</string>
+    <string name="reserve_vehicle_registration">Plate No. / Registered Date</string>
+
+    <string name="reserve_date_reserve">Date of Reservation</string>
+    <string name="reserve_time_reserve">Time of Pick-up/Return</string>
+    <string name="reserve_total_cost">Total Cost</string>
+    <string name="reserve_button_confirm">Confirm Reservation</string>
 
 
 </resources>

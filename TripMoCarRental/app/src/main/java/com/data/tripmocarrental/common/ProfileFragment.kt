@@ -92,7 +92,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     basicInfo.add(binding.etAge.text.toString())
                     basicInfo.add(binding.etBirthday.text.toString())
 
-                setFragmentResult("requestKey", bundleOf("basicInfoKey" to basicInfo))
+                    setFragmentResult("requestKey", bundleOf("basicInfoKey" to basicInfo))
                     onNextProcess?.invoke(0)
                 }
             }

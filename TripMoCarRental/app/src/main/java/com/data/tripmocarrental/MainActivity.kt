@@ -4,49 +4,52 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import com.data.tripmocarrental.borrower.BorrowerHomeFragment
+import androidx.fragment.app.Fragment
+import com.data.tripmocarrental.borrower.home.BorrowerHomeFragment
 import com.data.tripmocarrental.borrower.BorrowerProfileFragment
 import com.data.tripmocarrental.borrower.BorrowerReservationScheduleFragment
 import com.data.tripmocarrental.borrower.SearchVehicleFragment
 import com.data.tripmocarrental.databinding.ActivityMainBinding
-import com.data.tripmocarrental.dataclass.VehicleInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    //private lateinit var f1: SearchVehicleFragment
-    //lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var f1:Fragment
+    private lateinit var f2:Fragment
+    private lateinit var f3:Fragment
+    private lateinit var f4:Fragment
+    private lateinit var userInfo:ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val f1 = BorrowerHomeFragment()
-        val f2 = SearchVehicleFragment()
-        val f3 = BorrowerReservationScheduleFragment()
-        val f4 = BorrowerProfileFragment()
+        f1 = BorrowerHomeFragment()
+        f2 = SearchVehicleFragment()
+        f3 = BorrowerReservationScheduleFragment()
+        f4 = BorrowerProfileFragment()
 
-        // Initialize Firebase
+        // Initialize Firebase & user details
         auth = Firebase.auth
+        userInfo = getUserDetails()
 
-        //intent pass value
-        var userInfo = intent.getStringArrayListExtra("userInfo")
-        Toast.makeText(applicationContext, userInfo.toString(), Toast.LENGTH_SHORT).show()
+//        Handler().postDelayed({
+//            Log.d("Vehicle2",userInfo.toString())
+//        },1000)
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.borrowerMainFragmentContainerView,f1)
+            commit()
+        }
 
         binding.floatingActionButton.setOnClickListener {
             binding.drawerLayout.open()
         }
+
 
 
         binding.navigationBar.setNavigationItemSelectedListener {
@@ -59,8 +62,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.navSearch->{
+                    Log.d("Vehicle2",userInfo.toString())
                     binding.drawerLayout.close()
                     supportFragmentManager.beginTransaction().apply {
+                        var myBundle = Bundle()
+                        myBundle.putStringArrayList("userInfo",userInfo)
+                        f2.arguments  = myBundle
                         replace(R.id.borrowerMainFragmentContainerView,f2)
                         commit()
                     }
@@ -96,7 +103,63 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    //coroutine
-    //https://youtu.be/DxvRcomIAQg
+    private fun getUserDetails(): ArrayList<String> {
+        var userArray = arrayListOf<String>()
+        val currentUser = auth.currentUser?.email
+        Log.d("Vehicle",currentUser.toString())
 
+        if (currentUser!= null) {
+            var collectionName = "usertype"
+            var email = currentUser.toString()
+
+            val db = FirebaseFirestore.getInstance()
+            val userTypeRef = db.collection(collectionName)
+
+            userTypeRef.whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener { QuerySnapshot ->
+                    for (document in QuerySnapshot) {
+                        val data = document.data
+                        val getEmail = data["email"]
+                        val getUserType = data["userType"]
+                        val getFirstName = data["firstName"]
+                        val getMiddleName = data["middleName"]
+                        val getLastName = data["lastName"]
+                        val getAge = data["age"]
+                        val getHouseNo = data["houseNo"]
+                        val getStreet = data["street"]
+                        val getBuildingSubdivision = data["buildingSubdivision"]
+                        val getBarangay = data["barangay"]
+                        val getCity = data["city"]
+                        val getProvince = data["province"]
+                        val getZipCode = data["zipCode"]
+                        val getCellphoneNo = data["cellphoneNo"]
+                        val getTelephoneNo = data["telephoneNo"]
+                        val getLicenseInfo = data["licenseInfo"]
+                        val getID = document.id
+
+                        //pass user info as array
+
+                        userArray.add(getEmail.toString())
+                        userArray.add(getUserType.toString())
+                        val fullName = "$getFirstName $getMiddleName $getLastName"
+                        userArray.add(fullName)
+                        userArray.add(getAge.toString())
+                        val location = "$getCity, $getProvince ($getZipCode)"
+                        userArray.add(location)
+                        val fullAddress = "$getHouseNo, $getStreet, $getBuildingSubdivision, $getBarangay, $getCity, $getProvince ($getZipCode)"
+                        userArray.add(fullAddress)
+                        val contactNumber = "$getCellphoneNo / $getTelephoneNo"
+                        userArray.add(contactNumber)
+                        userArray.add(getLicenseInfo.toString())
+                        userArray.add(getID)
+                    }
+
+                }
+                .addOnFailureListener { e ->
+                    Log.d("VehicleError", e.toString())
+                }
+        }
+        return userArray
+    }
 }
