@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize Firebase
-        auth = Firebase.auth
+        //auth = Firebase.auth
 
         //pass User Information
         //userInfo = intent.getStringArrayListExtra("userInfo")!!
@@ -46,8 +46,9 @@ class SplashScreen : AppCompatActivity() {
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                val nextScreen = Intent(this@SplashScreen,MainActivity::class.java)
-                nextScreen.putExtra("userInfo",userInfo)
+                //val nextScreen = Intent(this@SplashScreen,MainActivity::class.java) <<bugs
+                val nextScreen = Intent(applicationContext,MainActivity::class.java)
+                //nextScreen.putExtra("userInfo",userInfo)
                 startActivity(nextScreen)
                 finish()
             }

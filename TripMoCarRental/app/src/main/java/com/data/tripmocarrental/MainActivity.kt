@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         userInfo = getUserDetails()
 
         Handler().postDelayed({
+            Log.d("VehicleUser",userInfo.elementAt(1))
             if(userInfo.elementAt(1)=="borrower"){
                 f1 = BorrowerHomeFragment()
                 f2 = SearchVehicleFragment()

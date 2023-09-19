@@ -1,6 +1,8 @@
 package com.data.tripmocarrental.borrower.reservationfragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,7 @@ class CarReservationFragment : Fragment() {
 
         //Initialize Display
         var finalData = ArrayList<String>()
+        Handler().postDelayed({
         finalData.add(userInfo!!.elementAt(0)) //borrowerEmail
         finalData.add(userInfo.elementAt(2)) //borrowerName
         binding.etReserveBorrowerName.setText(userInfo.elementAt(2))
@@ -39,19 +42,29 @@ class CarReservationFragment : Fragment() {
         binding.etReserveBorrowerAddress.setText(userInfo.elementAt(5))
         finalData.add(userInfo.elementAt(6)) //borrowerContact
         binding.etReserveBorrowerContact.setText(userInfo.elementAt(6))
-        if(licenseInfo?.elementAt(0)=="NONE"){
-            finalData.add("NONE") //licenseInfo
-            binding.etReserveBorrowerLicense.setText("NONE")
-            finalData.add("NONE") //licenseCode
-            binding.etReserveBorrowerCode.setText("NONE")
-        }else{
-            val data1 = "${licenseInfo?.elementAt(1)} / ${licenseInfo?.elementAt(2)}"
-            finalData.add(data1) //license info
-            binding.etReserveBorrowerLicense.setText(data1)
-            val data2 = "${licenseInfo?.elementAt(3)} / ${licenseInfo?.elementAt(6)}"
-            finalData.add(data2) //licenseCode
-            binding.etReserveBorrowerCode.setText(data2)
-        }
+
+
+            Log.d("VehicleCheck",reserveInfo.toString())
+            Log.d("VehicleCheck",selectedVehicle.toString())
+            Log.d("VehicleCheck",userInfo.toString())
+            Log.d("VehicleCheck",ownerInfo.toString())
+            Log.d("VehicleCheck",licenseInfo.toString())
+
+            if(licenseInfo?.elementAt(0)=="None"){  //bug "NONE"
+                finalData.add("NONE") //licenseInfo
+                binding.etReserveBorrowerLicense.setText("NONE")
+                finalData.add("NONE") //licenseCode
+                binding.etReserveBorrowerCode.setText("NONE")
+            }else{
+                val data1 = "${licenseInfo?.elementAt(1)} / ${licenseInfo?.elementAt(2)}"
+                finalData.add(data1) //license info
+                binding.etReserveBorrowerLicense.setText(data1)
+                val data2 = "${licenseInfo?.elementAt(3)} / ${licenseInfo?.elementAt(6)}"
+                finalData.add(data2) //licenseCode
+                binding.etReserveBorrowerCode.setText(data2)
+            }
+
+
         finalData.add(ownerInfo!!.elementAt(0)) //ownerEmail
         finalData.add(ownerInfo.elementAt(2)) //ownerName
         binding.etReserveOwnerName.setText(ownerInfo.elementAt(2))
@@ -80,6 +93,7 @@ class CarReservationFragment : Fragment() {
         finalData.add(reserveInfo.elementAt(4))
         binding.etReserveVehicleRent.setText(reserveInfo.elementAt(4))
 
+        },500)
 
         binding.btnConfirm.setOnClickListener {
             setFragmentResult("requestKey", bundleOf("bookInfoKey" to finalData))

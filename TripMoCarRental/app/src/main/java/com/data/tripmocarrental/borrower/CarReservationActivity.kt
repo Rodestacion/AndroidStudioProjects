@@ -134,6 +134,7 @@ class CarReservationActivity : AppCompatActivity() {
 
                 Handler().postDelayed({
                     setDisabledDate(reserveInfo!!.elementAt(15),reserveInfo.elementAt(16),reserveInfo.elementAt(10))
+
                 },1000)
 
             }
