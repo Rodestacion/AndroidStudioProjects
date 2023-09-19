@@ -5,24 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".borrower.home.BorrowerHomeFragment">
+    tools:context=".vehicleowner.OwnerReservationScheduleFragment">
 
     <TextView
         android:id="@+id/textView32"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:text="@string/title_reservation"
+        android:text="@string/title_schedule"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reserveRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_marginTop="25dp"
+        android:id="@+id/ownerAcceptedRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

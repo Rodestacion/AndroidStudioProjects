@@ -32,40 +32,42 @@ class CarReservationFragment : Fragment() {
 
         //Initialize Display
         var finalData = ArrayList<String>()
-        finalData.add(userInfo!!.elementAt(0)) //ID
-        finalData.add(userInfo.elementAt(2)) //Name
+        finalData.add(userInfo!!.elementAt(0)) //borrowerEmail
+        finalData.add(userInfo.elementAt(2)) //borrowerName
         binding.etReserveBorrowerName.setText(userInfo.elementAt(2))
-        finalData.add(userInfo.elementAt(5)) //Address
+        finalData.add(userInfo.elementAt(5)) //borrowerAddress
         binding.etReserveBorrowerAddress.setText(userInfo.elementAt(5))
-        finalData.add(userInfo.elementAt(6)) //Contact
+        finalData.add(userInfo.elementAt(6)) //borrowerContact
         binding.etReserveBorrowerContact.setText(userInfo.elementAt(6))
         if(licenseInfo?.elementAt(0)=="NONE"){
-            finalData.add("NONE")
+            finalData.add("NONE") //licenseInfo
             binding.etReserveBorrowerLicense.setText("NONE")
-            finalData.add("NONE")
+            finalData.add("NONE") //licenseCode
             binding.etReserveBorrowerCode.setText("NONE")
         }else{
             val data1 = "${licenseInfo?.elementAt(1)} / ${licenseInfo?.elementAt(2)}"
+            finalData.add(data1) //license info
             binding.etReserveBorrowerLicense.setText(data1)
             val data2 = "${licenseInfo?.elementAt(3)} / ${licenseInfo?.elementAt(6)}"
+            finalData.add(data2) //licenseCode
             binding.etReserveBorrowerCode.setText(data2)
         }
-        finalData.add(ownerInfo!!.elementAt(0)) //ID
-        finalData.add(ownerInfo.elementAt(2)) //Name
+        finalData.add(ownerInfo!!.elementAt(0)) //ownerEmail
+        finalData.add(ownerInfo.elementAt(2)) //ownerName
         binding.etReserveOwnerName.setText(ownerInfo.elementAt(2))
-        finalData.add(ownerInfo.elementAt(5)) //Address
+        finalData.add(ownerInfo.elementAt(5)) //ownerAddress
         binding.etReserveOwnerAddress.setText(ownerInfo.elementAt(5))
-        finalData.add(ownerInfo.elementAt(6)) //Contact
+        finalData.add(ownerInfo.elementAt(6)) //ownerContact
         binding.etReserveOwnerContact.setText(ownerInfo.elementAt(6))
-        finalData.add(selectedVehicle!!.elementAt(0))
+        finalData.add(selectedVehicle!!.elementAt(0)) //vehicleID
         val vehicle1 = "${selectedVehicle.elementAt(1)} / ${selectedVehicle.elementAt(2)} / ${selectedVehicle.elementAt(3)}"
-        finalData.add(vehicle1) //name
+        finalData.add(vehicle1) //vehicleName
         binding.etReserveVehicleName.setText(vehicle1)
         val vehicle2 = "${selectedVehicle.elementAt(4)} / ${selectedVehicle.elementAt(6)}"
-        finalData.add(vehicle2) //Capacity
+        finalData.add(vehicle2) //vehicleSpecification
         binding.etReserveVehicleCapacity.setText(vehicle2)
         val vehicle3 = "${selectedVehicle.elementAt(7)} / ${selectedVehicle.elementAt(9)}"
-        finalData.add(vehicle3) //Register
+        finalData.add(vehicle3) //vehicleRegistration
         binding.etReserveVehicleRegister.setText(vehicle3)
         finalData.add(reserveInfo!!.elementAt(3)) //Drive
         binding.etReserveVehicleDrive.setText(reserveInfo!!.elementAt(3))

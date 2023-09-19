@@ -1,6 +1,6 @@
 package com.data.tripmocarrental.dataclass
 
-data class ReserveInfo(
+data class ReserveInfo2(
     val borrowerEmail:String,
     val borrowerName:String,
     val borrowerAddress:String,
@@ -20,6 +20,7 @@ data class ReserveInfo(
     val reserveEnd:String,
     val reservePick:String,
     val reservedCost:String,
-    val reserveStatus:String
+    val reserveStatus:String,
+    val reserveID:String
 
-    )
+)

@@ -2,6 +2,7 @@ package com.data.tripmocarrental.borrower.reservationfragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.data.tripmocarrental.databinding.FragmentCarInfoBinding
 import com.data.tripmocarrental.dataclass.ReserveInfo
+import com.data.tripmocarrental.dataclass.VehicleInfo
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -95,11 +98,7 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
 
         //initialize date disable
         //to change from FireStore Array
-        disableDate.add(convertDate("09/01/2023"))
-        disableDate.add(convertDate("09/08/2023"))
-        disableDate.add(convertDate("09/15/2023"))
-        disableDate.add(convertDate("09/21/2023"))
-        disableDate.add(convertDate("09/28/2023"))
+        disableDate = getDateDisable(selectedVehicle!!.elementAt(0))
 
         binding.btnAvailableDate.setOnClickListener {
             startDate =""
@@ -141,6 +140,37 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
 
 
         return binding.root
+    }
+
+    private fun getDateDisable(searchItem: String): MutableList<Calendar> {
+        var disableDates = arrayListOf<String>()
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection("disabledDate")
+        var finalData = mutableListOf<Calendar>()
+        collectionRef.get()
+            .addOnSuccessListener { QuerySnapshot->
+                for (documentSnapshot in QuerySnapshot){
+                    val details = documentSnapshot.data
+
+                    if(details["vehicleID"].toString()==searchItem) {
+                        val newDateList = details["disableDate"]
+                        Log.d("Vehicle1",newDateList.toString())
+                        disableDates= newDateList as ArrayList<String>
+                    }
+                }
+                var count =0
+
+                while (count <disableDates.size){
+                    finalData.add(convertDate(disableDates.elementAt(count)))
+                    count++
+                }
+            }
+
+        Handler().postDelayed({
+            Log.d("Vehicle2",finalData.toString())
+        },1000)
+
+        return finalData
     }
 
     private fun customStartCalendar(){
@@ -218,7 +248,7 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
     //Function for Date Selection
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         calendar.set(year,monthOfYear,dayOfMonth)
-        displayFormattedDate(calendar.timeInMillis)
+            displayFormattedDate(calendar.timeInMillis)
     }
 
     private fun displayFormattedDate(timestamp:Long){
@@ -233,11 +263,14 @@ class CarInfoFragment : Fragment(), DatePickerDialog.OnDateSetListener,TimePicke
                 if(startDate != endDate){
                     var count:Int = 0
                     var reserveNotPossible = false
-                    while (count<disableDate.size){
-                        if(convertDate(startDate)<disableDate[count] && disableDate[count]<convertDate(endDate)){
-                            reserveNotPossible = true
+
+                    if(disableDate.size>0){
+                        while (count<disableDate.size){
+                            if(convertDate(startDate)<disableDate[count] && disableDate[count]<convertDate(endDate)){
+                                reserveNotPossible = true
+                            }
+                            count++
                         }
-                        count++
                     }
 
                     if(reserveNotPossible){

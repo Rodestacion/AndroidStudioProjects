@@ -3,13 +3,17 @@ package com.data.tripmocarrental
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.data.tripmocarrental.borrower.home.BorrowerHomeFragment
 import com.data.tripmocarrental.borrower.BorrowerProfileFragment
 import com.data.tripmocarrental.borrower.BorrowerReservationScheduleFragment
 import com.data.tripmocarrental.borrower.SearchVehicleFragment
 import com.data.tripmocarrental.databinding.ActivityMainBinding
+import com.data.tripmocarrental.vehicleowner.OwnerHomeFragment
+import com.data.tripmocarrental.vehicleowner.OwnerReservationScheduleFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,53 +32,73 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        f1 = BorrowerHomeFragment()
-        f2 = SearchVehicleFragment()
-        f3 = BorrowerReservationScheduleFragment()
-        f4 = BorrowerProfileFragment()
-
         // Initialize Firebase & user details
         auth = Firebase.auth
         userInfo = getUserDetails()
 
-//        Handler().postDelayed({
-//            Log.d("Vehicle2",userInfo.toString())
-//        },1000)
+        Handler().postDelayed({
+            if(userInfo.elementAt(1)=="borrower"){
+                f1 = BorrowerHomeFragment()
+                f2 = SearchVehicleFragment()
+                f3 = BorrowerReservationScheduleFragment()
+                f4 = BorrowerProfileFragment()
+            }else{
+                f1 = OwnerHomeFragment()
+                f2 = SearchVehicleFragment()
+                f3 = OwnerReservationScheduleFragment()
+                f4 = BorrowerProfileFragment()
+            }
+        },1000)
 
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.borrowerMainFragmentContainerView,f1)
-            commit()
-        }
+
+
+        Handler().postDelayed({
+            supportFragmentManager.beginTransaction().apply {
+                var myBundle = Bundle()
+                myBundle.putStringArrayList("userInfo",userInfo)
+                f1.arguments = myBundle
+                replace(R.id.borrowerMainFragmentContainerView,f1)
+                commit()
+            }
+        },1000)
 
         binding.floatingActionButton.setOnClickListener {
             binding.drawerLayout.open()
         }
-
-
 
         binding.navigationBar.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.navHome->{
                     binding.drawerLayout.close()
                     supportFragmentManager.beginTransaction().apply {
+                        var myBundle = Bundle()
+                        myBundle.putStringArrayList("userInfo",userInfo)
+                        f1.arguments = myBundle
                         replace(R.id.borrowerMainFragmentContainerView,f1)
                         commit()
                     }
                 }
                 R.id.navSearch->{
-                    Log.d("Vehicle2",userInfo.toString())
-                    binding.drawerLayout.close()
-                    supportFragmentManager.beginTransaction().apply {
-                        var myBundle = Bundle()
-                        myBundle.putStringArrayList("userInfo",userInfo)
-                        f2.arguments  = myBundle
-                        replace(R.id.borrowerMainFragmentContainerView,f2)
-                        commit()
+                    if(userInfo.elementAt(1)=="borrower"){
+                        Log.d("Vehicle2",userInfo.toString())
+                        binding.drawerLayout.close()
+                        supportFragmentManager.beginTransaction().apply {
+                            var myBundle = Bundle()
+                            myBundle.putStringArrayList("userInfo",userInfo)
+                            f2.arguments  = myBundle
+                            replace(R.id.borrowerMainFragmentContainerView,f2)
+                            commit()
+                        }
+                    }else{
+                        Toast.makeText(applicationContext, "Sorry button is not available for the account", Toast.LENGTH_SHORT).show()
                     }
                 }
                 R.id.navSchedule->{
                     binding.drawerLayout.close()
                     supportFragmentManager.beginTransaction().apply {
+                        var myBundle = Bundle()
+                        myBundle.putStringArrayList("userInfo",userInfo)
+                        f3.arguments = myBundle
                         replace(R.id.borrowerMainFragmentContainerView,f3)
                         commit()
                     }
@@ -82,6 +106,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navProfile->{
                     binding.drawerLayout.close()
                     supportFragmentManager.beginTransaction().apply {
+                        var myBundle = Bundle()
+                        myBundle.putStringArrayList("userInfo",userInfo)
+                        f4.arguments = myBundle
                         replace(R.id.borrowerMainFragmentContainerView,f4)
                         commit()
                     }

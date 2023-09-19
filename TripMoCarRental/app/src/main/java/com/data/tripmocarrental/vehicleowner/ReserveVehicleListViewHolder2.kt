@@ -1,11 +1,12 @@
-package com.data.tripmocarrental.borrower.home
+package com.data.tripmocarrental.vehicleowner
 
 import androidx.recyclerview.widget.RecyclerView
 import com.data.tripmocarrental.databinding.VehicleReserveLayoutBinding
-import com.data.tripmocarrental.dataclass.ReserveInfo
+import com.data.tripmocarrental.dataclass.ReserveInfo2
 
-class ReserveVehicleListViewHolder(private val binding:VehicleReserveLayoutBinding):RecyclerView.ViewHolder(binding.root) {
-    fun searchReserveBinding(reserveInfo: ReserveInfo){
+class ReserveVehicleListViewHolder2 (private val binding: VehicleReserveLayoutBinding):
+    RecyclerView.ViewHolder(binding.root) {
+    fun searchReserveBinding(reserveInfo: ReserveInfo2){
         binding.txtCarBrandModel.text = reserveInfo.vehicleName
         binding.txtReserveDate.text = "${reserveInfo.reservedStart} to ${reserveInfo.reserveEnd}"
         binding.txtPickupTime.text = reserveInfo.reservePick

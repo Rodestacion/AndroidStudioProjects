@@ -24,7 +24,7 @@ class SplashScreen : AppCompatActivity() {
         auth = Firebase.auth
 
         //pass User Information
-        userInfo = intent.getStringArrayListExtra("userInfo")!!
+        //userInfo = intent.getStringArrayListExtra("userInfo")!!
 
 
         binding.motionLayout.addTransitionListener(object :MotionLayout.TransitionListener{

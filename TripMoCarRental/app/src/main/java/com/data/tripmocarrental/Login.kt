@@ -19,11 +19,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -32,6 +38,7 @@ class Login : AppCompatActivity() {
         // Initialize Firebase
         auth = Firebase.auth
         firestore = FirebaseFirestore.getInstance()
+
 
         //Sign up Textview Clickable appearance
         var newText = SpannableString (binding.txtSignUp.text.toString())
@@ -87,8 +94,9 @@ class Login : AppCompatActivity() {
 
         }
 
-
     }
+
+
 
     private fun searchUserData(collectionName:String, email:String){
         val db = FirebaseFirestore.getInstance()

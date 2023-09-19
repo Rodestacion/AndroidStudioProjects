@@ -1,33 +1,34 @@
-package com.data.tripmocarrental.borrower.home
+package com.data.tripmocarrental.vehicleowner
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.data.tripmocarrental.common.DisplayActivity
+import com.data.tripmocarrental.borrower.home.ReserveVehicleListViewHolder3
 import com.data.tripmocarrental.databinding.VehicleReserveLayoutBinding
-import com.data.tripmocarrental.dataclass.ReserveInfo
-import com.data.tripmocarrental.vehicleowner.AcceptReservationActivity
+import com.data.tripmocarrental.dataclass.ReserveInfo2
 
-class ReserveVehicleInfoAdapter(private val vehicle:List<ReserveInfo>):RecyclerView.Adapter<ReserveVehicleListViewHolder>() {
+class ReserveVehicleInfoAdapter2 (private val vehicle:List<ReserveInfo2>):
+    RecyclerView.Adapter<ReserveVehicleListViewHolder2>() {
+
     private lateinit var myContext: Context
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ReserveVehicleListViewHolder {
+    ): ReserveVehicleListViewHolder2 {
         myContext = parent.context
         val inflater = LayoutInflater.from(myContext)
         val binding = VehicleReserveLayoutBinding.inflate(inflater,parent, false)
 
-        return ReserveVehicleListViewHolder(binding)
+        return ReserveVehicleListViewHolder2(binding)
     }
 
     override fun getItemCount(): Int {
         return vehicle.size
     }
 
-    override fun onBindViewHolder(holder: ReserveVehicleListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReserveVehicleListViewHolder2, position: Int) {
         holder.searchReserveBinding(vehicle[position])
 
         holder.itemView.setOnClickListener {
@@ -53,13 +54,12 @@ class ReserveVehicleInfoAdapter(private val vehicle:List<ReserveInfo>):RecyclerV
             selectedItem.add(vehicle[position].reservePick)
             selectedItem.add(vehicle[position].reservedCost)
             selectedItem.add(vehicle[position].reserveStatus)
+            selectedItem.add(vehicle[position].reserveID)
 
 
-
-            var nextScreen = Intent(myContext, DisplayActivity::class.java)
+            var nextScreen = Intent(myContext,AcceptReservationActivity::class.java)
             nextScreen.putExtra("selectedItem",selectedItem)
             myContext.startActivity(nextScreen)
         }
-
     }
 }

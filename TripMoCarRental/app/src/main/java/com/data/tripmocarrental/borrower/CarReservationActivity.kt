@@ -14,6 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class CarReservationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCarReservationBinding
@@ -25,6 +29,8 @@ class CarReservationActivity : AppCompatActivity() {
     private lateinit var userInfo:ArrayList<String>
     private lateinit var ownerInfo:ArrayList<String>
     private lateinit var licenseInfo:ArrayList<String>
+
+    private val formatter = SimpleDateFormat("MM/dd/yyy", Locale.TAIWAN)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,13 +128,49 @@ class CarReservationActivity : AppCompatActivity() {
         f3.onClose = {
             supportFragmentManager.setFragmentResultListener("requestKey",this) { _, bundle ->
                 val reserveInfo = bundle.getStringArrayList("bookInfoKey")
-                Log.d("VehicleCostB", reserveInfo.toString())
-                Log.d("VehicleCostB", reserveInfo?.size.toString())
+                //Log.d("VehicleCostB", reserveInfo.toString())
+                //Log.d("VehicleCostB", reserveInfo?.size.toString())
                 addReservationDetail(reserveInfo)
+
+                Handler().postDelayed({
+                    setDisabledDate(reserveInfo!!.elementAt(15),reserveInfo.elementAt(16),reserveInfo.elementAt(10))
+                },1000)
 
             }
         }
 
+    }
+    private fun setDisabledDate(startDate: String, endDate: String,vehicleID:String) {
+        var end = convertDate(endDate)
+        var listDate = ArrayList<String>()
+        var newDate = convertDate(startDate).timeInMillis
+
+        while(newDate<=end.timeInMillis){
+            val stringDate = formatter.format(newDate)
+            Log.d("Vehicle3",stringDate.toString())
+            listDate.add(stringDate)
+            newDate += 86400000
+        }
+
+        val disable = hashMapOf<String, Any?>(
+            "vehicleID" to vehicleID,
+            "disableDate" to listDate
+        )
+        var db = FirebaseFirestore.getInstance()
+
+        db.collection("disabledDate").add(disable)
+            .addOnSuccessListener {
+                Log.d("Set Date","Successful")
+            }
+
+    }
+    private fun convertDate(dateValue:String): Calendar {
+        val dateFormat = SimpleDateFormat("MM/dd/yyy")
+        val myDate: Date = dateFormat.parse(dateValue) as Date
+        var myCalendar = Calendar.getInstance()
+
+        myCalendar.time = myDate
+        return myCalendar
     }
 
     private fun addReservationDetail(reserveInfo: java.util.ArrayList<String>?){
@@ -144,13 +186,15 @@ class CarReservationActivity : AppCompatActivity() {
         val ownerName = reserveInfo.elementAt(7)
         val ownerAddress = reserveInfo.elementAt(8)
         val ownerContact = reserveInfo.elementAt(9)
-        val vehicleName = reserveInfo.elementAt(10)
-        val vehicleSpecification = reserveInfo.elementAt(11)
-        val vehicleRegistration = reserveInfo.elementAt(12)
-        val reservedStart = reserveInfo.elementAt(13)
-        val reserveEnd = reserveInfo.elementAt(14)
-        val reservePick = reserveInfo.elementAt(15)
-        val reservedCost = reserveInfo.elementAt(16)
+        val vehicleID = reserveInfo.elementAt(10) //
+        val vehicleName = reserveInfo.elementAt(11)
+        val vehicleSpecification = reserveInfo.elementAt(12)
+        val vehicleRegistration = reserveInfo.elementAt(13)
+        val driveMode = reserveInfo.elementAt(14)
+        val reservedStart = reserveInfo.elementAt(15)
+        val reserveEnd = reserveInfo.elementAt(16)
+        val reservePick = reserveInfo.elementAt(17)
+        val reservedCost = reserveInfo.elementAt(18)
         val reserveStatus = "For Approval"
 
         var db = FirebaseFirestore.getInstance()
@@ -168,9 +212,11 @@ class CarReservationActivity : AppCompatActivity() {
             "ownerName" to ownerName,
             "ownerAddress" to ownerAddress,
             "ownerContact" to ownerContact,
+            "vehicleID" to vehicleID, //
             "vehicleName" to vehicleName,
             "vehicleSpecification" to vehicleSpecification,
             "vehicleRegistration" to vehicleRegistration,
+            "driveMode" to driveMode,
             "reservedStart" to reservedStart,
             "reserveEnd" to reserveEnd,
             "reservePick" to reservePick,
@@ -182,28 +228,6 @@ class CarReservationActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, "Booking Successful", Toast.LENGTH_SHORT).show()
                 finish()
-//                db = FirebaseFirestore.getInstance()
-//                val userTypeRef = db.collection("usertype")
-//                val documentRef = userTypeRef.document(myID)
-//
-//                val update = hashMapOf<String, Any?>(
-//                    "licenseInfo" to licenseInfo,
-//                    "profileStatus" to "fourth"
-//                )
-//
-//                documentRef.update(update)
-//                    .addOnSuccessListener {
-//                        Toast.makeText(applicationContext,"License Info Update Successful",Toast.LENGTH_SHORT).show()
-//                        supportFragmentManager.beginTransaction().apply {
-//                            binding.progressBar3.progress = 60
-//                            replace(R.id.borrowerFragmentContainerView,f4)
-//                            commit()
-//                        }
-//                    }
-//                    .addOnFailureListener {
-//                        Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()
-//                    }
-
             }
             .addOnFailureListener {
                 Toast.makeText(applicationContext, "Error Occurred", Toast.LENGTH_SHORT).show()

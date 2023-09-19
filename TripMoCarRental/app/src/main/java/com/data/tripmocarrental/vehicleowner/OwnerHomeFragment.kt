@@ -1,4 +1,4 @@
-package com.data.tripmocarrental.borrower.home
+package com.data.tripmocarrental.vehicleowner
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,34 +9,40 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.data.tripmocarrental.databinding.FragmentBorrowerHomeBinding
+import com.data.tripmocarrental.R
+import com.data.tripmocarrental.borrower.home.ReserveVehicleInfoAdapter
+import com.data.tripmocarrental.databinding.FragmentOwnerHomeBinding
 import com.data.tripmocarrental.dataclass.ReserveInfo
+import com.data.tripmocarrental.dataclass.ReserveInfo2
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BorrowerHomeFragment : Fragment() {
-    private lateinit var binding: FragmentBorrowerHomeBinding
+
+class OwnerHomeFragment : Fragment() {
+    private lateinit var binding: FragmentOwnerHomeBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var myReserveVehicleInfoAdapter: ReserveVehicleInfoAdapter
-    var myVehicleList = mutableListOf<ReserveInfo>()
+    private lateinit var myReserveVehicleInfoAdapter: ReserveVehicleInfoAdapter2
+    var myVehicleList = mutableListOf<ReserveInfo2>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentBorrowerHomeBinding.inflate(layoutInflater,container,false)
+        binding = FragmentOwnerHomeBinding.inflate(layoutInflater,container,false)
+
         var thisBundle = arguments
         var userInfo = thisBundle?.getStringArrayList("userInfo")
 
         //initialize recyclerview
-        recyclerView = binding.reserveRecyclerView
+        recyclerView = binding.reserveOwnerRecycleView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         //Handler().postDelayed({
-            myVehicleList = getAllVehicleData(userInfo!!.elementAt(0))
+        myVehicleList = getAllVehicleData(userInfo!!.elementAt(0))
         //},1000)
 
         Handler().postDelayed({
-            myReserveVehicleInfoAdapter = ReserveVehicleInfoAdapter(myVehicleList)
+            myReserveVehicleInfoAdapter = ReserveVehicleInfoAdapter2(myVehicleList)
             recyclerView.adapter=  myReserveVehicleInfoAdapter
             if(myVehicleList.size>0){
                 Toast.makeText(requireContext(), "Check the above list of pending reservation", Toast.LENGTH_SHORT).show()
@@ -47,12 +53,11 @@ class BorrowerHomeFragment : Fragment() {
         },1100)
 
 
-
         return binding.root
     }
 
-    private fun getAllVehicleData(email: String): ArrayList<ReserveInfo> {
-        var vehicleList = ArrayList<ReserveInfo>()
+    private fun getAllVehicleData(email: String): ArrayList<ReserveInfo2> {
+        var vehicleList = ArrayList<ReserveInfo2>()
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection("reserveList")
 
@@ -60,8 +65,8 @@ class BorrowerHomeFragment : Fragment() {
             .addOnSuccessListener { QuerySnapshot->
                 for (documentSnapshot in QuerySnapshot){
                     val details = documentSnapshot.data
-                    if(details["borrowerEmail"].toString() == email && details["reserveStatus"].toString()=="For Approval"){
-                        val newReserveList = ReserveInfo(
+                    if(details["ownerEmail"].toString() == email && details["reserveStatus"].toString()=="For Approval"){
+                        val newReserveList = ReserveInfo2(
                             details["borrowerEmail"].toString(),
                             details["borrowerName"].toString(),
                             details["borrowerAddress"].toString(),
@@ -81,7 +86,8 @@ class BorrowerHomeFragment : Fragment() {
                             details["reserveEnd"].toString(),
                             details["reservePick"].toString(),
                             details["reservedCost"].toString(),
-                            details["reserveStatus"].toString()
+                            details["reserveStatus"].toString(),
+                            documentSnapshot.id.toString()
                         )
                         vehicleList.add(newReserveList)
                     }

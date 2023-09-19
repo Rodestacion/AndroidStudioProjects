@@ -8,26 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.data.tripmocarrental.common.DisplayActivity
 import com.data.tripmocarrental.databinding.VehicleReserveLayoutBinding
 import com.data.tripmocarrental.dataclass.ReserveInfo
-import com.data.tripmocarrental.vehicleowner.AcceptReservationActivity
 
-class ReserveVehicleInfoAdapter(private val vehicle:List<ReserveInfo>):RecyclerView.Adapter<ReserveVehicleListViewHolder>() {
+class ReserveVehicleInfoAdapter3(private val vehicle:List<ReserveInfo>): RecyclerView.Adapter<ReserveVehicleListViewHolder3>() {
     private lateinit var myContext: Context
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ReserveVehicleListViewHolder {
+    ): ReserveVehicleListViewHolder3 {
         myContext = parent.context
         val inflater = LayoutInflater.from(myContext)
         val binding = VehicleReserveLayoutBinding.inflate(inflater,parent, false)
 
-        return ReserveVehicleListViewHolder(binding)
+        return ReserveVehicleListViewHolder3(binding)
     }
 
     override fun getItemCount(): Int {
         return vehicle.size
     }
 
-    override fun onBindViewHolder(holder: ReserveVehicleListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReserveVehicleListViewHolder3, position: Int) {
         holder.searchReserveBinding(vehicle[position])
 
         holder.itemView.setOnClickListener {

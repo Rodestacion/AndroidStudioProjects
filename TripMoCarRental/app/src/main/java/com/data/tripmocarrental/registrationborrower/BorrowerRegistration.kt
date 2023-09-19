@@ -420,7 +420,7 @@ class BorrowerRegistration : AppCompatActivity() {
                                     Toast.makeText(applicationContext, "Document Upload Successful", Toast.LENGTH_SHORT).show()
 
                                     val nextScreen = Intent(this,SplashScreen::class.java)
-                                    nextScreen.putExtra("userInfo",userInfo)
+                                    //nextScreen.putExtra("userInfo",userInfo)
                                     startActivity(nextScreen)
                                     finish()
 

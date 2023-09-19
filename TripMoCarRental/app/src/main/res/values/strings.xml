@@ -226,5 +226,8 @@
     <string name="reserve_total_cost">Total Cost</string>
     <string name="reserve_button_confirm">Confirm Reservation</string>
 
+    <string name="title_reservation">Pending Reservation</string>
+    <string name="title_schedule">Reservation List</string>
+
 
 </resources>

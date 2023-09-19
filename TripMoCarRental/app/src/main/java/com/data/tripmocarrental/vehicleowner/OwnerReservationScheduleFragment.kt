@@ -1,4 +1,4 @@
-package com.data.tripmocarrental.borrower.home
+package com.data.tripmocarrental.vehicleowner
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,44 +9,47 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.data.tripmocarrental.databinding.FragmentBorrowerHomeBinding
+import com.data.tripmocarrental.R
+import com.data.tripmocarrental.borrower.home.ReserveVehicleInfoAdapter
+import com.data.tripmocarrental.borrower.home.ReserveVehicleInfoAdapter3
+import com.data.tripmocarrental.databinding.FragmentOwnerReservationScheduleBinding
 import com.data.tripmocarrental.dataclass.ReserveInfo
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BorrowerHomeFragment : Fragment() {
-    private lateinit var binding: FragmentBorrowerHomeBinding
+class OwnerReservationScheduleFragment : Fragment() {
+    private lateinit var binding: FragmentOwnerReservationScheduleBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var myReserveVehicleInfoAdapter: ReserveVehicleInfoAdapter
+    private lateinit var myReserveVehicleInfoAdapter: ReserveVehicleInfoAdapter3
     var myVehicleList = mutableListOf<ReserveInfo>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentBorrowerHomeBinding.inflate(layoutInflater,container,false)
+        binding = FragmentOwnerReservationScheduleBinding.inflate(layoutInflater,container,false)
+
         var thisBundle = arguments
         var userInfo = thisBundle?.getStringArrayList("userInfo")
 
         //initialize recyclerview
-        recyclerView = binding.reserveRecyclerView
+        recyclerView = binding.ownerAcceptedRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         //Handler().postDelayed({
-            myVehicleList = getAllVehicleData(userInfo!!.elementAt(0))
+        myVehicleList = getAllVehicleData(userInfo!!.elementAt(0))
         //},1000)
 
         Handler().postDelayed({
-            myReserveVehicleInfoAdapter = ReserveVehicleInfoAdapter(myVehicleList)
+            myReserveVehicleInfoAdapter = ReserveVehicleInfoAdapter3(myVehicleList)
             recyclerView.adapter=  myReserveVehicleInfoAdapter
             if(myVehicleList.size>0){
-                Toast.makeText(requireContext(), "Check the above list of pending reservation", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Check the above list of reservation", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(requireContext(), "No pending reservation to display", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "No record found", Toast.LENGTH_SHORT).show()
             }
 
         },1100)
-
-
 
         return binding.root
     }
@@ -60,7 +63,7 @@ class BorrowerHomeFragment : Fragment() {
             .addOnSuccessListener { QuerySnapshot->
                 for (documentSnapshot in QuerySnapshot){
                     val details = documentSnapshot.data
-                    if(details["borrowerEmail"].toString() == email && details["reserveStatus"].toString()=="For Approval"){
+                    if(details["ownerEmail"].toString() == email && details["reserveStatus"].toString() != "For Approval"){
                         val newReserveList = ReserveInfo(
                             details["borrowerEmail"].toString(),
                             details["borrowerName"].toString(),
