@@ -261,6 +261,7 @@
                 android:id="@+id/btnConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/logo_color"
                 android:text="@string/reserve_button_confirm" />
         </LinearLayout>
     </ScrollView>

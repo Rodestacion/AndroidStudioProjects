@@ -176,6 +176,7 @@
 
             <Button
                 android:id="@+id/btnNextProcess"
+                android:backgroundTint="@color/logo_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

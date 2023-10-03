@@ -270,6 +270,7 @@
 
         <Button
             android:id="@+id/btnReject"
+            android:backgroundTint="@color/logo_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -278,6 +279,7 @@
 
         <Button
             android:id="@+id/btnAccept"
+            android:backgroundTint="@color/logo_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

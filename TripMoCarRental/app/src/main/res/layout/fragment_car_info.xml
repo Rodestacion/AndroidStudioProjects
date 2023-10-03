@@ -177,6 +177,7 @@
                     android:id="@+id/btnAvailableDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/logo_color"
                     android:text="@string/btn_check_date" />
 
                 <LinearLayout
@@ -223,6 +224,7 @@
                     android:id="@+id/btnTimePickReturn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/logo_color"
                     android:text="@string/btn_set_time" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -243,6 +245,7 @@
                 <Button
                     android:id="@+id/btnBookingCost"
                     android:layout_width="match_parent"
+                    android:backgroundTint="@color/logo_color"
                     android:layout_height="wrap_content"
                     android:text="@string/btn_check_cost" />
             </LinearLayout>
