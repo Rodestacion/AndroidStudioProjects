@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Bingo Card</string>
+
+    <string name="lane_B">B</string>
+    <string name="lane_B1">B1</string>
+    <string name="lane_B2">B2</string>
+    <string name="lane_B3">B3</string>
+    <string name="lane_B4">B4</string>
+    <string name="lane_B5">B5</string>
+
+    <string name="lane_I">I</string>
+    <string name="lane_I1">I1</string>
+    <string name="lane_I2">I2</string>
+    <string name="lane_I3">I3</string>
+    <string name="lane_I4">I4</string>
+    <string name="lane_I5">I5</string>
+
+    <string name="lane_N">N</string>
+    <string name="lane_N1">N1</string>
+    <string name="lane_N2">N2</string>
+    <string name="lane_N3">N3</string>
+    <string name="lane_N4">N4</string>
+    <string name="lane_N5">N5</string>
+
+    <string name="lane_G">G</string>
+    <string name="lane_G1">G1</string>
+    <string name="lane_G2">G2</string>
+    <string name="lane_G3">G3</string>
+    <string name="lane_G4">G4</string>
+    <string name="lane_G5">G5</string>
+
+    <string name="lane_O">O</string>
+    <string name="lane_O1">O1</string>
+    <string name="lane_O2">O2</string>
+    <string name="lane_O3">O3</string>
+    <string name="lane_O4">O4</string>
+    <string name="lane_O5">O5</string>
+</resources>
