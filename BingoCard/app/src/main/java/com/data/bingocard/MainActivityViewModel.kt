@@ -234,11 +234,6 @@ class MainActivityViewModel:ViewModel() {
     fun laneO5White(){
         laneO5 = 0
     }
-    
-    
 
 
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

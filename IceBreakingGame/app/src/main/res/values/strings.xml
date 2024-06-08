@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Penguin Breaking Ice Spinner</string>
+    <string name="game_start">New Ice to Break!</string>
+    <string name="ice_spinner_selection">Breaking Ice Spinner Selection</string>
+    <string name="spinner_selection_1">Stop! No ice cube to break.</string>
+    <string name="spinner_selection_2">Smash a white ice cube.</string>
+    <string name="spinner_selection_3">Smash a blue ice cube.</string>
+    <string name="spinner_selection_4">Smash a blue and white ice cube.</string>
+    <string name="spinner_selection_5">Smash two white ice cubes.</string>
+    <string name="spinner_selection_6">Smash two blue ice cubes.</string>
+    <string name="spinner_selection_7">Smash two white ice cubes and a blue ice cube.</string>
+    <string name="spinner_selection_8">Smash two blue ice cubes and a white ice cube.</string>
+    <string name="about">About</string>
+</resources>
