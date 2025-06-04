@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">UserInterfaceComposable</string>
+    <string name="full_name">Rodney Estacion</string>
+    <string name="title_name">Mobile App Developer</string>
+    <string name="contact_number">+63-916-560-6550</string>
+    <string name="contact_social">\@rodney-estacion-487416288</string>
+    <string name="contact_email">rodney_estacion@gmail.com</string>
+</resources>

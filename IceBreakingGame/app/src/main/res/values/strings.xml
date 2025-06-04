@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Penguin Breaking Ice Spinner</string>
-    <string name="game_start">New Ice to Break!</string>
+    <string name="game_start">Start Ice Spinner!</string>
     <string name="ice_spinner_selection">Breaking Ice Spinner Selection</string>
-    <string name="spinner_selection_1">Stop! No ice cube to break.</string>
+    <string name="spinner_selection_1">Stop! No ice cube to break. Skip this turn.</string>
     <string name="spinner_selection_2">Smash a white ice cube.</string>
     <string name="spinner_selection_3">Smash a blue ice cube.</string>
     <string name="spinner_selection_4">Smash a blue and white ice cube.</string>
@@ -11,4 +11,6 @@
     <string name="spinner_selection_7">Smash two white ice cubes and a blue ice cube.</string>
     <string name="spinner_selection_8">Smash two blue ice cubes and a white ice cube.</string>
     <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_site">Click the link for Privacy Policy Details: <a href="https://sites.google.com/view/penguin-breaking-ice-spinner/home">https://sites.google.com/view/penguin-breaking-ice-spinner/home</a>. Contact us at rodney.estacion@gmail.com for other clarification.</string>
 </resources>

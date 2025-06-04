@@ -5,6 +5,9 @@
         android:id="@+id/spinnerMenuBar"
         android:title="@string/ice_spinner_selection" />
     <item
+        android:id="@+id/privacyPolicy"
+        android:title="@string/privacy_policy" />
+    <item
         android:id="@+id/aboutMenuBar"
         android:title="@string/about" />
 </menu>
